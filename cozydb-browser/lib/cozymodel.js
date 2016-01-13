@@ -62,7 +62,6 @@
         this.schema._rev = String;
         this.schema.id = String;
         this.schema.docType = String;
-        this.schema.binaries = Object;
       }
       return CozyBackedModel.__super__.constructor.cast.apply(this, arguments);
     };

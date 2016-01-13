@@ -30,10 +30,11 @@
         callback(err);
       };
       return window.addEventListener('message', (function(event) {
-        var intent;
+        var intent, requestHeader;
         intent = event.data;
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('Authorization', 'Basic ' + btoa('frontpermission:' + intent.token));
+        requestHeader = 'Basic ' + btoa(intent.appName + ":" + intent.token);
+        xhr.setRequestHeader('Authorization', requestHeader);
         xhr.send(JSON.stringify(attributes));
       }), true);
     }

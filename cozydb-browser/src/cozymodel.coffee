@@ -43,7 +43,6 @@ module.exports = class CozyBackedModel extends Model
       @schema._rev = String
       @schema.id = String
       @schema.docType = String
-      @schema.binaries = Object
     super
 
   
