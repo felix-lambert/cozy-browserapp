@@ -16,7 +16,7 @@ module.exports =
     xhr.setRequestHeader 'Content-Type', 'application/json'
     xhr.send()
 
-  post: (path, callback) ->
+  post: (path, attributes, callback) ->
     location = window.location
     xhr = new XMLHttpRequest
     xhr.open 'POST', "/ds-api/#{path}", true
