@@ -31,13 +31,9 @@
       return client.post(path, attributes, function(error, response) {
         if (error) {
           return callback(error);
-        } else if (response.statusCode === 409) {
-          return callback(new Error("This document already exists"));
-        } else if (response.statusCode !== 201) {
-          return callback(new Error("Server error occured."));
         } else {
           response.id = response._id;
-          return callback(null, body);
+          return callback(null, response);
         }
       });
     }
