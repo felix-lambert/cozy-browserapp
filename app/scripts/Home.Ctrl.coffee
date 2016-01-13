@@ -35,7 +35,7 @@ HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
   vm.add = add
   return
 
-angular.module('Bookmarks').controller 'HomeAngCtrl', HomeAngCtrl
+angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
   '$scope'
   '$injector'
