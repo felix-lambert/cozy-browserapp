@@ -1,9 +1,20 @@
-angular.module('Bookmarks', [
-  'ngResource',
-  'ngRoute'
-]).config(appConfig);
+var appConfig, routeObject;
 
-var routeObject = {
+appConfig = function($httpProvider, $routeProvider) {
+  var path;
+  for (path in routeObject) {
+    console.log(path);
+    $routeProvider.when(path, routeObject[path]);
+  }
+  $routeProvider.otherwise({
+    redirectTo: '/'
+  });
+  console.log('app config');
+};
+
+angular.module('Bookmarks', ['ngResource', 'ngRoute']).config(appConfig);
+
+routeObject = {
   '/': {
     templateUrl: 'partials/home.html',
     controller: 'HomeAngCtrl',
@@ -12,76 +23,41 @@ var routeObject = {
 };
 
 appConfig.$inject = ['$httpProvider', '$routeProvider'];
+;var HomeAngCtrl;
 
-function appConfig($httpProvider, $routeProvider) {
-  for (var path in routeObject) {
-    console.log(path);
-
-    $routeProvider.when(path, routeObject[path]);
-  }
-  $routeProvider.otherwise({
-    redirectTo: '/'
-  });
-  console.log('app config');
-}
-;angular.module('Bookmarks').controller('HomeAngCtrl', HomeAngCtrl);
+angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
 
 HomeAngCtrl.$inject = ['$scope', '$injector', '$rootScope', '$q'];
 
-function HomeAngCtrl($scope, $injector, $rootScope, $q) {
-
-	var vm        = this;
-	vm.add = add;
-	var data = {};
-
-	function add(user) {
-		console.log('create contact');
-		console.log('contact');
-		// console.log(contact);
-		console.log('user');
-		console.log(user);
-		var defaultForm = {
-          fn : "",
-          n : "",
-            org           : "",
-	        title         : "",
-	        department    : "",
-	        bday          : "",
-	        nickname      : "",
-	        url           : "",
-	        note          : ""
-      	};
-      	Contact = cozydb.getModel('Contact', {
-			fn            : String,
-	        n             : String,
-	        org           : String,
-	        title         : String,
-	        department    : String,
-	        bday          : String,
-	        nickname      : String,
-	        url           : String,
-	        note          : String
-		});
-
-	    Contact.create(user, function(err, res) {
-	        if (err) {
-	            alert(err);
-	        } else {
-	        	console.log('Contact.create');
-	        	console.log(res);
-	        	Contact.find(function(err, response) {
-	        		console.log('//////////////////');
-	        		console.log(response);
-	        		console.log('//////////////////');
-	        	});
-	        	$scope.$apply(function () {
-            		$scope.contacts = res;
-	        		vm.contacts = res;
-       			});
-	        }
-	    });
-	    console.log('END CONTACT');
-	}
-}
+HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
+  var add, vm;
+  vm = this;
+  vm.add = add;
+  return add = function(user) {
+    var Contact;
+    console.log('contact');
+    Contact = cozydb.getModel('Contact', {
+      fn: String,
+      n: String,
+      org: String,
+      title: String,
+      department: String,
+      bday: String,
+      nickname: String,
+      url: String,
+      note: String
+    });
+    Contact.create(user, function(err, res) {
+      if (err != null) {
+        return alert(err);
+      } else {
+        return $scope.$apply(function() {
+          return vm.contacts = res;
+        });
+      }
+    });
+    return console.log('end contact');
+  };
+};
 ;
 //# sourceMappingURL=app.js.map
