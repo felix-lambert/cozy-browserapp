@@ -2,7 +2,6 @@
   "name": "cozydb-browser",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "coffee  --output lib --compile src",
     "test": "echo \"Error: no test specified\" && exit 1"

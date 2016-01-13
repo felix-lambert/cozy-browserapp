@@ -3,13 +3,13 @@ Model = require './model'
 
 cozyDataAdapter =
   find: (id, callback) ->
-    client.get "data/#{id}/", (error, response, body) ->
+    client.get "data/#{id}/", (error, response) ->
       if error
         callback error
       else if response.statusCode is 404
         callback null, null
       else
-        callback null, body
+        callback null, response
 
     create: (attributes, callback) ->
       path = "data/"
@@ -18,7 +18,7 @@ cozyDataAdapter =
         delete attributes.id
         return callback new Error 'cant create an object with a set id'
 
-      client.post path, attributes, (error, response, body) ->
+      client.post path, attributes, (error, response) ->
         if error
           callback error
         else if response.statusCode is 409
@@ -26,7 +26,7 @@ cozyDataAdapter =
         else if response.statusCode isnt 201
           callback new Error "Server error occured."
         else
-          body.id = body._id
+          response.id = response._id
           callback null, body
 
 # Public: a model backed by the cozy data-system

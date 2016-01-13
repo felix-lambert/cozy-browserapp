@@ -14,6 +14,9 @@
 
   module.exports.getModel = function(name, schema) {
     var ClassFromGetModel, klass;
+    window.parent.postMessage({
+      action: 'getToken'
+    }, '*');
     klass = ClassFromGetModel = (function(superClass) {
       extend(ClassFromGetModel, superClass);
 

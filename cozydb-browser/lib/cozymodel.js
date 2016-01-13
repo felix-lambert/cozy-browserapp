@@ -10,13 +10,13 @@
 
   cozyDataAdapter = {
     find: function(id, callback) {
-      client.get("data/" + id + "/", function(error, response, body) {
+      client.get("data/" + id + "/", function(error, response) {
         if (error) {
           return callback(error);
         } else if (response.statusCode === 404) {
           return callback(null, null);
         } else {
-          return callback(null, body);
+          return callback(null, response);
         }
       });
       return {
@@ -28,7 +28,7 @@
             delete attributes.id;
             return callback(new Error('cant create an object with a set id'));
           }
-          return client.post(path, attributes, function(error, response, body) {
+          return client.post(path, attributes, function(error, response) {
             if (error) {
               return callback(error);
             } else if (response.statusCode === 409) {
@@ -36,7 +36,7 @@
             } else if (response.statusCode !== 201) {
               return callback(new Error("Server error occured."));
             } else {
-              body.id = body._id;
+              response.id = response._id;
               return callback(null, body);
             }
           });

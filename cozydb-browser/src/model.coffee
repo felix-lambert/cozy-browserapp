@@ -47,7 +47,7 @@ class Model
     castObject attributes, @schema, target, @name
 
 
-      # instance methods
+  # instance methods
 
   # Public: constructor
   #
