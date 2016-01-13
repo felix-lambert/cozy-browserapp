@@ -1,4 +1,4 @@
-angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
+angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl)
 
 HomeAngCtrl.$inject = ['$scope', '$injector', '$rootScope', '$q']
 
