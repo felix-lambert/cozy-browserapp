@@ -166,15 +166,9 @@ appConfig.$inject = ['$httpProvider', '$routeProvider'];
       data = this.cast(data);
       return this.adapter.create(data, (function(_this) {
         return function(err, attributes) {
-          var k, v;
           if (err) {
             return callback(err);
           }
-          for (k in attributes) {
-            v = attributes[k];
-            data[k] = v;
-          }
-          return callback(null, new _this(data));
         };
       })(this));
     };
@@ -184,20 +178,6 @@ appConfig.$inject = ['$httpProvider', '$routeProvider'];
         target = {};
       }
       return castObject(attributes, this.schema, target, this.name);
-    };
-
-    Model.defineRequest = function(name, request, callback) {
-      var map, reduce;
-      if (typeof request === "function" || typeof request === 'string') {
-        map = request;
-      } else {
-        map = request.map;
-        reduce = request.reduce;
-      }
-      return this.requestsAdapter.define.call(this, name, {
-        map: map,
-        reduce: reduce
-      }, callback);
     };
 
     function Model(attributes) {
@@ -210,19 +190,18 @@ appConfig.$inject = ['$httpProvider', '$routeProvider'];
           this.id = attributes._id;
         }
       }
-      ({
-        getAttributes: function() {
-          var key, out, value;
-          out = {};
-          for (key in this) {
-            if (!hasProp.call(this, key)) continue;
-            value = this[key];
-            out[key] = value;
-          }
-          return out;
-        }
-      });
     }
+
+    Model.prototype.getAttributes = function() {
+      var key, out, value;
+      out = {};
+      for (key in this) {
+        if (!hasProp.call(this, key)) continue;
+        value = this[key];
+        out[key] = value;
+      }
+      return out;
+    };
 
     Model.prototype.toJSON = function() {
       return this.getAttributes();

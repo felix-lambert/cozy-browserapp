@@ -34,8 +34,6 @@ class Model
     data = @cast data
     @adapter.create data, (err, attributes) =>
       return callback err if err
-      data[k] = v for k,v of attributes
-      callback null, new (this)(data)
 
   # Public: cast a POJO using this model schema
   #
@@ -45,28 +43,6 @@ class Model
   # Returns {Object} target
   @cast: (attributes, target = {}) ->
     castObject attributes, @schema, target, @name
-
-      # REQUESTS FUNCTION
-
-
-  # Public: Define a map/reduce request for this model
-  #
-  # name - {String}, name of the request
-  # request - a single {Function} (map only) *OR* an object with properties
-  #        :map - {Function}
-  #        :reduce -  {Function}
-  # callback - Function({Error} err)
-  #
-  # Returns null
-  @defineRequest: (name, request, callback) ->
-
-    if typeof(request) is "function" or typeof(request) is 'string'
-      map = request
-    else
-      map = request.map
-      reduce = request.reduce
-
-    @requestsAdapter.define.call this, name, {map, reduce}, callback
 
   # instance methods
 
@@ -81,16 +57,16 @@ class Model
     @id ?= attributes._id if attributes._id
 
 
-    # Public: getAttributes
-    #
-    # Returns this model attributes as a POJO
-    #
-    # Returns Object
-    getAttributes: ->
-      out = {}
-      for own key, value of this
-        out[key] = value
-      return out
+  # Public: getAttributes
+  #
+  # Returns this model attributes as a POJO
+  #
+  # Returns Object
+  getAttributes: ->
+    out = {}
+    for own key, value of this
+      out[key] = value
+    return out
 
   toJSON: -> @getAttributes()
   toObject: -> @getAttributes()
