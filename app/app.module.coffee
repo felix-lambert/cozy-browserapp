@@ -6,7 +6,7 @@ appConfig = ($httpProvider, $routeProvider) ->
   console.log 'app config'
   return
 
-angular.module('Bookmarks', [
+angular.module('browserapp', [
   'ngResource'
   'ngRoute'
 ]).config appConfig
