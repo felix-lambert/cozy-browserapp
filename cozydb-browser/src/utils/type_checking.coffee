@@ -1,3 +1,6 @@
+log = require('printit')
+  prefix: 'Cozy DB'
+
 _toString = (x) -> Object.prototype.toString.call x
 _isArray = Array.isArray or (x) -> '[object Array]' is _toString x
 _isMap = (x) -> '[object Object]' is _toString x
