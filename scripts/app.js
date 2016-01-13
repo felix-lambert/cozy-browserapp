@@ -25,17 +25,12 @@ routeObject = {
 appConfig.$inject = ['$httpProvider', '$routeProvider'];
 ;var HomeAngCtrl;
 
-angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
-
-HomeAngCtrl.$inject = ['$scope', '$injector', '$rootScope', '$q'];
-
 HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
   var add, vm;
   vm = this;
-  vm.add = add;
-  return add = function(user) {
+  add = function(user) {
     var Contact;
-    console.log('contact');
+    console.log('create contact');
     Contact = cozydb.getModel('Contact', {
       fn: String,
       n: String,
@@ -48,16 +43,29 @@ HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
       note: String
     });
     Contact.create(user, function(err, res) {
-      if (err != null) {
-        return alert(err);
+      if (err) {
+        alert(err);
       } else {
-        return $scope.$apply(function() {
-          return vm.contacts = res;
+        console.log('Contact.create');
+        console.log(res);
+        Contact.find(function(err, response) {
+          console.log('//////////////////');
+          console.log(response);
+          console.log('//////////////////');
+        });
+        $scope.$apply(function() {
+          $scope.contacts = res;
+          vm.contacts = res;
         });
       }
     });
-    return console.log('end contact');
+    console.log('END CONTACT');
   };
+  vm.add = add;
 };
+
+angular.module('Bookmarks').controller('HomeAngCtrl', HomeAngCtrl);
+
+HomeAngCtrl.$inject = ['$scope', '$injector', '$rootScope', '$q'];
 ;
 //# sourceMappingURL=app.js.map
