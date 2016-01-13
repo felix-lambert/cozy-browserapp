@@ -19,11 +19,11 @@ HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
       else
         console.log 'Contact.create'
         console.log res
-        Contact.find (err, response) ->
-          console.log '//////////////////'
-          console.log response
-          console.log '//////////////////'
-          return
+        # Contact.find (err, response) ->
+        #   console.log '//////////////////'
+        #   console.log response
+        #   console.log '//////////////////'
+        #   return
         $scope.$apply ->
           $scope.contacts = res
           vm.contacts = res
