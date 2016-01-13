@@ -244,7 +244,7 @@
       xhr.setRequestHeader('Content-Type', 'application/json');
       return xhr.send();
     },
-    post: function(path, callback) {
+    post: function(path, attributes, callback) {
       var location, xhr;
       location = window.location;
       xhr = new XMLHttpRequest;
