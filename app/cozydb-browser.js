@@ -144,6 +144,7 @@
           if (err) {
             return callback(err);
           }
+          return callback(null, attributes);
         };
       })(this));
     };

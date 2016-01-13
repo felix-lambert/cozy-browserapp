@@ -34,6 +34,7 @@ class Model
     data = @cast data
     @adapter.create data, (err, attributes) =>
       return callback err if err
+      return callback null, attributes
 
   # Public: cast a POJO using this model schema
   #
