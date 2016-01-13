@@ -3,7 +3,7 @@ Model = require './model'
 
 cozyDataAdapter =
   find: (id, callback) ->
-    client.get "data/#{id}/", (error, response) ->
+    client.get "data/", id, (error, response) ->
       if error
         callback error
       else if response.statusCode is 404

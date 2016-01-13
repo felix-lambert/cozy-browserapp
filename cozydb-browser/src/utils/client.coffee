@@ -1,8 +1,8 @@
 
 module.exports =
-  get: (path, callback)->
+  get: (path, id, callback)->
     xhr = new XMLHttpRequest
-    xhr.open 'GET', '/ds-api/#{path}/', true
+    xhr.open 'GET', '/ds-api/#{path}/#{id}', true
 
     xhr.onload = ->
       callback null, xhr.response

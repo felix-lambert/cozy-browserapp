@@ -10,7 +10,7 @@
 
   cozyDataAdapter = {
     find: function(id, callback) {
-      return client.get("data/" + id + "/", function(error, response) {
+      return client.get("data/", id, function(error, response) {
         if (error) {
           return callback(error);
         } else if (response.statusCode === 404) {
