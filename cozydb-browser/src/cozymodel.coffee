@@ -21,13 +21,9 @@ cozyDataAdapter =
     client.post path, attributes, (error, response) ->
       if error
         callback error
-      else if response.statusCode is 409
-        callback new Error "This document already exists"
-      else if response.statusCode isnt 201
-        callback new Error "Server error occured."
       else
         response.id = response._id
-        callback null, body
+        callback null, response
 
 # Public: a model backed by the cozy data-system
 #    expose the complete {Model} interface
