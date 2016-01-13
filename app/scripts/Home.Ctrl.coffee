@@ -1,29 +1,44 @@
-angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl)
-
-HomeAngCtrl.$inject = ['$scope', '$injector', '$rootScope', '$q']
-
 HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
-  vm    = this
-  vm.add  = add
+  vm = this
 
   add = (user) ->
-    console.log 'contact'
-    Contact = cozydb.getModel 'Contact',
-      fn            : String
-      n             : String
-      org           : String
-      title         : String
-      department    : String
-      bday          : String
-      nickname      : String
-      url           : String
-      note          : String
-
+    console.log 'create contact'
+    Contact = cozydb.getModel('Contact',
+      fn: String
+      n: String
+      org: String
+      title: String
+      department: String
+      bday: String
+      nickname: String
+      url: String
+      note: String)
     Contact.create user, (err, res) ->
-      if err?
+      if err
         alert err
       else
-        $scope.$apply () ->
+        console.log 'Contact.create'
+        console.log res
+        Contact.find (err, response) ->
+          console.log '//////////////////'
+          console.log response
+          console.log '//////////////////'
+          return
+        $scope.$apply ->
+          $scope.contacts = res
           vm.contacts = res
+          return
+      return
+    console.log 'END CONTACT'
+    return
 
-    console.log 'end contact'
+  vm.add = add
+  return
+
+angular.module('Bookmarks').controller 'HomeAngCtrl', HomeAngCtrl
+HomeAngCtrl.$inject = [
+  '$scope'
+  '$injector'
+  '$rootScope'
+  '$q'
+]
