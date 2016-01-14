@@ -3,16 +3,14 @@ var appConfig, routeObject;
 appConfig = function($httpProvider, $routeProvider) {
   var path;
   for (path in routeObject) {
-    console.log(path);
     $routeProvider.when(path, routeObject[path]);
   }
   $routeProvider.otherwise({
     redirectTo: '/'
   });
-  return console.log('app config');
 };
 
-angular.module('browserapp', ['ngResource', 'ngRoute']).config(appConfig);
+angular.module('Bookmarks', ['ngResource', 'ngRoute']).config(appConfig);
 
 routeObject = {
   '/': {
