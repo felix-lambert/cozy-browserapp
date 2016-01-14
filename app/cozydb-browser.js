@@ -10,20 +10,6 @@
   Model = require('./model');
 
   cozyDataAdapter = {
-    find: function(id, callback) {
-      return client.get("data/", id, function(error, response) {
-        if (error) {
-          return callback(error);
-        } else if (response.statusCode === 404) {
-          return callback(null, null);
-        } else {
-          return callback(null, response);
-        }
-      });
-    }
-  };
-
-  ({
     create: function(attributes, callback) {
       var path;
       path = "data/";
@@ -41,7 +27,7 @@
         }
       });
     }
-  });
+  };
 
   module.exports = CozyBackedModel = (function(superClass) {
     extend(CozyBackedModel, superClass);
