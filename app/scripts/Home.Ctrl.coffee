@@ -3,7 +3,7 @@ HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
 
     add = (user) ->
         console.log 'create contact'
-        Contact = cozydb.getModel('Contact',
+        Contact = cozydb.getModel 'Contact',
             fn: String
             n: String
             org: String
@@ -12,7 +12,7 @@ HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
             bday: String
             nickname: String
             url: String
-            note: String)
+            note: String
         Contact.create user, (err, res) ->
             if err
                 alert err
