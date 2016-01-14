@@ -27,8 +27,8 @@ HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
         console.log 'END CONTACT'
         return
 
-  vm.add = add
-  return
+    vm.add = add
+    return
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
