@@ -182,15 +182,6 @@
   module.exports = {
     post: function(path, attributes, callback) {
       return playRequest('POST', path, attributes, callback);
-    },
-    get: function(path, attributes, callback) {
-      return playRequest('GET', path, attributes, callback);
-    },
-    put: function(path, attributes, callback) {
-      return playRequest('PUT', path, attributes, callback);
-    },
-    "delete": function(path, attributes, callback) {
-      return playRequest('DELETE', path, attributes, callback);
     }
   };
 
