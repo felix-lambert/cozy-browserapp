@@ -308,12 +308,7 @@
     for (prop in schema) {
       if (!hasProp.call(schema, prop)) continue;
       typeOrOptions = schema[prop];
-      target[prop] = castValue(raw[prop], typeOrOptions);
-      if (reportCastIgnore) {
-        results.push(handled.push(prop));
-      } else {
-        results.push(void 0);
-      }
+      results.push(target[prop] = castValue(raw[prop], typeOrOptions));
     }
     return results;
   };
