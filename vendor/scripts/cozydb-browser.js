@@ -10,7 +10,7 @@
   Model = require('./model');
 
   cozyDataAdapter = {
-    reate: function(attributes, callback) {
+    create: function(attributes, callback) {
       var path;
       path = "data/";
       if (attributes.id != null) {
