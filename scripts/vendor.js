@@ -30444,8 +30444,8 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 (function() {
   module.exports = {
     post: function(path, attributes, callback) {
-      var location, xhr;
-      location = window.location;
+      var xhr;
+      console.log('post ' + path + attributes);
       xhr = new XMLHttpRequest;
       xhr.open('POST', "/ds-api/" + path, true);
       xhr.onload = function() {
