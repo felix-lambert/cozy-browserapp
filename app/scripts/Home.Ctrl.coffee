@@ -1,4 +1,4 @@
-HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
+HomeAngCtrl = ($scope) ->
     vm = this
 
     add = (user) ->
@@ -35,7 +35,4 @@ HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
     '$scope'
-    '$injector'
-    '$rootScope'
-    '$q'
 ]
