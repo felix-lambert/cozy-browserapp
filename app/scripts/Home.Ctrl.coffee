@@ -1,6 +1,7 @@
 HomeAngCtrl = ($scope) ->
     vm = this
-
+    vm.add = add
+    
     add = (user) ->
         console.log 'create contact'
         Contact = cozydb.getModel 'Contact',
@@ -24,8 +25,6 @@ HomeAngCtrl = ($scope) ->
                     vm.contacts = res
 
             console.log 'END CONTACT'
-
-    vm.add = add
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [

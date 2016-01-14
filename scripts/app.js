@@ -26,7 +26,8 @@ appConfig.$inject = ['$httpProvider', '$routeProvider'];
 HomeAngCtrl = function($scope) {
   var add, vm;
   vm = this;
-  add = function(user) {
+  vm.add = add;
+  return add = function(user) {
     var Contact;
     console.log('create contact');
     Contact = cozydb.getModel('Contact', {
@@ -54,7 +55,6 @@ HomeAngCtrl = function($scope) {
       return console.log('END CONTACT');
     });
   };
-  return vm.add = add;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
