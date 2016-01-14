@@ -177,7 +177,7 @@
 (function() {
   module.exports = {
     post: function(path, attributes, callback) {
-      var intent, location, requestHeader, xhr;
+      var location, xhr;
       location = window.location;
       xhr = new XMLHttpRequest;
       xhr.open('POST', "/ds-api/" + path, true);
@@ -189,10 +189,7 @@
         err = 'Request failed : #{e.target.status}';
         return callback(err);
       };
-      intent = event.data;
       xhr.setRequestHeader('Content-Type', 'application/json');
-      requestHeader = 'Basic ' + btoa(intent.appName + ":" + intent.token);
-      xhr.setRequestHeader('Authorization', requestHeader);
       return xhr.send(JSON.stringify(attributes));
     }
   };
