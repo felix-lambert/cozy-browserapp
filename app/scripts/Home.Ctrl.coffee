@@ -1,9 +1,10 @@
 HomeAngCtrl = ($scope) ->
     vm = this
     vm.add = add
-    
+    return
+
     add = (user) ->
-        console.log 'create contact'
+        console.log '/////////create contact/////////'
         Contact = cozydb.getModel 'Contact',
             fn: String
             n: String

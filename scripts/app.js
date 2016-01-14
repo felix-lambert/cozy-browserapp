@@ -27,9 +27,10 @@ HomeAngCtrl = function($scope) {
   var add, vm;
   vm = this;
   vm.add = add;
+  return;
   return add = function(user) {
     var Contact;
-    console.log('create contact');
+    console.log('/////////create contact/////////');
     Contact = cozydb.getModel('Contact', {
       fn: String,
       n: String,
