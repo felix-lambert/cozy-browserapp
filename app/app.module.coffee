@@ -4,7 +4,7 @@ appConfig = ($httpProvider, $routeProvider) ->
     $routeProvider.otherwise redirectTo: '/'
     return
 
-angular.module('Bookmarks', [
+angular.module('browserapp', [
     'ngResource'
     'ngRoute'
 ]).config appConfig

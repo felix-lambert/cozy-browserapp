@@ -10,7 +10,7 @@ appConfig = function($httpProvider, $routeProvider) {
   });
 };
 
-angular.module('Bookmarks', ['ngResource', 'ngRoute']).config(appConfig);
+angular.module('browserapp', ['ngResource', 'ngRoute']).config(appConfig);
 
 routeObject = {
   '/': {
