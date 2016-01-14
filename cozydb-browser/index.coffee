@@ -8,13 +8,12 @@ module.exports.CozyModel = CozyModel = require './cozymodel'
 module.exports.NoSchema = NoSchema
 
 module.exports.getModel = (name, schema) ->
-  window.parent.postMessage({action: 'getToken'}, '*');
-  # Internal: Generated Class from getModel
-  klass = class ClassFromGetModel extends CozyModel
-    @schema: schema
+    # Internal: Generated Class from getModel
+    klass = class ClassFromGetModel extends CozyModel
+        @schema: schema
 
-  klass.displayName = klass.name = name
-  klass.toString = -> "#{name}Constructor"
-  klass.docType = name
+    klass.displayName = klass.name = name
+    klass.toString = -> "#{name}Constructor"
+    klass.docType = name
 
-  return klass
+    return klass
