@@ -17,18 +17,14 @@ HomeAngCtrl = ($scope, $injector, $rootScope, $q) ->
             if err
                 alert err
             else
-                console.log 'Contact.create'
                 console.log res
-                $scope.$apply ->
-                    $scope.contacts = res
-                    vm.contacts = res
-                return
-            return
+                console.log 'Contact.create'
+                Contact.find res._id, (err, res) ->
+                    $scope.$apply ->
+                        vm.contacts = res
         console.log 'END CONTACT'
-        return
 
     vm.add = add
-    return
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [

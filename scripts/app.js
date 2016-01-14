@@ -44,20 +44,20 @@ HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
     });
     Contact.create(user, function(err, res) {
       if (err) {
-        alert(err);
+        return alert(err);
       } else {
-        console.log('Contact.create');
         console.log(res);
-        $scope.$apply(function() {
-          $scope.contacts = res;
-          return vm.contacts = res;
+        console.log('Contact.create');
+        return Contact.find(res._id, function(err, res) {
+          return $scope.$apply(function() {
+            return vm.contacts = res;
+          });
         });
-        return;
       }
     });
-    console.log('END CONTACT');
+    return console.log('END CONTACT');
   };
-  vm.add = add;
+  return vm.add = add;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);

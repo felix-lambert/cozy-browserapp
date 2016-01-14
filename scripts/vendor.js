@@ -30277,6 +30277,17 @@ function ngViewFillContentFactory($compile, $controller, $route) {
   Model = require('./model');
 
   cozyDataAdapter = {
+    find: function(id, callback) {
+      return client.get("data/", id, function(error, response) {
+        if (error) {
+          return callback(error);
+        } else if (response.statusCode === 404) {
+          return callback(null, null);
+        } else {
+          return callback(null, response);
+        }
+      });
+    },
     create: function(attributes, callback) {
       var path;
       path = "data/";
@@ -30374,6 +30385,21 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     Model.getDocType = function() {
       var ref;
       return ((ref = this.docType) != null ? ref.toLowerCase() : void 0) || this.name.toLowerCase();
+    };
+
+    Model.find = function(id, callback) {
+      return this.adapter.find(id, (function(_this) {
+        return function(err, attributes) {
+          var ref;
+          if (err) {
+            return callback(err);
+          } else if ((attributes != null ? (ref = attributes.docType) != null ? ref.toLowerCase() : void 0 : void 0) !== _this.getDocType()) {
+            return callback(null, null);
+          } else {
+            return callback(null, new _this(attributes));
+          }
+        };
+      })(this));
     };
 
     Model.create = function(data, callback) {
