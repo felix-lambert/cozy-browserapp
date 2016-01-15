@@ -72,10 +72,18 @@ HomeAngCtrl = function($scope) {
     });
     console.log('find');
     console.log(id);
-    return Contact.find(id, function(err, result) {
+    return Contact.find(id, function(err, result, cloud, sup) {
+      if (err) {
+        alert(err);
+      }
+      $scope.$apply(function() {
+        return vm.contacts = data;
+      });
       console.log(err);
       console.log('Contact.find');
-      return console.log(result);
+      console.log(result);
+      console.log(cloud);
+      return console.log(sup);
     });
   };
   vm.add = add;
