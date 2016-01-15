@@ -30498,8 +30498,9 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     console.log("attributes");
     console.log(attributes);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    if (attributes == null) {
-      xhr.send;
+    if (attributes != null) {
+      console.log('send');
+      xhr.send();
     }
     if (!(attributes == null)) {
       return xhr.send(JSON.stringify(attributes));
