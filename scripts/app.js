@@ -72,7 +72,7 @@ HomeAngCtrl = function($scope) {
     });
     console.log('find');
     console.log(id);
-    return Contact.find(data._id, function(err, res) {
+    return Contact.find(id, function(err, res) {
       console.log('Contact.find');
       return console.log(res);
     });
