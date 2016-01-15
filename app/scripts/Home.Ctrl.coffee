@@ -39,6 +39,7 @@ HomeAngCtrl = ($scope) ->
         console.log 'find'
         console.log id
         Contact.find id, (err, res) ->
+            console.log err
             console.log 'Contact.find'
             console.log res
 

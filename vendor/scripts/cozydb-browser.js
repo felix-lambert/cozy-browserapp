@@ -222,6 +222,8 @@
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path + "/", true);
     xhr.onload = function() {
+      console.log('onload');
+      console.log(xhr.response);
       return callback(null, xhr.response);
     };
     xhr.onerror = function(e) {
