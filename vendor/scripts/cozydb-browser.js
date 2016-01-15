@@ -22,7 +22,7 @@
         } else {
           console.log('send callback');
           console.log(JSON.parse(response));
-          return callback(response, response);
+          return callback(null, response);
         }
       });
     },
