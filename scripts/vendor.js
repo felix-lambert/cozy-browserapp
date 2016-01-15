@@ -30282,8 +30282,6 @@ function ngViewFillContentFactory($compile, $controller, $route) {
       return client.get("data/" + id, function(error, response) {
         if (error) {
           return callback(error);
-        } else if (response.statusCode === 404) {
-          return callback(null, null);
         } else {
           return callback(null, response);
         }
@@ -30474,10 +30472,10 @@ function ngViewFillContentFactory($compile, $controller, $route) {
   var playRequest;
 
   module.exports = {
-    get: function(path, callback) {
+    get: function(path, attributes, callback) {
       console.log('get');
       console.log(path);
-      return playRequest('GET', path, null, callback);
+      return playRequest('GET', path, attributes, callback);
     },
     post: function(path, attributes, callback) {
       return playRequest('POST', path, attributes, callback);
