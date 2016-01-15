@@ -30279,7 +30279,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
   cozyDataAdapter = {
     find: function(id, callback) {
       console.log('find');
-      return client.get("data/" + id, function(error, response) {
+      return client.get("data/" + id, null, function(error, response) {
         if (error) {
           return callback(error);
         } else {
@@ -30475,7 +30475,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     get: function(path, callback) {
       console.log('get');
       console.log(path);
-      return playRequest('GET', path, null, callback);
+      return playRequest('GET', path, attributes, callback);
     },
     post: function(path, attributes, callback) {
       return playRequest('POST', path, attributes, callback);
