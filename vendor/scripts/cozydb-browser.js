@@ -229,10 +229,9 @@
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
     if (attributes != null) {
-      return xhr.send(JSON.stringify(attributes));
-    } else {
-      return xhr.send;
+      xhr.send(JSON.stringify(attributes));
     }
+    return xhr.send;
   };
 
 }).call(this);
