@@ -49,6 +49,7 @@ HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
         console.log(res);
         console.log('Contact.create');
         return Contact.find(res._id, function(err, res) {
+          console.log('Contact.find');
           return $scope.$apply(function() {
             return vm.contacts = res;
           });
