@@ -231,6 +231,7 @@
     if (attributes != null) {
       xhr.send(JSON.stringify(attributes));
     }
+    console.log('play request send');
     return xhr.send;
   };
 
