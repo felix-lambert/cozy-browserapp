@@ -47,8 +47,8 @@ HomeAngCtrl = function($scope) {
         alert(err);
       } else {
         console.log(res);
-        console.log(res._id);
-        Contact.find(res._id, function(err, res) {
+        console.log(res[0]._id);
+        Contact.find(res[0]._id, function(err, res) {
           console.log('Contact.create');
           console.log(res);
           return $scope.$apply(function() {
