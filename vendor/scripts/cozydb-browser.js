@@ -12,7 +12,7 @@
   cozyDataAdapter = {
     find: function(id, callback) {
       console.log('find');
-      return client.get("data/" + id, null, function(error, response) {
+      return client.get("data/" + id + "/", null, function(error, response) {
         if (error) {
           return callback(error);
         } else {
