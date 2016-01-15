@@ -30498,7 +30498,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     if (attributes != null) {
       return xhr.send(JSON.stringify(attributes));
     } else {
-      return xhr.send();
+      return xhr.send;
     }
   };
 
