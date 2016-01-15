@@ -77,7 +77,6 @@ HomeAngCtrl = function($scope) {
         alert(err);
       }
       $scope.$apply(function() {
-        console.log('apply');
         console.log(result);
         return vm.contacts = result;
       });

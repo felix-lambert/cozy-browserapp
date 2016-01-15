@@ -42,7 +42,6 @@ HomeAngCtrl = ($scope) ->
             if err
                 alert err
             $scope.$apply ->
-                console.log 'apply'
                 console.log result
                 vm.contacts = result
             console.log err
