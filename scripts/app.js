@@ -25,7 +25,7 @@ routeObject = {
 appConfig.$inject = ['$httpProvider', '$routeProvider'];
 ;var HomeAngCtrl;
 
-HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
+HomeAngCtrl = function($scope) {
   var add, vm;
   vm = this;
   add = function(user) {
@@ -46,20 +46,22 @@ HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
       if (err) {
         alert(err);
       } else {
-        console.log('Contact.create');
-        console.log(res);
-        $scope.$apply(function() {
-          vm.contacts = res;
+        Contact.find(res._id, function(err, res) {
+          console.log('Contact.create');
+          console.log(res);
+          return $scope.$apply(function() {
+            return vm.contacts = res;
+          });
         });
       }
+      return console.log('END CONTACT');
     });
-    console.log('END CONTACT');
   };
   vm.add = add;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
 
-HomeAngCtrl.$inject = ['$scope', '$injector', '$rootScope', '$q'];
+HomeAngCtrl.$inject = ['$scope'];
 ;
 //# sourceMappingURL=app.js.map

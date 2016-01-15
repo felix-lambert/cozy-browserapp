@@ -1,29 +1,28 @@
 HomeAngCtrl = ($scope) ->
-  vm = this
+    vm = this
 
     add = (user) ->
         console.log 'create contact'
         Contact = cozydb.getModel('Contact',
-          fn: String
-          n: String
-          org: String
-          title: String
-          department: String
-          bday: String
-          nickname: String
-          url: String
-          note: String)
+            fn: String
+            n: String
+            org: String
+            title: String
+            department: String
+            bday: String
+            nickname: String
+            url: String
+            note: String)
         Contact.create user, (err, res) ->
-          if err
-            alert err
-          else
-            console.log 'Contact.create'
-            console.log res
-            $scope.$apply ->
-              vm.contacts = res
-              return
-          return
-        console.log 'END CONTACT'
+            if err
+                alert err
+            else
+                Contact.find res._id, (err, res) ->
+                    console.log 'Contact.create'
+                    console.log res
+                    $scope.$apply ->
+                        vm.contacts = res
+            console.log 'END CONTACT'
         return
 
     vm.add = add
