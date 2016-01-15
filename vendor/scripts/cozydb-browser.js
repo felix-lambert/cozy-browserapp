@@ -228,7 +228,7 @@
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    if (!attributes) {
+    if (attributes == null) {
       xhr.send;
     } else {
       xhr.send(JSON.stringify(attributes));
