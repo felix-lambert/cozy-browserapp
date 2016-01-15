@@ -49,10 +49,9 @@ HomeAngCtrl = function($scope) {
       } else {
         data = JSON.parse(res);
         console.log(data);
-        console.log(data[0]._id);
         console.log(data._id);
         Contact.find(data._id, function(err, res) {
-          console.log('Contact.create');
+          console.log('Contact.find');
           console.log(res);
           return $scope.$apply(function() {
             return vm.contacts = res;
