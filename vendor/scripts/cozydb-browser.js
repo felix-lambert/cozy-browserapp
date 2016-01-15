@@ -218,7 +218,6 @@
 
   playRequest = function(method, path, attributes, callback) {
     var xhr;
-    console.log('playRequest');
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path, true);
     xhr.onload = function() {
@@ -230,7 +229,9 @@
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    return xhr.send(JSON.stringify(attributes));
+    if (attributes != null) {
+      return xhr.send(JSON.stringify(attributes));
+    }
   };
 
 }).call(this);
