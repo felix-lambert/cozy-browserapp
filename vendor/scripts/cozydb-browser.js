@@ -17,12 +17,12 @@
         console.log(error);
         console.log(response);
         if (error) {
+          console.log('error');
           return callback(error);
         } else {
           console.log('send callback');
-          console.log(response);
-          response.id = response._id;
-          return callback(null, response);
+          console.log(JSON.parse(response));
+          return callback(response, response);
         }
       });
     },
