@@ -232,11 +232,10 @@
     console.log(attributes);
     xhr.setRequestHeader('Content-Type', 'application/json');
     if (attributes != null) {
-      console.log('send');
-      xhr.send();
-    }
-    if (!(attributes == null)) {
       return xhr.send(JSON.stringify(attributes));
+    } else {
+      console.log("send");
+      return xhr.send();
     }
   };
 
