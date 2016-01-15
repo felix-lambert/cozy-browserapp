@@ -25,16 +25,17 @@ HomeAngCtrl = ($scope) ->
         console.log 'END CONTACT'
         return
 
-    vm.add = add
-    return
-
     find = (id) ->
         console.log 'find'
         console.log id
         Contact.find data._id, (err, res) ->
             console.log 'Contact.find'
             console.log res
-    
+
+
+    vm.add = add
+    vm.find = find
+    return    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [

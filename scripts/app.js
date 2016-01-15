@@ -57,9 +57,7 @@ HomeAngCtrl = function($scope) {
     });
     console.log('END CONTACT');
   };
-  vm.add = add;
-  return;
-  return find = function(id) {
+  find = function(id) {
     console.log('find');
     console.log(id);
     return Contact.find(data._id, function(err, res) {
@@ -67,6 +65,8 @@ HomeAngCtrl = function($scope) {
       return console.log(res);
     });
   };
+  vm.add = add;
+  vm.find = find;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
