@@ -30286,6 +30286,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
         if (error) {
           return callback(error);
         } else {
+          console.log('send callback');
           return callback(null, response);
         }
       });

@@ -19,6 +19,7 @@
         if (error) {
           return callback(error);
         } else {
+          console.log('send callback');
           return callback(null, response);
         }
       });
