@@ -230,7 +230,11 @@
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    return xhr.send(JSON.stringify(attributes));
+    if (attributes != null) {
+      return xhr.send(JSON.stringify(attributes));
+    } else {
+      return xhr.send;
+    }
   };
 
 }).call(this);
