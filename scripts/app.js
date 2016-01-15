@@ -58,6 +58,18 @@ HomeAngCtrl = function($scope) {
     console.log('END CONTACT');
   };
   find = function(id) {
+    var Contact;
+    Contact = cozydb.getModel('Contact', {
+      fn: String,
+      n: String,
+      org: String,
+      title: String,
+      department: String,
+      bday: String,
+      nickname: String,
+      url: String,
+      note: String
+    });
     console.log('find');
     console.log(id);
     return Contact.find(data._id, function(err, res) {

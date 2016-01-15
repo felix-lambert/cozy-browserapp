@@ -26,6 +26,16 @@ HomeAngCtrl = ($scope) ->
         return
 
     find = (id) ->
+        Contact = cozydb.getModel 'Contact',
+            fn: String
+            n: String
+            org: String
+            title: String
+            department: String
+            bday: String
+            nickname: String
+            url: String
+            note: String
         console.log 'find'
         console.log id
         Contact.find data._id, (err, res) ->
