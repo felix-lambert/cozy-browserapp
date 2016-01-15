@@ -29,10 +29,33 @@ HomeAngCtrl = function($scope, $injector, $rootScope, $q) {
   var add, vm;
   vm = this;
   add = function(user) {
+    var Contact;
     console.log('create contact');
-    return console.log('END CONTACT');
+    Contact = cozydb.getModel('Contact', {
+      fn: String,
+      n: String,
+      org: String,
+      title: String,
+      department: String,
+      bday: String,
+      nickname: String,
+      url: String,
+      note: String
+    });
+    Contact.create(user, function(err, res) {
+      if (err) {
+        alert(err);
+      } else {
+        console.log('Contact.create');
+        console.log(res);
+        $scope.$apply(function() {
+          vm.contacts = res;
+        });
+      }
+    });
+    console.log('END CONTACT');
   };
-  return vm.add = add;
+  vm.add = add;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
