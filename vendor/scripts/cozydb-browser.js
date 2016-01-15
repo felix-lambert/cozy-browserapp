@@ -21,6 +21,7 @@
         } else {
           console.log('send callback');
           console.log(response);
+          response.id = response._id;
           return callback(null, response);
         }
       });
