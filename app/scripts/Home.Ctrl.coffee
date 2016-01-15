@@ -17,6 +17,8 @@ HomeAngCtrl = ($scope) ->
             if err
                 alert err
             else
+                console.log res
+                console.log res._id
                 Contact.find res._id, (err, res) ->
                     console.log 'Contact.create'
                     console.log res
