@@ -30475,7 +30475,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     get: function(path, callback) {
       console.log('get');
       console.log(path);
-      return playRequest('GET', path, callback);
+      return playRequest('GET', path, null, callback);
     },
     post: function(path, attributes, callback) {
       return playRequest('POST', path, attributes, callback);
@@ -30485,10 +30485,8 @@ function ngViewFillContentFactory($compile, $controller, $route) {
   playRequest = function(method, path, attributes, callback) {
     var xhr;
     xhr = new XMLHttpRequest;
-    xhr.open(method, "/ds-api/" + path + "/", true);
+    xhr.open(method, "/ds-api/" + path, true);
     xhr.onload = function() {
-      console.log('onload');
-      console.log(xhr.response);
       return callback(null, xhr.response);
     };
     xhr.onerror = function(e) {
@@ -30497,7 +30495,6 @@ function ngViewFillContentFactory($compile, $controller, $route) {
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    console.log('send');
     if (attributes != null) {
       return xhr.send(JSON.stringify(attributes));
     } else {
