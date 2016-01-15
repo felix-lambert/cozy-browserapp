@@ -205,7 +205,7 @@
   var playRequest;
 
   module.exports = {
-    get: function(path, attributes, callback) {
+    get: function(path, callback) {
       console.log('get');
       console.log(path);
       return playRequest('GET', path, callback);
