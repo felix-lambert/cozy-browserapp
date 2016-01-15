@@ -23,10 +23,9 @@
             <td>Actions</td>  
         </tr>
         <tr>
-            <td>{{contacts}}</td>
             <td>{{home.contacts}}</td>
             <td>
-                <button class="btn btn-default" ng-click="home.removeContact($index, contact.id)" type="submit">Delete</button>
+                <button class="btn btn-default" ng-click="home.find(home.contacts._id)">Find</button>
             </td>
         </tr>
     </table>

@@ -3,7 +3,7 @@ HomeAngCtrl = ($scope) ->
 
     add = (user) ->
         console.log 'create contact'
-        Contact = cozydb.getModel('Contact',
+        Contact = cozydb.getModel 'Contact',
             fn: String
             n: String
             org: String
@@ -12,7 +12,7 @@ HomeAngCtrl = ($scope) ->
             bday: String
             nickname: String
             url: String
-            note: String)
+            note: String
         Contact.create user, (err, res) ->
             if err
                 alert err
@@ -20,16 +20,19 @@ HomeAngCtrl = ($scope) ->
                 data = JSON.parse res
                 console.log data
                 console.log data._id
-                Contact.find data._id, (err, res) ->
-                    console.log 'Contact.find'
-                    console.log res
-                    $scope.$apply ->
-                        vm.contacts = res
-            console.log 'END CONTACT'
+                $scope.$apply ->
+                    vm.contacts = data
+        console.log 'END CONTACT'
         return
 
     vm.add = add
     return
+
+    find = (id) ->
+        Contact.find data._id, (err, res) ->
+            console.log 'Contact.find'
+            console.log res
+    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [

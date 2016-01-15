@@ -26,7 +26,7 @@ appConfig.$inject = ['$httpProvider', '$routeProvider'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($scope) {
-  var add, vm;
+  var add, find, vm;
   vm = this;
   add = function(user) {
     var Contact;
@@ -45,23 +45,26 @@ HomeAngCtrl = function($scope) {
     Contact.create(user, function(err, res) {
       var data;
       if (err) {
-        alert(err);
+        return alert(err);
       } else {
         data = JSON.parse(res);
         console.log(data);
         console.log(data._id);
-        Contact.find(data._id, function(err, res) {
-          console.log('Contact.find');
-          console.log(res);
-          return $scope.$apply(function() {
-            return vm.contacts = res;
-          });
+        return $scope.$apply(function() {
+          return vm.contacts = data;
         });
       }
-      return console.log('END CONTACT');
     });
+    console.log('END CONTACT');
   };
   vm.add = add;
+  return;
+  return find = function(id) {
+    return Contact.find(data._id, function(err, res) {
+      console.log('Contact.find');
+      return console.log(res);
+    });
+  };
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
