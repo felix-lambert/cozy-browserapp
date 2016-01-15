@@ -43,14 +43,15 @@ HomeAngCtrl = function($scope) {
       note: String
     });
     Contact.create(user, function(err, res) {
+      var data;
       if (err) {
         alert(err);
       } else {
-        JSON.stringify(res);
-        console.log(res);
-        console.log(res[0]._id);
-        console.log(res._id);
-        Contact.find(res[0]._id, function(err, res) {
+        data = JSON.parse(res);
+        console.log(data);
+        console.log(data[0]._id);
+        console.log(data._id);
+        Contact.find(data._id, function(err, res) {
           console.log('Contact.create');
           console.log(res);
           return $scope.$apply(function() {
