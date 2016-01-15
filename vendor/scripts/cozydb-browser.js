@@ -220,7 +220,7 @@
   playRequest = function(method, path, attributes, callback) {
     var xhr;
     xhr = new XMLHttpRequest;
-    xhr.open(method, "/ds-api/" + path, true);
+    xhr.open(method, "/ds-api/" + path + "/", true);
     xhr.onload = function() {
       return callback(null, xhr.response);
     };
@@ -233,6 +233,7 @@
     if (attributes != null) {
       return xhr.send(JSON.stringify(attributes));
     } else {
+      console.log('send');
       return xhr.send;
     }
   };
