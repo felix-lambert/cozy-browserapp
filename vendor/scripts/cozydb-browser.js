@@ -20,6 +20,7 @@
           return callback(error);
         } else {
           console.log('send callback');
+          console.log(response);
           return callback(null, response);
         }
       });
