@@ -229,9 +229,7 @@
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    if (attributes != null) {
-      return xhr.send(JSON.stringify(attributes));
-    }
+    return xhr.send(JSON.stringify(attributes));
   };
 
 }).call(this);
