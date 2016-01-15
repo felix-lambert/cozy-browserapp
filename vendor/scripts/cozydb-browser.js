@@ -11,6 +11,7 @@
 
   cozyDataAdapter = {
     find: function(id, callback) {
+      console.log('find');
       return client.get("data/" + id, function(error, response) {
         if (error) {
           return callback(error);
@@ -206,7 +207,8 @@
   var playRequest;
 
   module.exports = {
-    get: function(path, id, callback) {
+    get: function(path, callback) {
+      console.log('get');
       return playRequest('GET', path, null, callback);
     },
     post: function(path, attributes, callback) {
