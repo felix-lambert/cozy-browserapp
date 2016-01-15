@@ -233,7 +233,6 @@
     if (attributes != null) {
       return xhr.send(JSON.stringify(attributes));
     } else {
-      console.log('send');
       return xhr.send;
     }
   };

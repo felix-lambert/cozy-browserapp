@@ -30500,7 +30500,6 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     if (attributes != null) {
       return xhr.send(JSON.stringify(attributes));
     } else {
-      console.log('send');
       return xhr.send;
     }
   };
@@ -30634,6 +30633,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 }).call(this);
 
-},{"../model":3}]},{},[2])
-;
+},{"../model":3}]},{},[2])(2)
+});
+
 //# sourceMappingURL=vendor.js.map
