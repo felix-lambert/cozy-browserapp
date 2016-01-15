@@ -30280,6 +30280,9 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     find: function(id, callback) {
       console.log('find');
       return client.get("data/" + id + "/", null, function(error, response) {
+        console.log('client.get');
+        console.log(error);
+        console.log(response);
         if (error) {
           return callback(error);
         } else {
@@ -30488,6 +30491,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path, true);
     xhr.onload = function() {
+      console.log(xhr.response);
       return callback(null, xhr.response);
     };
     xhr.onerror = function(e) {

@@ -38,10 +38,10 @@ HomeAngCtrl = ($scope) ->
             note: String
         console.log 'find'
         console.log id
-        Contact.find id, (err, res) ->
+        Contact.find id, (err, result) ->
             console.log err
             console.log 'Contact.find'
-            console.log res
+            console.log result
 
 
     vm.add = add
