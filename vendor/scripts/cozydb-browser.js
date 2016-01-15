@@ -228,11 +228,12 @@
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    if (attributes != null) {
+    if (!attributes) {
+      xhr.send;
+    } else {
       xhr.send(JSON.stringify(attributes));
     }
-    console.log('play request send');
-    return xhr.send;
+    return console.log('play request send');
   };
 
 }).call(this);
