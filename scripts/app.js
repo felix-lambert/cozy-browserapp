@@ -60,6 +60,8 @@ HomeAngCtrl = function($scope) {
   vm.add = add;
   return;
   return find = function(id) {
+    console.log('find');
+    console.log(id);
     return Contact.find(data._id, function(err, res) {
       console.log('Contact.find');
       return console.log(res);
