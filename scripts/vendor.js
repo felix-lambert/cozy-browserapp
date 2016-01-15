@@ -30475,7 +30475,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     get: function(path, attributes, callback) {
       console.log('get');
       console.log(path);
-      return playRequest('GET', path, attributes, callback);
+      return playRequest('GET', path, callback);
     },
     post: function(path, attributes, callback) {
       return playRequest('POST', path, attributes, callback);
