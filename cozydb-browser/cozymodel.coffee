@@ -2,7 +2,7 @@ client = require './utils/client'
 Model = require './model'
 
 cozyDataAdapter =
-    find: (id, callback) ->
+    find: (docType, id, callback) ->
         client.get "data/", id, (error, response) ->
             if error
                 callback error

@@ -7,21 +7,21 @@ class Model
     # Returns {String} the model docType
     @getDocType: -> this.docType?.toLowerCase() or this.name.toLowerCase()
 
-    # Public: find a model by its Id (GET)
-    #
-    # id - {String}, id of the model we are looking for
-    # callback - Function({Error} err, Model result)
-    #
-    # Returns null
-    # @find: (id, callback) ->
-    #   @adapter.find '', id, (err, attributes) =>
-    #     if err
-    #       return callback err
-    #     else if attributes?.docType?.toLowerCase() isnt @getDocType()
-    #       return callback null, null
+    Public: find a model by its Id (GET)
+    
+    id - {String}, id of the model we are looking for
+    callback - Function({Error} err, Model result)
+    
+    Returns null
+    @find: (id, callback) ->
+      @adapter.find '', id, (err, attributes) =>
+        if err
+          return callback err
+        else if attributes?.docType?.toLowerCase() isnt @getDocType()
+          return callback null, null
 
-    #     else
-    #       return callback null, new this(attributes)
+        else
+          return callback null, new this(attributes)
 
     # Public: create a new instance of this model (POST)
     #

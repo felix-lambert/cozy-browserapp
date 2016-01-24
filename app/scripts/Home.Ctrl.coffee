@@ -16,20 +16,20 @@ HomeAngCtrl = ($scope) ->
         console.log 'END CONTACT'
         return
 
-    # find = (id) ->
-    #     cozydb.find id, (err, result) ->
-    #         if err
-    #             alert err
-    #         $scope.$apply ->
-    #             console.log result
-    #             vm.contacts = result
-    #         console.log err
-    #         console.log 'Contact.find'
-    #         console.log result
+    find = (id) ->
+        cozydb.find 'Contact', id, (err, result) ->
+            if err
+                alert err
+            $scope.$apply ->
+                console.log result
+                vm.contacts = result
+            console.log err
+            console.log 'Contact.find'
+            console.log result
 
 
     vm.add = add
-    # vm.find = find
+    vm.find = find
     return    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
