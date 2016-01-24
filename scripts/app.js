@@ -46,17 +46,17 @@ HomeAngCtrl = function($scope) {
     console.log('END CONTACT');
   };
   find = function(id) {
-    return cozydb.find(id, function(err, result) {
+    cozydb.find(id, function(err, body, result) {
       if (err) {
         alert(err);
       }
       $scope.$apply(function() {
         console.log(result);
-        return vm.contacts = result;
+        return vm.contacts = body;
       });
       console.log(err);
       console.log('Contact.find');
-      return console.log(result);
+      return console.log(body);
     });
   };
   vm.add = add;

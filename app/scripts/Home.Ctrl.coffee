@@ -17,16 +17,16 @@ HomeAngCtrl = ($scope) ->
         return
 
     find = (id) ->
-        cozydb.find id, (err, result) ->
+        cozydb.find id, (err, body, result) ->
             if err
                 alert err
             $scope.$apply ->
                 console.log result
-                vm.contacts = result
+                vm.contacts = body
             console.log err
             console.log 'Contact.find'
-            console.log result
-
+            console.log body
+        return
 
     vm.add = add
     vm.find = find
