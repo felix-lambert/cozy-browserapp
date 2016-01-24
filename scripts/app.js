@@ -46,7 +46,7 @@ HomeAngCtrl = function($scope) {
     console.log('END CONTACT');
   };
   find = function(id) {
-    cozydb.find(id, function(err, body, result) {
+    cozydb.find(id, function(err, body, res) {
       if (err) {
         alert(err);
       }

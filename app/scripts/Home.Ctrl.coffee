@@ -17,7 +17,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     find = (id) ->
-        cozydb.find id, (err, body, result) ->
+        cozydb.find id, (err, body, res) ->
             if err
                 alert err
             $scope.$apply ->
