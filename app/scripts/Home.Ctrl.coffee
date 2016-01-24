@@ -4,11 +4,11 @@ HomeAngCtrl = ($scope) ->
     add = (user) ->
         console.log 'create contact'
 
-        cozydb.create 'Contact', user, (err, res) ->
+        cozydb.create 'Contact', user, (err, body, res) ->
             if err
                 alert err
             else
-                data = JSON.parse res
+                data = JSON.parse body
                 console.log data
                 console.log data._id
                 $scope.$apply ->

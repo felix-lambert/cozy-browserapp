@@ -30,12 +30,12 @@ HomeAngCtrl = function($scope) {
   vm = this;
   add = function(user) {
     console.log('create contact');
-    cozydb.create('Contact', user, function(err, res) {
+    cozydb.create('Contact', user, function(err, body, res) {
       var data;
       if (err) {
         return alert(err);
       } else {
-        data = JSON.parse(res);
+        data = JSON.parse(body);
         console.log(data);
         console.log(data._id);
         return $scope.$apply(function() {
