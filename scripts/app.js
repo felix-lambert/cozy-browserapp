@@ -29,20 +29,8 @@ HomeAngCtrl = function($scope) {
   var add, find, vm;
   vm = this;
   add = function(user) {
-    var Contact;
     console.log('create contact');
-    Contact = cozydb.getModel('Contact', {
-      fn: String,
-      n: String,
-      org: String,
-      title: String,
-      department: String,
-      bday: String,
-      nickname: String,
-      url: String,
-      note: String
-    });
-    Contact.create(user, function(err, res) {
+    cozydb.create('Contact', user, function(err, res) {
       var data;
       if (err) {
         return alert(err);
@@ -58,21 +46,7 @@ HomeAngCtrl = function($scope) {
     console.log('END CONTACT');
   };
   find = function(id) {
-    var Contact;
-    Contact = cozydb.getModel('Contact', {
-      fn: String,
-      n: String,
-      org: String,
-      title: String,
-      department: String,
-      bday: String,
-      nickname: String,
-      url: String,
-      note: String
-    });
-    console.log('find');
-    console.log(id);
-    return Contact.find(id, function(err, result) {
+    return cozydb.find(id, function(err, result) {
       if (err) {
         alert(err);
       }

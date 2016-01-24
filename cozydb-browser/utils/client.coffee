@@ -1,36 +1,30 @@
-
 module.exports =
-    # get: (path, id, callback)->
-    #   xhr = new XMLHttpRequest
-    #   xhr.open 'GET', '/ds-api/#{path}/#{id}', true
-
-    #   xhr.onload = ->
-    #     callback null, xhr.response
-    #     return
-
-    #   xhr.onerror = (e) ->
-    #     err = 'Request failed : #{e.target.status}'
-    #     callback err
-    #     return
-
-    #   xhr.setRequestHeader 'Content-Type', 'application/json'
-    #   xhr.send()
+    get: (path, attributes, callback)->
+        return playRequest 'GET', path, attributes, callback
 
     post: (path, attributes, callback) ->
-        location = window.location
-        xhr = new XMLHttpRequest
-        xhr.open 'POST', "/ds-api/#{path}", true
+        return playRequest 'POST', path, attributes, callback
 
-        xhr.onload = ->
-            callback null, xhr.response
+    put: (path, attributes, callback) ->
+        return playRequest 'PUT', path, attributes, callback    
 
-        xhr.onerror = (e) ->
-            err = 'Request failed : #{e.target.status}'
-            callback err
+    delete: (path, attributes, callback) ->
+        return playRequest 'DELETE', path, attributes, callback
 
 
-        intent = event.data
-        xhr.setRequestHeader 'Content-Type', 'application/json'
-        requestHeader = 'Basic ' + btoa "#{intent.appName}:#{intent.token}"
-        xhr.setRequestHeader 'Authorization', requestHeader
+playRequest = (method, path, attributes, callback) ->
+    xhr = new XMLHttpRequest
+    xhr.open method, "/ds-api/#{path}", true
+
+    xhr.onload = ->
+        console.log xhr.response
+        return callback null, xhr.response
+
+    xhr.onerror = (e) ->
+        err = 'Request failed : #{e.target.status}'
+        return callback err
+    xhr.setRequestHeader 'Content-Type', 'application/json'
+    if attributes?
         xhr.send JSON.stringify(attributes)
+    else
+        xhr.send()

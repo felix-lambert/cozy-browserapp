@@ -3,17 +3,8 @@ HomeAngCtrl = ($scope) ->
 
     add = (user) ->
         console.log 'create contact'
-        Contact = cozydb.getModel 'Contact',
-            fn: String
-            n: String
-            org: String
-            title: String
-            department: String
-            bday: String
-            nickname: String
-            url: String
-            note: String
-        Contact.create user, (err, res) ->
+
+        cozydb.create 'Contact', user, (err, res) ->
             if err
                 alert err
             else
@@ -26,19 +17,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     find = (id) ->
-        Contact = cozydb.getModel 'Contact',
-            fn: String
-            n: String
-            org: String
-            title: String
-            department: String
-            bday: String
-            nickname: String
-            url: String
-            note: String
-        console.log 'find'
-        console.log id
-        Contact.find id, (err, result) ->
+        cozydb.find id, (err, result) ->
             if err
                 alert err
             $scope.$apply ->
