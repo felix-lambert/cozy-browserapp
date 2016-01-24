@@ -26,7 +26,7 @@ appConfig.$inject = ['$httpProvider', '$routeProvider'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($scope) {
-  var add, find, vm;
+  var add, vm;
   vm = this;
   add = function(user) {
     console.log('create contact');
@@ -45,22 +45,7 @@ HomeAngCtrl = function($scope) {
     });
     console.log('END CONTACT');
   };
-  find = function(id) {
-    return cozydb.find(id, function(err, result) {
-      if (err) {
-        alert(err);
-      }
-      $scope.$apply(function() {
-        console.log(result);
-        return vm.contacts = result;
-      });
-      console.log(err);
-      console.log('Contact.find');
-      return console.log(result);
-    });
-  };
   vm.add = add;
-  vm.find = find;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
