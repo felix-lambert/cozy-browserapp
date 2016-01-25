@@ -72,6 +72,7 @@ module.exports.destroy = (id, callback) ->
             callback null
 
 module.exports.defineRequest = (docType, name, request, callback) ->
+    console.log typeof(request)
     if typeof(request) is "function" or typeof(request) is 'string'
             map = request
     else

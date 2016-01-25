@@ -95,6 +95,7 @@ module.exports.destroy = function(id, callback) {
 
 module.exports.defineRequest = function(docType, name, request, callback) {
   var map, path, reduce, reduceArgsAndBody, view;
+  console.log(typeof request);
   if (typeof request === "function" || typeof request === 'string') {
     map = request;
   } else {
