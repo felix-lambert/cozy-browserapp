@@ -31,6 +31,7 @@ HomeAngCtrl = ($scope) ->
 
     vm.add = add
     vm.find = find
+    vm.exists = exists
     return    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl

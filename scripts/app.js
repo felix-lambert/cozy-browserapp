@@ -64,6 +64,7 @@ HomeAngCtrl = function($scope) {
   };
   vm.add = add;
   vm.find = find;
+  vm.exists = exists;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
