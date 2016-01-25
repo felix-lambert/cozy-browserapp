@@ -12,7 +12,7 @@ module.exports =
         playRequest 'PUT', path, attributes, (error, body, response) ->
             callback error, body, response   
 
-    delete: (path, attributes, callback) ->
+    del: (path, attributes, callback) ->
         playRequest 'DELETE', path, attributes, (error, body, response) ->
             callback error, body, response
 

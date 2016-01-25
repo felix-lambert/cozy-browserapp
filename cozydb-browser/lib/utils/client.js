@@ -18,7 +18,7 @@ module.exports = {
       return callback(error, body, response);
     });
   },
-  "delete": function(path, attributes, callback) {
+  del: function(path, attributes, callback) {
     return playRequest('DELETE', path, attributes, function(error, body, response) {
       return callback(error, body, response);
     });
