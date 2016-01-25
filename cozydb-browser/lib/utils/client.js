@@ -13,6 +13,7 @@ module.exports = {
     });
   },
   put: function(path, attributes, callback) {
+    console.log('put');
     return playRequest('PUT', path, attributes, function(error, body, response) {
       return callback(error, body, response);
     });

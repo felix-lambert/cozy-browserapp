@@ -46,6 +46,7 @@ module.exports.exists = function(id, callback) {
 };
 
 module.exports.updateAttributes = function(docType, id, attributes, callback) {
+  console.log('updateAttributes');
   attributes.docType = docType;
   return client.put("data/merge/" + id + "/", attributes, function(error, body, response) {
     if (error) {

@@ -33,6 +33,7 @@ module.exports.exists = (id, callback) ->
             callback null, body.exist
 
 module.exports.updateAttributes = (docType, id, attributes, callback) ->
+    console.log 'updateAttributes'
     attributes.docType = docType
     client.put "data/merge/#{id}/", attributes, (error, body, response) ->
         if error

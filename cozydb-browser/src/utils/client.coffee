@@ -8,6 +8,7 @@ module.exports =
             callback error, body, response
 
     put: (path, attributes, callback) ->
+        console.log 'put'
         playRequest 'PUT', path, attributes, (error, body, response) ->
             callback error, body, response   
 
