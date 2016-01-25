@@ -62,7 +62,8 @@ module.exports.updateAttributes = function(docType, id, attributes, callback) {
 };
 
 module.exports.destroy = function(id, callback) {
-  return client.del("data/" + id + "/", null, function(error, response, body) {
+  return client.del("data/" + id + "/", null, function(error, body, response) {
+    console.log(response);
     if (error) {
       return callback(error);
     } else if (response.status === 404) {
