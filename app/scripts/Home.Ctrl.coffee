@@ -20,7 +20,7 @@ HomeAngCtrl = ($scope) ->
                 vm.contacts = res
         return
 
-    exists = (id) ->
+    exist = (id) ->
         cozydb.exists id, (err, res) ->
             if err
                 alert err
@@ -31,7 +31,7 @@ HomeAngCtrl = ($scope) ->
 
     vm.add = add
     vm.find = find
-    vm.exists = exists
+    vm.exist = exist
     return    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
