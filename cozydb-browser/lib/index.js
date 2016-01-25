@@ -60,3 +60,17 @@ module.exports.updateAttributes = function(docType, id, attributes, callback) {
     }
   });
 };
+
+module.exports.destroy = function(id, callback) {
+  return client.del("data/" + id + "/", null, function(error, response, body) {
+    if (error) {
+      return callback(error);
+    } else if (response.status === 404) {
+      return callback(new Error("Document " + id + " not found"));
+    } else if (response.status !== 204) {
+      return callback(new Error("Server error occured."));
+    } else {
+      return callback(null);
+    }
+  });
+};

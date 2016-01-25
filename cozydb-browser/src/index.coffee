@@ -44,3 +44,14 @@ module.exports.updateAttributes = (docType, id, attributes, callback) ->
             callback new Error "Server error occured."
         else
             callback null, JSON.parse body
+
+module.exports.destroy = (id, callback) ->
+    client.del "data/#{id}/", null, (error, response, body) ->
+        if error
+            callback error
+        else if response.status is 404
+            callback new Error "Document #{id} not found"
+        else if response.status isnt 204
+            callback new Error "Server error occured."
+        else
+            callback null

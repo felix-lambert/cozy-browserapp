@@ -37,10 +37,19 @@ HomeAngCtrl = ($scope) ->
                 vm.contacts = res
         return
 
+    destroy = (id) ->
+        cozydb.destroy id, (err, res) ->
+            if err
+                alert err
+            $scope.$apply ->
+                vm.contacts = res
+        return
+
     vm.add = add
     vm.find = find
     vm.exist = exist
     vm.update = update
+    vm.destroy = destroy
     return    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
