@@ -15,8 +15,7 @@ errorMaker = (error, response, body, expectedCode) ->
     else
         return null
 
-define = (name, request, callback) ->
-    docType = @getDocType()
+define = (docType, name, request, callback) ->
     {map, reduce} = request
 
     # transforms all functions in anonymous functions
@@ -105,6 +104,6 @@ module.exports.defineRequest = (docType, name, request, callback) ->
     else
         map = request.map
         reduce = request.reduce
-    define name, {map, reduce}, callback
+    define docType, name, {map, reduce}, callback
 
         

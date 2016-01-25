@@ -21,9 +21,8 @@ errorMaker = function(error, response, body, expectedCode) {
   }
 };
 
-define = function(name, request, callback) {
-  var docType, map, path, reduce, reduceArgsAndBody, view;
-  docType = this.getDocType();
+define = function(docType, name, request, callback) {
+  var map, path, reduce, reduceArgsAndBody, view;
   map = request.map, reduce = request.reduce;
   if ((reduce != null) && typeof reduce === 'function') {
     reduce = reduce.toString();
@@ -121,7 +120,7 @@ module.exports.defineRequest = function(docType, name, request, callback) {
     map = request.map;
     reduce = request.reduce;
   }
-  return define(name, {
+  return define(docType, name, {
     map: map,
     reduce: reduce
   }, callback);
