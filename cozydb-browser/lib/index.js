@@ -16,7 +16,7 @@ module.exports.create = function(docType, attributes, callback) {
     if (error) {
       return callback(error);
     } else {
-      return callback(null, body, response);
+      return callback(null, JSON.parse(body));
     }
   });
 };
@@ -25,10 +25,22 @@ module.exports.find = function(id, callback) {
   return client.get("data/" + id + "/", null, function(error, body, response) {
     if (error) {
       return callback(error);
-    } else if (response.statusCode === 404) {
+    } else if (response.status === 404) {
       return callback(null, null, null);
     } else {
-      return callback(null, body, response);
+      return callback(null, body);
+    }
+  });
+};
+
+module.exports.exists = function(id, callback) {
+  return client.get("data/exist/" + id + "/", null, function(error, response, body) {
+    if (error) {
+      return callback(error);
+    } else if ((body == null) || (body.exist == null)) {
+      return callback(new Error("Data system returned invalid data."));
+    } else {
+      return callback(null, body.exist);
     }
   });
 };

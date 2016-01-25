@@ -12,13 +12,22 @@ module.exports.create = (docType, attributes, callback) ->
         if error
             callback error
         else
-            callback null, body, response
+            callback null, JSON.parse body
 
 module.exports.find = (id, callback) ->
     client.get "data/#{id}/", null, (error, body, response) ->
         if error
             callback error
-        else if response.statusCode is 404
+        else if response.status is 404
             callback null, null, null
         else
-            callback null, body, response
+            callback null, body
+
+module.exports.exists = (id, callback) ->
+    client.get "data/exist/#{id}/", null, (error, response, body) ->
+        if error
+            callback error
+        else if not body? or not body.exist?
+            callback new Error "Data system returned invalid data."
+        else
+            callback null, body.exist

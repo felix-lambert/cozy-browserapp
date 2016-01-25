@@ -3,29 +3,30 @@ HomeAngCtrl = ($scope) ->
 
     add = (user) ->
         console.log 'create contact'
-
-        cozydb.create 'Contact', user, (err, body, res) ->
+        cozydb.create 'Contact', user, (err, res) ->
             if err
                 alert err
             else
-                data = JSON.parse body
-                console.log data
-                console.log data._id
                 $scope.$apply ->
-                    vm.contacts = data
-        console.log 'END CONTACT'
+                    vm.contacts = res
         return
 
     find = (id) ->
-        cozydb.find id, (err, body, res) ->
+        cozydb.find id, (err, res) ->
             if err
                 alert err
             $scope.$apply ->
                 console.log res
-                vm.contacts = body
-            console.log err
-            console.log 'Contact.find'
-            console.log body
+                vm.contacts = res
+        return
+
+    exists = (id) ->
+        cozydb.exists id, (err, res) ->
+            if err
+                alert err
+            $scope.$apply ->
+                console.log res
+                vm.contacts = res
         return
 
     vm.add = add

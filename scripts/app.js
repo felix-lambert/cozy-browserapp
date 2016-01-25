@@ -26,37 +26,40 @@ appConfig.$inject = ['$httpProvider', '$routeProvider'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($scope) {
-  var add, find, vm;
+  var add, exists, find, vm;
   vm = this;
   add = function(user) {
     console.log('create contact');
-    cozydb.create('Contact', user, function(err, body, res) {
-      var data;
+    cozydb.create('Contact', user, function(err, res) {
       if (err) {
         return alert(err);
       } else {
-        data = JSON.parse(body);
-        console.log(data);
-        console.log(data._id);
         return $scope.$apply(function() {
-          return vm.contacts = data;
+          return vm.contacts = res;
         });
       }
     });
-    console.log('END CONTACT');
   };
   find = function(id) {
-    cozydb.find(id, function(err, body, res) {
+    cozydb.find(id, function(err, res) {
       if (err) {
         alert(err);
       }
-      $scope.$apply(function() {
+      return $scope.$apply(function() {
         console.log(res);
-        return vm.contacts = body;
+        return vm.contacts = res;
       });
-      console.log(err);
-      console.log('Contact.find');
-      return console.log(body);
+    });
+  };
+  exists = function(id) {
+    cozydb.exists(id, function(err, res) {
+      if (err) {
+        alert(err);
+      }
+      return $scope.$apply(function() {
+        console.log(res);
+        return vm.contacts = res;
+      });
     });
   };
   vm.add = add;
