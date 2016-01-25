@@ -46,7 +46,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     define = () ->
-        cozydb.defineRequest 'Contact', 'all', 'function(doc) { emit(doc.n, doc); }', (err, res) ->
+        cozydb.defineRequest 'Contact', 'all', 'function(doc) { emit(doc.n, null); }', (err, res) ->
             if err
                 alert err
             cozydb.run 'Contact', 'all', {}, (err, res) ->
