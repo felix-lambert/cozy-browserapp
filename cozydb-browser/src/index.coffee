@@ -46,7 +46,7 @@ module.exports.updateAttributes = (docType, id, attributes, callback) ->
             callback null, JSON.parse body
 
 module.exports.destroy = (id, callback) ->
-    client.del "data/#{id}/", null, (error, response, body) ->
+    client.del "data/#{id}/", null, (error, body, response) ->
         if error
             callback error
         else if response.status is 404
