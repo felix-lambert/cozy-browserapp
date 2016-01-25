@@ -125,3 +125,20 @@ module.exports.defineRequest = function(docType, name, request, callback) {
     reduce: reduce
   }, callback);
 };
+
+module.exports.run = function(docType, params, callback) {
+  var path, ref;
+  if (typeof params === "function") {
+    ref = [{}, params], params = ref[0], callback = ref[1];
+  }
+  path = "request/" + docType + "/" + (name.toLowerCase()) + "/";
+  return client.post(path, params, function(error, body, response) {
+    if (error) {
+      return callback(error);
+    } else if (response.status !== 200) {
+      return callback(new Error(util.inspect(body)));
+    } else {
+      return callback(null, body);
+    }
+  });
+};

@@ -87,9 +87,10 @@ HomeAngCtrl = function($scope) {
       if (err) {
         alert(err);
       }
-      return $scope.$apply(function() {
-        console.log(res);
-        return vm.contacts = res;
+      return cozydb.run('Contact', {}, function(err, res) {
+        return $scope.$apply(function() {
+          return vm.contacts = res;
+        });
       });
     });
   };

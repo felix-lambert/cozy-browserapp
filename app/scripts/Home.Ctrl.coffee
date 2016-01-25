@@ -49,9 +49,9 @@ HomeAngCtrl = ($scope) ->
         cozydb.defineRequest 'Contact', 'all', 'function(doc) { emit(doc.id, doc); }', (err, res) ->
             if err
                 alert err
-            $scope.$apply ->
-                console.log res
-                vm.contacts = res
+            cozydb.run 'Contact', {}, (err, res) ->
+                $scope.$apply ->
+                    vm.contacts = res
         return
 
     vm.add = add

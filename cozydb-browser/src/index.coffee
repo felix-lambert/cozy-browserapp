@@ -106,4 +106,14 @@ module.exports.defineRequest = (docType, name, request, callback) ->
         reduce = request.reduce
     define docType, name, {map, reduce}, callback
 
-        
+module.exports.run = (docType, params, callback) ->
+    [params, callback] = [{}, params] if typeof(params) is "function"
+
+    path = "request/#{docType}/#{name.toLowerCase()}/"
+    client.post path, params, (error, body, response) ->
+        if error
+            callback error
+        else if response.status isnt 200
+            callback new Error util.inspect body
+        else
+            callback null, body
