@@ -126,7 +126,7 @@ module.exports.defineRequest = function(docType, name, request, callback) {
   }, callback);
 };
 
-module.exports.run = function(docType, params, callback) {
+module.exports.run = function(docType, name, params, callback) {
   var path, ref;
   if (typeof params === "function") {
     ref = [{}, params], params = ref[0], callback = ref[1];

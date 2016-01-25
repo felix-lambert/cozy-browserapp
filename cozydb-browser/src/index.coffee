@@ -106,7 +106,7 @@ module.exports.defineRequest = (docType, name, request, callback) ->
         reduce = request.reduce
     define docType, name, {map, reduce}, callback
 
-module.exports.run = (docType, params, callback) ->
+module.exports.run = (docType, name, params, callback) ->
     [params, callback] = [{}, params] if typeof(params) is "function"
 
     path = "request/#{docType}/#{name.toLowerCase()}/"
