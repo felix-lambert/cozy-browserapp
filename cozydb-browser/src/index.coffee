@@ -32,8 +32,9 @@ module.exports.exists = (id, callback) ->
         else
             callback null, body.exist
 
-module.exports.updateAttributes = (id, data, callback) ->
-    client.put "data/merge/#{id}/", data, (error, body, response) ->
+module.exports.updateAttributes = (docType, id, attributes, callback) ->
+    attributes.docType = docType
+    client.put "data/merge/#{id}/", attributes, (error, body, response) ->
         if error
             callback error
         else if response.status is 404
@@ -41,4 +42,4 @@ module.exports.updateAttributes = (id, data, callback) ->
         else if response.status isnt 200
             callback new Error "Server error occured."
         else
-            callback null, body
+            callback null, JSON.parse body

@@ -45,8 +45,9 @@ module.exports.exists = function(id, callback) {
   });
 };
 
-module.exports.updateAttributes = function(id, data, callback) {
-  return client.put("data/merge/" + id + "/", data, function(error, body, response) {
+module.exports.updateAttributes = function(docType, id, attributes, callback) {
+  attributes.docType = docType;
+  return client.put("data/merge/" + id + "/", attributes, function(error, body, response) {
     if (error) {
       return callback(error);
     } else if (response.status === 404) {
@@ -54,7 +55,7 @@ module.exports.updateAttributes = function(id, data, callback) {
     } else if (response.status !== 200) {
       return callback(new Error("Server error occured."));
     } else {
-      return callback(null, body);
+      return callback(null, JSON.parse(body));
     }
   });
 };

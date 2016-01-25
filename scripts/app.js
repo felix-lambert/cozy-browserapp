@@ -63,7 +63,7 @@ HomeAngCtrl = function($scope) {
     });
   };
   update = function(id, user) {
-    cozydb.updateAttributes(id, user, function(err, res) {
+    cozydb.updateAttributes('Contact', id, user, function(err, res) {
       if (err) {
         alert(err);
       }

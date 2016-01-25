@@ -30,7 +30,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     update = (id, user) ->
-        cozydb.updateAttributes id, user, (err, res) ->
+        cozydb.updateAttributes 'Contact', id, user, (err, res) ->
             if err
                 alert err
             $scope.$apply ->
