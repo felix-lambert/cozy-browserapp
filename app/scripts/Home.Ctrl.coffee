@@ -29,9 +29,18 @@ HomeAngCtrl = ($scope) ->
                 vm.contacts = res
         return
 
+    update = (id, user) ->
+        cozydb.updateAttributes id, user, (err, res) ->
+            if err
+                alert err
+            $scope.$apply ->
+                vm.contacts = res
+        return
+
     vm.add = add
     vm.find = find
     vm.exist = exist
+    vm.update = update
     return    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl

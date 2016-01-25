@@ -24,10 +24,21 @@ module.exports.find = (id, callback) ->
             callback null, body
 
 module.exports.exists = (id, callback) ->
-    client.get "data/exist/#{id}/", null, (error, response, body) ->
+    client.get "data/exist/#{id}/", null, (error, body, response) ->
         if error
             callback error
         else if not body? or not body.exist?
             callback new Error "Data system returned invalid data."
         else
             callback null, body.exist
+
+module.exports.updateAttributes = (id, data, callback) ->
+    client.put "data/merge/#{id}/", data, (error, body, response) ->
+        if error
+            callback error
+        else if response.status is 404
+            callback new Error "Document #{id} not found"
+        else if response.status isnt 200
+            callback new Error "Server error occured."
+        else
+            callback null, body

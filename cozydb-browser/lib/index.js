@@ -34,13 +34,27 @@ module.exports.find = function(id, callback) {
 };
 
 module.exports.exists = function(id, callback) {
-  return client.get("data/exist/" + id + "/", null, function(error, response, body) {
+  return client.get("data/exist/" + id + "/", null, function(error, body, response) {
     if (error) {
       return callback(error);
     } else if ((body == null) || (body.exist == null)) {
       return callback(new Error("Data system returned invalid data."));
     } else {
       return callback(null, body.exist);
+    }
+  });
+};
+
+module.exports.updateAttributes = function(id, data, callback) {
+  return client.put("data/merge/" + id + "/", data, function(error, body, response) {
+    if (error) {
+      return callback(error);
+    } else if (response.status === 404) {
+      return callback(new Error("Document " + id + " not found"));
+    } else if (response.status !== 200) {
+      return callback(new Error("Server error occured."));
+    } else {
+      return callback(null, body);
     }
   });
 };
