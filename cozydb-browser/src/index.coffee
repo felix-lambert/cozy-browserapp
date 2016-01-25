@@ -15,7 +15,7 @@ errorMaker = (error, response, body, expectedCode) ->
     else
         return null
 
-define: (name, request, callback) ->
+define = (name, request, callback) ->
     docType = @getDocType()
     {map, reduce} = request
 
