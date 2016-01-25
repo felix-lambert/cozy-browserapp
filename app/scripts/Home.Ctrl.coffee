@@ -21,7 +21,7 @@ HomeAngCtrl = ($scope) ->
             if err
                 alert err
             $scope.$apply ->
-                console.log result
+                console.log res
                 vm.contacts = body
             console.log err
             console.log 'Contact.find'
