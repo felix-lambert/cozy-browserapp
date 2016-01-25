@@ -1,5 +1,20 @@
 client = require './utils/client'
 
+# utility functions
+checkError = (error, response, body, code, callback) ->
+    callback errorMaker error, response, body, code
+
+errorMaker = (error, response, body, expectedCode) ->
+    if error
+        return error
+    else if response.status isnt expectedCode
+        msgStatus = "expected: #{expectedCode}, got: #{response.statusCode}"
+        err = new Error "#{msgStatus} -- #{body.error} -- #{body.reason}"
+        err.status = response.statusCode
+        return err
+    else
+        return null
+
 module.exports.create = (docType, attributes, callback) ->
     path = "data/"
     attributes.docType = docType
@@ -47,7 +62,6 @@ module.exports.updateAttributes = (docType, id, attributes, callback) ->
 
 module.exports.destroy = (id, callback) ->
     client.del "data/#{id}/", null, (error, body, response) ->
-        console.log response
         if error
             callback error
         else if response.status is 404
@@ -56,3 +70,35 @@ module.exports.destroy = (id, callback) ->
             callback new Error "Server error occured."
         else
             callback null
+
+module.exports.defineRequest = (docType, name, request, callback) ->
+    if typeof(request) is "function" or typeof(request) is 'string'
+            map = request
+    else
+        map = request.map
+        reduce = request.reduce
+
+    {map, reduce} = request
+    # transforms all functions in anonymous functions
+    # function named(a, b){...} --> function (a, b){...}
+    # function (a, b){...} --> function (a, b){...}
+    if reduce? and typeof reduce is 'function'
+        reduce = reduce.toString()
+        reduceArgsAndBody = reduce.slice reduce.indexOf '('
+        reduce = "function #{reduceArgsAndBody}"
+
+    view =
+        reduce: reduce
+        map: """
+            function (doc) {
+              if (doc.docType.toLowerCase() === "#{docType}") {
+                filter = #{map.toString()};
+                filter(doc);
+              }
+            }
+        """
+    path = "request/#{docType}/#{name.toLowerCase()}/"
+    client.put path, view, (error, response, body) ->
+        checkError error, response, body, 200, callback
+
+        
