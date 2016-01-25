@@ -38,7 +38,7 @@ define = (docType, name, request, callback) ->
         """
 
     path = "request/#{docType}/#{name.toLowerCase()}/"
-    client.put path, view, (error, response, body) ->
+    client.put path, view, (error, body, response) ->
         checkError error, response, body, 200, callback
 
 module.exports.create = (docType, attributes, callback) ->

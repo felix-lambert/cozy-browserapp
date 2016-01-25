@@ -34,7 +34,7 @@ define = function(docType, name, request, callback) {
     map: "function (doc) {\n  if (doc.docType.toLowerCase() === \"" + docType + "\") {\n    filter = " + (map.toString()) + ";\n    filter(doc);\n  }\n}"
   };
   path = "request/" + docType + "/" + (name.toLowerCase()) + "/";
-  return client.put(path, view, function(error, response, body) {
+  return client.put(path, view, function(error, body, response) {
     return checkError(error, response, body, 200, callback);
   });
 };
