@@ -15,6 +15,33 @@ errorMaker = (error, response, body, expectedCode) ->
     else
         return null
 
+define: (name, request, callback) ->
+    docType = @getDocType()
+    {map, reduce} = request
+
+    # transforms all functions in anonymous functions
+    # function named(a, b){...} --> function (a, b){...}
+    # function (a, b){...} --> function (a, b){...}
+    if reduce? and typeof reduce is 'function'
+        reduce = reduce.toString()
+        reduceArgsAndBody = reduce.slice reduce.indexOf '('
+        reduce = "function #{reduceArgsAndBody}"
+
+    view =
+        reduce: reduce
+        map: """
+            function (doc) {
+              if (doc.docType.toLowerCase() === "#{docType}") {
+                filter = #{map.toString()};
+                filter(doc);
+              }
+            }
+        """
+
+    path = "request/#{docType}/#{name.toLowerCase()}/"
+    client.put path, view, (error, response, body) ->
+        checkError error, response, body, 200, callback
+
 module.exports.create = (docType, attributes, callback) ->
     path = "data/"
     attributes.docType = docType
@@ -74,32 +101,10 @@ module.exports.destroy = (id, callback) ->
 module.exports.defineRequest = (docType, name, request, callback) ->
     console.log typeof(request)
     if typeof(request) is "function" or typeof(request) is 'string'
-            map = request
+        map = request
     else
         map = request.map
         reduce = request.reduce
-
-    {map, reduce} = request
-    # transforms all functions in anonymous functions
-    # function named(a, b){...} --> function (a, b){...}
-    # function (a, b){...} --> function (a, b){...}
-    if reduce? and typeof reduce is 'function'
-        reduce = reduce.toString()
-        reduceArgsAndBody = reduce.slice reduce.indexOf '('
-        reduce = "function #{reduceArgsAndBody}"
-
-    view =
-        reduce: reduce
-        map: """
-            function (doc) {
-              if (doc.docType.toLowerCase() === "#{docType}") {
-                filter = #{map.toString()};
-                filter(doc);
-              }
-            }
-        """
-    path = "request/#{docType}/#{name.toLowerCase()}/"
-    client.put path, view, (error, response, body) ->
-        checkError error, response, body, 200, callback
+    define name, {map, reduce}, callback
 
         

@@ -21,6 +21,27 @@ errorMaker = function(error, response, body, expectedCode) {
   }
 };
 
+({
+  define: function(name, request, callback) {
+    var docType, map, path, reduce, reduceArgsAndBody, view;
+    docType = this.getDocType();
+    map = request.map, reduce = request.reduce;
+    if ((reduce != null) && typeof reduce === 'function') {
+      reduce = reduce.toString();
+      reduceArgsAndBody = reduce.slice(reduce.indexOf('('));
+      reduce = "function " + reduceArgsAndBody;
+    }
+    view = {
+      reduce: reduce,
+      map: "function (doc) {\n  if (doc.docType.toLowerCase() === \"" + docType + "\") {\n    filter = " + (map.toString()) + ";\n    filter(doc);\n  }\n}"
+    };
+    path = "request/" + docType + "/" + (name.toLowerCase()) + "/";
+    return client.put(path, view, function(error, response, body) {
+      return checkError(error, response, body, 200, callback);
+    });
+  }
+});
+
 module.exports.create = function(docType, attributes, callback) {
   var path;
   path = "data/";
@@ -94,7 +115,7 @@ module.exports.destroy = function(id, callback) {
 };
 
 module.exports.defineRequest = function(docType, name, request, callback) {
-  var map, path, reduce, reduceArgsAndBody, view;
+  var map, reduce;
   console.log(typeof request);
   if (typeof request === "function" || typeof request === 'string') {
     map = request;
@@ -102,18 +123,8 @@ module.exports.defineRequest = function(docType, name, request, callback) {
     map = request.map;
     reduce = request.reduce;
   }
-  map = request.map, reduce = request.reduce;
-  if ((reduce != null) && typeof reduce === 'function') {
-    reduce = reduce.toString();
-    reduceArgsAndBody = reduce.slice(reduce.indexOf('('));
-    reduce = "function " + reduceArgsAndBody;
-  }
-  view = {
-    reduce: reduce,
-    map: "function (doc) {\n  if (doc.docType.toLowerCase() === \"" + docType + "\") {\n    filter = " + (map.toString()) + ";\n    filter(doc);\n  }\n}"
-  };
-  path = "request/" + docType + "/" + (name.toLowerCase()) + "/";
-  return client.put(path, view, function(error, response, body) {
-    return checkError(error, response, body, 200, callback);
-  });
+  return define(name, {
+    map: map,
+    reduce: reduce
+  }, callback);
 };
