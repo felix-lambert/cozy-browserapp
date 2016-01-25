@@ -1,16 +1,19 @@
 module.exports =
     get: (path, attributes, callback)->
-        return playRequest 'GET', path, attributes, callback
+        playRequest 'GET', path, attributes, (error, body, response) ->
+            callback error, body, response
 
     post: (path, attributes, callback) ->
-        return playRequest 'POST', path, attributes, callback
+        playRequest 'POST', path, attributes, (error, body, response) ->
+            callback error, body, response
 
     put: (path, attributes, callback) ->
-        return playRequest 'PUT', path, attributes, callback    
+        playRequest 'PUT', path, attributes, (error, body, response) ->
+            callback error, body, response   
 
     delete: (path, attributes, callback) ->
-        return playRequest 'DELETE', path, attributes, callback
-
+        playRequest 'DELETE', path, attributes, (error, body, response) ->
+            callback error, body, response
 
 playRequest = (method, path, attributes, callback) ->
     xhr = new XMLHttpRequest
@@ -18,7 +21,7 @@ playRequest = (method, path, attributes, callback) ->
 
     xhr.onload = ->
         console.log xhr.response
-        return callback null, xhr.response
+        return callback null, xhr.response, xhr
 
     xhr.onerror = (e) ->
         err = 'Request failed : #{e.target.status}'
