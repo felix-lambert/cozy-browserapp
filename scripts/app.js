@@ -95,7 +95,7 @@ HomeAngCtrl = function($scope) {
     });
   };
   destroyRequest = function() {
-    cozydb.requestDestroy('Contact', 'all', {}, function(err, res) {
+    cozydb.requestDestroy('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
       if (err) {
         alert(err);
       }
