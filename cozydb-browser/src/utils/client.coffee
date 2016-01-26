@@ -1,14 +1,13 @@
-eventListening = (event, callback) -> 
+eventListen = (event) -> 
     intent = event.data
-    window.removeEventListener "message", eventListening
-    callback intent
-
+    window.removeEventListener "message", arguments.callee
+    cozydb.token = intent
 
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening (intent) ->
-        callback intent
+    window.addEventListener 'message', eventListening
+    callback cozydb.token
 
 module.exports =
     get: (path, attributes, callback)->
