@@ -142,3 +142,17 @@ module.exports.run = function(docType, name, params, callback) {
     }
   });
 };
+
+module.exports.requestDestroy = function(docType, name, params, callback) {
+  var path, ref;
+  if (typeof params === "function") {
+    ref = [{}, params], params = ref[0], callback = ref[1];
+  }
+  if (params.limit == null) {
+    params.limit = 100;
+  }
+  path = "request/" + docType + "/" + (name.toLowerCase()) + "/destroy/";
+  return client.put(path, params, function(error, body, response) {
+    return checkError(error, response, body, 204, callback);
+  });
+};

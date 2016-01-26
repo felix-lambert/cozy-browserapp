@@ -117,3 +117,12 @@ module.exports.run = (docType, name, params, callback) ->
             callback new Error util.inspect body
         else
             callback null, body
+
+module.exports.requestDestroy = (docType, name, params, callback) ->
+    [params, callback] = [{}, params] if typeof(params) is "function"
+    params.limit ?= 100
+
+    path = "request/#{docType}/#{name.toLowerCase()}/destroy/"
+    client.put path, params, (error, body, response) ->
+        checkError error, response, body, 204, callback
+
