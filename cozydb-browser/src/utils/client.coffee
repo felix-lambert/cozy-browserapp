@@ -1,6 +1,6 @@
 eventListening = (action) ->
     return (e) ->
-        console.log element
+        console.log e
         window.removeEventListener 'message', eventListening
         action e.data
         return
