@@ -1,8 +1,9 @@
-getToken = (cb) ->
+getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', (event, callback) ->
+    window.addEventListener 'message', (event) ->
         intent = event.data
+        window.removeEventListener "message", arguments.callee
         cb intent
 
 
