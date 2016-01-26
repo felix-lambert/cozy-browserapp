@@ -1,4 +1,4 @@
-eventListen = (event) -> 
+eventListening = (event) -> 
     intent = event.data
     window.removeEventListener "message", arguments.callee
     cozydb.token = intent
@@ -42,6 +42,9 @@ playRequest = (method, path, attributes, callback) ->
     getToken (res) ->
         console.log 'addEventListener'
         xhr.setRequestHeader 'Content-Type', 'application/json'
+        console.log '///////////////////////////////:'
+        console.log cozydb.token
+        console.log '///////////////////////////////:'
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
         if attributes?
             xhr.send JSON.stringify(attributes)
