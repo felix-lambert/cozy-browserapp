@@ -1,6 +1,10 @@
-getToken = () ->
+getToken = (cb) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
+    window.addEventListener 'message', (event, callback) ->
+        intent = event.data
+        cb intent
+
 
 module.exports =
     get: (path, attributes, callback)->
@@ -32,13 +36,10 @@ playRequest = (method, path, attributes, callback) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
 
-    getToken()
-    window.addEventListener 'message', (event) ->
+    getToken (res) ->
         console.log 'addEventListener'
-        intent = event.data
-        console.log intent
         xhr.setRequestHeader 'Content-Type', 'application/json'
-        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
+        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
         if attributes?
             xhr.send JSON.stringify(attributes)
         else
