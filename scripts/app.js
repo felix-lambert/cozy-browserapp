@@ -96,8 +96,8 @@ HomeAngCtrl = function($scope) {
   };
   destroyRequest = function() {
     cozydb.requestDestroy('Contact', 'all', {
-      startkey: 'A',
-      endkey: 'B'
+      startkey: 'z',
+      endkey: 'z'
     }, function(err, res) {
       if (err) {
         alert(err);

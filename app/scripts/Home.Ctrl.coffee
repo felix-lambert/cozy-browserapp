@@ -55,7 +55,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     destroyRequest = () ->
-        cozydb.requestDestroy 'Contact', 'all', {startkey: 'A', endkey: 'B'}, (err, res) ->
+        cozydb.requestDestroy 'Contact', 'all', {startkey: 'z', endkey: 'z'}, (err, res) ->
             if err
                 alert err
             cozydb.run 'Contact', 'all', {}, (err, res) ->
