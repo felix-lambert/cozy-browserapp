@@ -10,7 +10,7 @@ getToken = function(callback) {
     var intent;
     intent = event.data;
     window.removeEventListener("message", arguments.callee);
-    return cb(intent);
+    return callback(intent);
   });
 };
 
