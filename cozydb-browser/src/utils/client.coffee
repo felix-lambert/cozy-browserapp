@@ -1,10 +1,14 @@
+intent = undefined
+
+eventListener = (event) ->
+    intent = event.data
+    window.removeEventListener 'message', eventListener
+
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', (event) ->
-        intent = event.data
-        window.removeEventListener "message", arguments.callee
-        callback intent
+    window.addEventListener 'message', eventListener
+    callback intent
 
 module.exports =
     get: (path, attributes, callback)->
