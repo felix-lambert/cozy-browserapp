@@ -3,7 +3,7 @@ var eventListening, getToken, playRequest;
 
 eventListening = function(action) {
   return function(e) {
-    console.log(element);
+    console.log(e);
     window.removeEventListener('message', eventListening);
     action(e.data);
   };
