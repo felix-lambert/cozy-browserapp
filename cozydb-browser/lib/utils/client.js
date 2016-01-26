@@ -2,6 +2,7 @@
 var getToken, playRequest;
 
 getToken = function() {
+  console.log('getToken');
   return window.parent.postMessage({
     action: 'getToken'
   }, '*');
@@ -44,10 +45,12 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  getToken;
+  getToken();
   return window.addEventListener('message', function(event) {
     var intent;
+    console.log('addEventListener');
     intent = event.data;
+    console.log(intent);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token));
     if (attributes != null) {

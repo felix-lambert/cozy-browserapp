@@ -1,4 +1,5 @@
 getToken = () ->
+    console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
 
 module.exports =
@@ -31,9 +32,11 @@ playRequest = (method, path, attributes, callback) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
 
-    getToken
+    getToken()
     window.addEventListener 'message', (event) ->
+        console.log 'addEventListener'
         intent = event.data
+        console.log intent
         xhr.setRequestHeader 'Content-Type', 'application/json'
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
         if attributes?
