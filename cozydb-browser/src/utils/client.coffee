@@ -1,17 +1,18 @@
-eventListening = (callback) ->
-    console.log window 
-    intent = window.event.data
-    window.removeEventListener "message", eventListening
-    callback intent
+eventListening = (action) ->
+    return (e) ->
+        console.log element
+        window.removeEventListener 'message', eventListening
+        action e.data
+        return
 
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening (intent) ->
-        console.log '/////////////////////'
-        console.log intent
-        console.log '/////////////////////'
-        callback intent
+    window.addEventListener 'message', eventListening((isOutside) ->
+        console.log '///////////////////'
+        console.log isOutside
+        callback isOutside
+    ), false
 
 module.exports =
     get: (path, attributes, callback)->
