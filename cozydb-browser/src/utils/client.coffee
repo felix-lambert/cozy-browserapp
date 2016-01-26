@@ -1,12 +1,13 @@
-eventListening = (event, callback) -> 
-    intent = event.data
+eventListening = (callback) ->
+    console.log window.event 
+    intent = window.event.data
     window.removeEventListener "message", eventListening
     callback intent
 
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening window.event, (intent) ->
+    window.addEventListener 'message', eventListening (intent) ->
         console.log '/////////////////////'
         console.log intent
         console.log '/////////////////////'
