@@ -30,7 +30,7 @@ define = (docType, name, request, callback) ->
         reduce: reduce
         map: """
             function (doc) {
-              if (doc.docType.toLowerCase() === "#{docType}") {
+              if (doc.docType.toLowerCase() === "#{docType.toLowerCase()}") {
                 filter = #{map.toString()};
                 filter(doc);
               }

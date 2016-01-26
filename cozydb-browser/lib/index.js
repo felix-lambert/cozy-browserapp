@@ -31,7 +31,7 @@ define = function(docType, name, request, callback) {
   }
   view = {
     reduce: reduce,
-    map: "function (doc) {\n  if (doc.docType.toLowerCase() === \"" + docType + "\") {\n    filter = " + (map.toString()) + ";\n    filter(doc);\n  }\n}"
+    map: "function (doc) {\n  if (doc.docType.toLowerCase() === \"" + (docType.toLowerCase()) + "\") {\n    filter = " + (map.toString()) + ";\n    filter(doc);\n  }\n}"
   };
   path = "request/" + docType + "/" + (name.toLowerCase()) + "/";
   return client.put(path, view, function(error, body, response) {
