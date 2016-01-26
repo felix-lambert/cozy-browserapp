@@ -2,7 +2,7 @@
 
 task 'build', 'Build CoffeeScript to Javascript', ->
     console.log "Start compilation..."
-    command = "coffee -cb --output lib src && browserify lib/index.js -d --s cozydb > ../vendor/scripts/cozydb-browser.js"
+    command = "coffee -cb --output lib src && browserify lib/index.js -d --s cozydb | exorcist ./vendor/scripts/cozydb-browser.map.js > ../vendor/scripts/cozydb-browser.js"
     exec command, (err, stdout, stderr) ->
         if err
             console.log "An error has occurred while compiling:\n" + err
