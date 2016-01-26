@@ -1,7 +1,14 @@
-eventListening = (event) -> 
-    intent = event.data
-    window.removeEventListener "message", eventListening
-    return intent
+# eventListening = (event) -> 
+#     intent = event.data
+#     window.removeEventListener "message", eventListening
+#     return intent
+
+
+eventListening = 
+    handleEvent: ->
+        console.log this
+        return
+    dude: 'holla'
 
 
 getToken = (callback) ->
