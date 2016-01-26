@@ -1,23 +1,14 @@
-# eventListening = (event) -> 
-#     intent = event.data
-#     window.removeEventListener "message", eventListening
-#     return intent
-
-
-eventListening = 
-    handleEvent: ->
-        console.log this
-        return
-    dude: 'holla'
+eventListening = (event, callback) -> 
+    intent = event.data
+    window.removeEventListener "message", eventListening
+    callback intent
 
 
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening
-    console.log '///////////////////////'
-    console.log eventListening
-    console.log '///////////////////////'
+    window.addEventListener 'message', eventListening event, (intent) ->
+        callback intent
 
 module.exports =
     get: (path, attributes, callback)->
