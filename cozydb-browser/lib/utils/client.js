@@ -3,7 +3,7 @@ var eventListening, getToken, playRequest;
 
 eventListening = function(callback) {
   var intent;
-  console.log(window.event);
+  console.log(window);
   intent = window.event.data;
   window.removeEventListener("message", eventListening);
   return callback(intent);

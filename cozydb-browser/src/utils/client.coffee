@@ -1,5 +1,5 @@
 eventListening = (callback) ->
-    console.log window.event 
+    console.log window 
     intent = window.event.data
     window.removeEventListener "message", eventListening
     callback intent
