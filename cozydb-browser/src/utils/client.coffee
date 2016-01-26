@@ -1,13 +1,16 @@
-eventListening = (event) -> 
+eventListening = (event, callback) -> 
     intent = event.data
-    window.removeEventListener "message", arguments.callee
-    cozydb.token = intent
+    window.removeEventListener "message", eventListening
+    callback intent
 
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening
-    callback cozydb.token
+    window.addEventListener 'message', eventListening window.event, (intent) ->
+        console.log '/////////////////////'
+        console.log intent
+        console.log '/////////////////////'
+        callback intent
 
 module.exports =
     get: (path, attributes, callback)->
@@ -40,11 +43,7 @@ playRequest = (method, path, attributes, callback) ->
         return callback err
 
     getToken (res) ->
-        console.log 'addEventListener'
         xhr.setRequestHeader 'Content-Type', 'application/json'
-        console.log '///////////////////////////////:'
-        console.log cozydb.token
-        console.log '///////////////////////////////:'
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
         if attributes?
             xhr.send JSON.stringify(attributes)
