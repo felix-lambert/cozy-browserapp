@@ -13,7 +13,7 @@ getToken = function(callback) {
   window.parent.postMessage({
     action: 'getToken'
   }, '*');
-  return window.addEventListener('message', eventListening(event, function(intent) {
+  return window.addEventListener('message', eventListening(function(intent) {
     return callback(intent);
   }));
 };

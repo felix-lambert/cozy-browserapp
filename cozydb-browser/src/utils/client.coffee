@@ -7,7 +7,7 @@ eventListening = (event, callback) ->
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening event, (intent) ->
+    window.addEventListener 'message', eventListening (intent) ->
         callback intent
 
 module.exports =
