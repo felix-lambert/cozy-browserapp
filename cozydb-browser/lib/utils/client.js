@@ -58,9 +58,10 @@ playRequest = function(method, path, attributes, callback) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
     if (attributes != null) {
-      return xhr.send(JSON.stringify(attributes));
+      xhr.send(JSON.stringify(attributes));
     } else {
-      return xhr.send();
+      xhr.send();
     }
+    return xhr = null;
   });
 };

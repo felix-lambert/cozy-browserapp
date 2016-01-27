@@ -46,3 +46,4 @@ playRequest = (method, path, attributes, callback) ->
             xhr.send JSON.stringify(attributes)
         else
             xhr.send()
+        xhr = null
