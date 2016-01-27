@@ -39,11 +39,11 @@ module.exports = {
 };
 
 playRequest = function(method, path, attributes, callback) {
-  var xhr;
-  xhr = new XMLHttpRequest;
-  xhr.open(method, "/ds-api/" + path, false);
   askForToken();
   return window.addEventListener('message', eventListening(function(intent) {
+    var xhr;
+    xhr = new XMLHttpRequest;
+    xhr.open(method, "/ds-api/" + path, false);
     xhr.onload = function() {
       return callback(null, xhr.response, xhr);
     };

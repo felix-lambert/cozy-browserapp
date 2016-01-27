@@ -26,10 +26,10 @@ module.exports =
             callback error, body, response
 
 playRequest = (method, path, attributes, callback) ->
-    xhr = new XMLHttpRequest
-    xhr.open method, "/ds-api/#{path}", false
     askForToken()
     window.addEventListener 'message', eventListening((intent) ->
+        xhr = new XMLHttpRequest
+        xhr.open method, "/ds-api/#{path}", false
         xhr.onload = ->
             return callback null, xhr.response, xhr
 
