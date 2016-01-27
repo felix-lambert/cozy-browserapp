@@ -4,7 +4,7 @@ eventListening = (action) ->
         action e.data
         return
 
-getToken = (xhr, method, callback) ->
+getToken = (xhr, method, path, callback) ->
     xhr.open method, "/ds-api/#{path}", true
     window.parent.postMessage { action: 'getToken' }, '*'
     window.addEventListener 'message', eventListening((intent) ->
@@ -41,7 +41,7 @@ playRequest = (method, path, attributes, callback) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
     
-    getToken xhr, method, (res) ->
+    getToken xhr, method, path, (res) ->
         xhr.setRequestHeader 'Content-Type', 'application/json'
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
         if attributes?

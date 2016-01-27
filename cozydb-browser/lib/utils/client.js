@@ -8,7 +8,7 @@ eventListening = function(action) {
   };
 };
 
-getToken = function(xhr, method, callback) {
+getToken = function(xhr, method, path, callback) {
   xhr.open(method, "/ds-api/" + path, true);
   window.parent.postMessage({
     action: 'getToken'
@@ -55,7 +55,7 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  return getToken(xhr, method, function(res) {
+  return getToken(xhr, method, path, function(res) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
     if (attributes != null) {
