@@ -1,7 +1,11 @@
 client = require './utils/client'
+auth = null
+
+askForToken = ()->
+    window.parent.postMessage { action: 'getToken' }, '*'
 
 askForToken()
-auth = null
+
 eventListening = (event) ->
     window.removeEventListener 'message', eventListening
     auth = event.data

@@ -1,8 +1,3 @@
-
-
-askForToken = ()->
-    window.parent.postMessage { action: 'getToken' }, '*'
-
 module.exports =
     get: (auth, path, attributes, callback)->
         playRequest auth, 'GET', path, attributes, (error, body, response) ->
