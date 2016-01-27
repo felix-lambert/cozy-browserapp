@@ -55,11 +55,13 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token));
-  if (attributes != null) {
-    return xhr.send(JSON.stringify(attributes));
-  } else {
-    return xhr.send();
-  }
+  return setTimeout((function() {
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token));
+    if (attributes != null) {
+      xhr.send(JSON.stringify(attributes));
+    } else {
+      xhr.send();
+    }
+  }), 3000);
 };
