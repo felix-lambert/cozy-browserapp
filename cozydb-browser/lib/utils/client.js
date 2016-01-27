@@ -55,12 +55,12 @@ playRequest = function(method, path, attributes, callback) {
   };
   xhr.open(method, "/ds-api/" + path, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  getToken(function(res) {
-    return xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
+  return getToken(function(res) {
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
+    if (attributes != null) {
+      return xhr.send(JSON.stringify(attributes));
+    } else {
+      return xhr.send();
+    }
   });
-  if (attributes != null) {
-    return xhr.send(JSON.stringify(attributes));
-  } else {
-    return xhr.send();
-  }
 };

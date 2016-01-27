@@ -42,7 +42,7 @@ playRequest = (method, path, attributes, callback) ->
     xhr.setRequestHeader 'Content-Type', 'application/json'
     getToken (res) ->
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
-    if attributes?
-        xhr.send JSON.stringify(attributes)
-    else
-        xhr.send()
+        if attributes?
+            xhr.send JSON.stringify(attributes)
+        else
+            xhr.send()
