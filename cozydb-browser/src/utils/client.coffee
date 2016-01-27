@@ -1,8 +1,4 @@
-eventListening = (action) ->
-    return (e) ->
-        window.removeEventListener 'message', eventListening
-        action e.data
-        return
+
 
 askForToken = ()->
     window.parent.postMessage { action: 'getToken' }, '*'
@@ -30,9 +26,12 @@ playRequest = (method, path, attributes, callback) ->
     askForToken()
     xhr = new XMLHttpRequest
     xhr.open method, "/ds-api/#{path}", true
-    window.addEventListener 'message', eventListening((intent) ->
-        auth = intent
-    ), false
+
+    eventListening = (event) ->
+        window.removeEventListener 'message', eventListening
+        auth = event.data
+
+    window.addEventListener 'message', eventListening, false
     xhr.onload = ->
         return callback null, xhr.response, xhr
 
@@ -48,4 +47,4 @@ playRequest = (method, path, attributes, callback) ->
         else
             xhr.send()
         return
-    ), 300
+    ), 400
