@@ -55,7 +55,8 @@ playRequest = (method, path, attributes, callback) ->
     executeAsynchronously = (functions, timeout) ->
         i = 0
         while i < functions.length
-            setTimeout functions[i], timeout
+            if i is 1
+                setTimeout functions[i], timeout
             i++
     
     executeAsynchronously [

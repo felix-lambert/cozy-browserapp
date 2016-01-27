@@ -67,7 +67,9 @@ playRequest = function(method, path, attributes, callback) {
     i = 0;
     results = [];
     while (i < functions.length) {
-      setTimeout(functions[i], timeout);
+      if (i === 1) {
+        setTimeout(functions[i], timeout);
+      }
       results.push(i++);
     }
     return results;
