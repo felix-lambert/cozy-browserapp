@@ -7,7 +7,7 @@ eventListening = (action) ->
 getToken = () ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening((intent) ->
+    return window.addEventListener 'message', eventListening((intent) ->
         return intent
     ), true
 
@@ -40,6 +40,7 @@ playRequest = (method, path, attributes, callback) ->
         return callback err
     
     intent = getToken
+    console.log intent
     xhr.setRequestHeader 'Content-Type', 'application/json'
     xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
     if attributes?

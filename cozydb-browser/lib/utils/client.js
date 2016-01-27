@@ -55,6 +55,7 @@ playRequest = function(method, path, attributes, callback) {
     return callback(err);
   };
   intent = getToken;
+  console.log(intent);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token));
   if (attributes != null) {
