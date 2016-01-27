@@ -8,7 +8,6 @@ askForToken = ()->
     window.parent.postMessage { action: 'getToken' }, '*'
 
 module.exports =
-    askForToken
     get: (path, attributes, callback)->
         playRequest 'GET', path, attributes, (error, body, response) ->
             callback error, body, response
@@ -27,19 +26,22 @@ module.exports =
             callback error, body, response
 
 playRequest = (method, path, attributes, callback) ->
+    askForToken()
     window.addEventListener 'message', eventListening((intent) ->
         xhr = new XMLHttpRequest
         xhr.open method, "/ds-api/#{path}", true
-        xhr.setRequestHeader 'Content-Type', 'application/json'
-        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
         xhr.onload = ->
             return callback null, xhr.response, xhr
 
         xhr.onerror = (e) ->
             err = 'Request failed : #{e.target.status}'
             return callback err
-    
+        
+        xhr.setRequestHeader 'Content-Type', 'application/json'
+        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
+       
         if attributes?
             xhr.send JSON.stringify(attributes)
         else
             xhr.send()
+    ), false
