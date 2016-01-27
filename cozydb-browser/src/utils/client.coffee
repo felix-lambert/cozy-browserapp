@@ -4,12 +4,14 @@ eventListening = (action) ->
         action e.data
         return
 
-getToken = () ->
+getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    return window.addEventListener 'message', eventListening((intent) ->
-        return intent
-    ), true
+    window.addEventListener 'message', eventListening((intent) ->
+        setTimeout() ->
+            callback intent
+        , 200
+    ), false
 
 module.exports =
     get: (path, attributes, callback)->
@@ -39,11 +41,10 @@ playRequest = (method, path, attributes, callback) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
     
-    intent = getToken
-    console.log intent
-    xhr.setRequestHeader 'Content-Type', 'application/json'
-    xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
-    if attributes?
-        xhr.send JSON.stringify(attributes)
-    else
-        xhr.send()
+    getToken (res) ->
+        xhr.setRequestHeader 'Content-Type', 'application/json'
+        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
+        if attributes?
+            xhr.send JSON.stringify(attributes)
+        else
+            xhr.send()
