@@ -63,5 +63,5 @@ playRequest = function(method, path, attributes, callback) {
     } else {
       xhr.send();
     }
-  }), 3000);
+  }), 50);
 };
