@@ -8,8 +8,8 @@ eventListening = function(action) {
   };
 };
 
-getToken = function(callback) {
-  console.log('getToken');
+getToken = function(xhr, method, callback) {
+  xhr.open(method, "/ds-api/" + path, true);
   window.parent.postMessage({
     action: 'getToken'
   }, '*');
@@ -47,7 +47,6 @@ module.exports = {
 playRequest = function(method, path, attributes, callback) {
   var xhr;
   xhr = new XMLHttpRequest;
-  xhr.open(method, "/ds-api/" + path, true);
   xhr.onload = function() {
     return callback(null, xhr.response, xhr);
   };
@@ -56,7 +55,7 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  return getToken(function(res) {
+  return getToken(xhr, method, function(res) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
     if (attributes != null) {
