@@ -4,17 +4,11 @@ eventListening = (action) ->
         action e.data
         return
 
-getToken = (callback) ->
-    
+askForToken = ()->
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening((intent) ->
-        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
-        console.log 'callback'
-        callback()
-        return
-    ), false
 
 module.exports =
+    askForToken
     get: (path, attributes, callback)->
         playRequest 'GET', path, attributes, (error, body, response) ->
             callback error, body, response
@@ -33,17 +27,18 @@ module.exports =
             callback error, body, response
 
 playRequest = (method, path, attributes, callback) ->
-    xhr = new XMLHttpRequest
-    xhr.open method, "/ds-api/#{path}", true
-    xhr.setRequestHeader 'Content-Type', 'application/json'
-    xhr.onload = ->
-        return callback null, xhr.response, xhr
+    window.addEventListener 'message', eventListening((intent) ->
+        xhr = new XMLHttpRequest
+        xhr.open method, "/ds-api/#{path}", true
+        xhr.setRequestHeader 'Content-Type', 'application/json'
+        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
+        xhr.onload = ->
+            return callback null, xhr.response, xhr
 
-    xhr.onerror = (e) ->
-        err = 'Request failed : #{e.target.status}'
-        return callback err
+        xhr.onerror = (e) ->
+            err = 'Request failed : #{e.target.status}'
+            return callback err
     
-    getToken xhr, method, path, () ->
         if attributes?
             xhr.send JSON.stringify(attributes)
         else
