@@ -1,13 +1,14 @@
-eventListening = (action) ->
+eventListening = (xhr, method, path, action) ->
     return (e) ->
+        xhr.open method, "/ds-api/#{path}", true
         window.removeEventListener 'message', eventListening
         action e.data
         return
 
 getToken = (xhr, method, path, callback) ->
-    xhr.open method, "/ds-api/#{path}", true
+    
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening((intent) ->
+    window.addEventListener 'message', eventListening(xhr, method, path, (intent) ->
         setTimeout (->
             callback intent
             return
