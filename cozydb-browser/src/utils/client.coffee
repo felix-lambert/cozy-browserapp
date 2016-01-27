@@ -8,9 +8,10 @@ getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
     window.addEventListener 'message', eventListening((intent) ->
-        setTimeout() ->
+        setTimeout (->
             callback intent
-        , 200
+            return
+        ), 5
     ), false
 
 module.exports =

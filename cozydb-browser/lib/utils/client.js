@@ -14,9 +14,9 @@ getToken = function(callback) {
     action: 'getToken'
   }, '*');
   return window.addEventListener('message', eventListening(function(intent) {
-    return setTimeout()(function() {
-      return callback(intent);
-    }, 200);
+    return setTimeout((function() {
+      callback(intent);
+    }), 5);
   }), false);
 };
 
