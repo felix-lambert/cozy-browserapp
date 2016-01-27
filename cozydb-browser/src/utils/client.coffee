@@ -26,22 +26,24 @@ module.exports =
             callback error, body, response
 
 playRequest = (method, path, attributes, callback) ->
+    auth = null
     askForToken()
+    xhr = new XMLHttpRequest
+    xhr.open method, "/ds-api/#{path}", true
     window.addEventListener 'message', eventListening((intent) ->
-        xhr = new XMLHttpRequest
-        xhr.open method, "/ds-api/#{path}", false
-        xhr.onload = ->
-            return callback null, xhr.response, xhr
-
-        xhr.onerror = (e) ->
-            err = 'Request failed : #{e.target.status}'
-            return callback err
-        
-        xhr.setRequestHeader 'Content-Type', 'application/json'
-        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
-       
-        if attributes?
-            xhr.send JSON.stringify(attributes)
-        else
-            xhr.send()
+        auth = intent
     ), false
+    xhr.onload = ->
+        return callback null, xhr.response, xhr
+
+    xhr.onerror = (e) ->
+        err = 'Request failed : #{e.target.status}'
+        return callback err
+    
+    xhr.setRequestHeader 'Content-Type', 'application/json'
+    xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token)
+   
+    if attributes?
+        xhr.send JSON.stringify(attributes)
+    else
+        xhr.send()
