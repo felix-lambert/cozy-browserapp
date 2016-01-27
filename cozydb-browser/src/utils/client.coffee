@@ -34,7 +34,8 @@ playRequest = (method, path, attributes, callback) ->
         xhr = new XMLHttpRequest
 
         xhr.onload = ->
-            return callback null, xhr.response, xhr
+            callback null, xhr.response, xhr
+            xhr = null
 
         xhr.onerror = (e) ->
             err = 'Request failed : #{e.target.status}'
@@ -46,4 +47,3 @@ playRequest = (method, path, attributes, callback) ->
             xhr.send JSON.stringify(attributes)
         else
             xhr.send()
-        xhr = null

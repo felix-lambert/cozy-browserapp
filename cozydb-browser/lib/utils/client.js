@@ -47,7 +47,8 @@ playRequest = function(method, path, attributes, callback) {
     var xhr;
     xhr = new XMLHttpRequest;
     xhr.onload = function() {
-      return callback(null, xhr.response, xhr);
+      callback(null, xhr.response, xhr);
+      return xhr = null;
     };
     xhr.onerror = function(e) {
       var err;
@@ -58,10 +59,9 @@ playRequest = function(method, path, attributes, callback) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
     if (attributes != null) {
-      xhr.send(JSON.stringify(attributes));
+      return xhr.send(JSON.stringify(attributes));
     } else {
-      xhr.send();
+      return xhr.send();
     }
-    return xhr = null;
   });
 };
