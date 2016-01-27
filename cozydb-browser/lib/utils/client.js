@@ -32,47 +32,31 @@ module.exports = {
 };
 
 playRequest = function(method, path, attributes, callback) {
-  var auth, eventListening, executeAsynchronously, listenToHome, sendRequest;
+  var auth, eventListening, xhr;
   auth = null;
   askForToken();
+  xhr = new XMLHttpRequest;
+  xhr.open(method, "/ds-api/" + path, true);
   eventListening = function(event) {
     window.removeEventListener('message', eventListening);
     return auth = event.data;
   };
-  listenToHome = function() {
-    return window.addEventListener('message', eventListening, false);
+  window.addEventListener('message', eventListening, false);
+  xhr.onload = function() {
+    return callback(null, xhr.response, xhr);
   };
-  sendRequest = function() {
-    var xhr;
-    xhr = new XMLHttpRequest;
-    xhr.open(method, "/ds-api/" + path, true);
-    xhr.onload = function() {
-      return callback(null, xhr.response, xhr);
-    };
-    xhr.onerror = function(e) {
-      var err;
-      err = 'Request failed : #{e.target.status}';
-      return callback(err);
-    };
+  xhr.onerror = function(e) {
+    var err;
+    err = 'Request failed : #{e.target.status}';
+    return callback(err);
+  };
+  return setTimeout((function() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token));
     if (attributes != null) {
-      return xhr.send(JSON.stringify(attributes));
+      xhr.send(JSON.stringify(attributes));
     } else {
-      return xhr.send();
+      xhr.send();
     }
-  };
-  executeAsynchronously = function(functions, timeout) {
-    var i, results;
-    i = 0;
-    results = [];
-    while (i < functions.length) {
-      if (i === 1) {
-        setTimeout(functions[i], timeout);
-      }
-      results.push(i++);
-    }
-    return results;
-  };
-  return executeAsynchronously([listenToHome, sendRequest], 1000);
+  }), 800);
 };
