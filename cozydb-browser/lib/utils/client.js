@@ -15,10 +15,9 @@ getToken = function(xhr, method, path, callback) {
     action: 'getToken'
   }, '*');
   return window.addEventListener('message', eventListening(function(intent) {
-    return setTimeout((function() {
-      xhr.setRequestHeader('Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token));
-      callback;
-    }), 5);
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token));
+    console.log('callback');
+    callback();
   }), false);
 };
 

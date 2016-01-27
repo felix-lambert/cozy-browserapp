@@ -9,11 +9,10 @@ getToken = (xhr, method, path, callback) ->
     xhr.setRequestHeader 'Content-Type', 'application/json'
     window.parent.postMessage { action: 'getToken' }, '*'
     window.addEventListener 'message', eventListening((intent) ->
-        setTimeout (->
-            xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
-            callback
-            return
-        ), 5
+        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
+        console.log 'callback'
+        callback()
+        return
     ), false
 
 module.exports =
