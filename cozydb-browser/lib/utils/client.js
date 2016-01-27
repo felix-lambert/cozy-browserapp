@@ -8,9 +8,7 @@ eventListening = function(action) {
   };
 };
 
-getToken = function(xhr, method, path, callback) {
-  xhr.open(method, "/ds-api/" + path, true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
+getToken = function(callback) {
   window.parent.postMessage({
     action: 'getToken'
   }, '*');
@@ -48,6 +46,8 @@ module.exports = {
 playRequest = function(method, path, attributes, callback) {
   var xhr;
   xhr = new XMLHttpRequest;
+  xhr.open(method, "/ds-api/" + path, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onload = function() {
     return callback(null, xhr.response, xhr);
   };

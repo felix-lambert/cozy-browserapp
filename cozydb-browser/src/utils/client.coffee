@@ -4,9 +4,8 @@ eventListening = (action) ->
         action e.data
         return
 
-getToken = (xhr, method, path, callback) ->
-    xhr.open method, "/ds-api/#{path}", true
-    xhr.setRequestHeader 'Content-Type', 'application/json'
+getToken = (callback) ->
+    
     window.parent.postMessage { action: 'getToken' }, '*'
     window.addEventListener 'message', eventListening((intent) ->
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
@@ -35,6 +34,8 @@ module.exports =
 
 playRequest = (method, path, attributes, callback) ->
     xhr = new XMLHttpRequest
+    xhr.open method, "/ds-api/#{path}", true
+    xhr.setRequestHeader 'Content-Type', 'application/json'
     xhr.onload = ->
         return callback null, xhr.response, xhr
 
