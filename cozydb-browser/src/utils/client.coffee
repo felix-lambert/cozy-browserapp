@@ -32,16 +32,16 @@ module.exports =
 playRequest = (method, path, attributes, callback) ->
     xhr = new XMLHttpRequest
     xhr.open method, "/ds-api/#{path}", true
+    xhr.setRequestHeader 'Content-Type', 'application/json'
     xhr.onload = ->
         return callback null, xhr.response, xhr
 
     xhr.onerror = (e) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
-
-    getToken (res) ->
+    
+    getToken (res) ->    
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
-        xhr.setRequestHeader 'Content-Type', 'application/json'
         if attributes?
             xhr.send JSON.stringify(attributes)
         else
