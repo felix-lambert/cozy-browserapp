@@ -29,10 +29,10 @@ playRequest = (method, path, attributes, callback) ->
         window.removeEventListener 'message', eventListening
         auth = event.data
 
-    addListener ()->
+    addListener = ()->
         window.addEventListener 'message', eventListening, false
 
-    sendRequest () ->
+    sendRequest = () ->
         xhr = new XMLHttpRequest
         xhr.open method, "/ds-api/#{path}", true
         xhr.onload = ->

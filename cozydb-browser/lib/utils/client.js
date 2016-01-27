@@ -32,17 +32,17 @@ module.exports = {
 };
 
 playRequest = function(method, path, attributes, callback) {
-  var auth, eventListening, executeAsynchronously;
+  var addListener, auth, eventListening, executeAsynchronously, sendRequest;
   auth = null;
   askForToken();
   eventListening = function(event) {
     window.removeEventListener('message', eventListening);
     return auth = event.data;
   };
-  addListener(function() {
+  addListener = function() {
     return window.addEventListener('message', eventListening, false);
-  });
-  sendRequest(function() {
+  };
+  sendRequest = function() {
     var xhr;
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path, true);
@@ -60,7 +60,7 @@ playRequest = function(method, path, attributes, callback) {
     } else {
       xhr.send();
     }
-  });
+  };
   executeAsynchronously = function(functions, timeout) {
     var i;
     i = 0;
