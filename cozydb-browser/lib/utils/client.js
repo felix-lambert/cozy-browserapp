@@ -3,7 +3,6 @@ var eventListening, getToken, playRequest;
 
 eventListening = function(action) {
   return function(e) {
-    console.log(e);
     window.removeEventListener('message', eventListening);
     action(e.data);
   };
@@ -14,10 +13,8 @@ getToken = function(callback) {
   window.parent.postMessage({
     action: 'getToken'
   }, '*');
-  return window.addEventListener('message', eventListening(function(isOutside) {
-    console.log('///////////////////');
-    console.log(isOutside);
-    return callback(isOutside);
+  return window.addEventListener('message', eventListening(function(intent) {
+    return callback(intent);
   }), false);
 };
 
@@ -50,7 +47,6 @@ playRequest = function(method, path, attributes, callback) {
   xhr = new XMLHttpRequest;
   xhr.open(method, "/ds-api/" + path, true);
   xhr.onload = function() {
-    console.log(xhr.response);
     return callback(null, xhr.response, xhr);
   };
   xhr.onerror = function(e) {

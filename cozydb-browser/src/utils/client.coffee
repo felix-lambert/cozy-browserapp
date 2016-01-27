@@ -1,6 +1,5 @@
 eventListening = (action) ->
     return (e) ->
-        console.log e
         window.removeEventListener 'message', eventListening
         action e.data
         return
@@ -8,10 +7,8 @@ eventListening = (action) ->
 getToken = (callback) ->
     console.log 'getToken'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening((isOutside) ->
-        console.log '///////////////////'
-        console.log isOutside
-        callback isOutside
+    window.addEventListener 'message', eventListening((intent) ->
+        callback intent
     ), false
 
 module.exports =
@@ -37,7 +34,6 @@ playRequest = (method, path, attributes, callback) ->
     xhr.open method, "/ds-api/#{path}", true
 
     xhr.onload = ->
-        console.log xhr.response
         return callback null, xhr.response, xhr
 
     xhr.onerror = (e) ->
