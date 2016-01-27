@@ -36,7 +36,7 @@ playRequest = (method, path, attributes, callback) ->
         xhr = new XMLHttpRequest
         xhr.open method, "/ds-api/#{path}", true
         xhr.onload = ->
-        return callback null, xhr.response, xhr
+            return callback null, xhr.response, xhr
 
         xhr.onerror = (e) ->
             err = 'Request failed : #{e.target.status}'
