@@ -70,5 +70,5 @@ playRequest = function(method, path, attributes, callback) {
       i++;
     }
   };
-  return executeAsynchronously([addListener, sendRequest], 10);
+  return executeAsynchronously([addListener, sendRequest], 1000);
 };
