@@ -45,8 +45,6 @@ module.exports = {
 playRequest = function(method, path, attributes, callback) {
   var xhr;
   xhr = new XMLHttpRequest;
-  xhr.open(method, "/ds-api/" + path, true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onload = function() {
     return callback(null, xhr.response, xhr);
   };
@@ -56,6 +54,8 @@ playRequest = function(method, path, attributes, callback) {
     return callback(err);
   };
   return getToken(function(res) {
+    xhr.open(method, "/ds-api/" + path, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
     if (attributes != null) {
       return xhr.send(JSON.stringify(attributes));
