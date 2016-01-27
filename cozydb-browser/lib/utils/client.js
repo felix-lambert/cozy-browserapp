@@ -54,9 +54,9 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  xhr.setRequestHeader('Content-Type', 'application/json');
   return getToken(function(res) {
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
+    xhr.setRequestHeader('Content-Type', 'application/json');
     if (attributes != null) {
       return xhr.send(JSON.stringify(attributes));
     } else {

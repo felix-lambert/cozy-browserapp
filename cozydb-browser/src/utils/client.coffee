@@ -38,10 +38,10 @@ playRequest = (method, path, attributes, callback) ->
     xhr.onerror = (e) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
-    xhr.setRequestHeader 'Content-Type', 'application/json'
-    
+
     getToken (res) ->
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
+        xhr.setRequestHeader 'Content-Type', 'application/json'
         if attributes?
             xhr.send JSON.stringify(attributes)
         else
