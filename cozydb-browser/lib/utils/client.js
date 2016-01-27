@@ -8,13 +8,13 @@ eventListening = function(action) {
   };
 };
 
-getToken = function(callback) {
+getToken = function() {
   console.log('getToken');
   window.parent.postMessage({
     action: 'getToken'
   }, '*');
   return window.addEventListener('message', eventListening(function(intent) {
-    return callback(intent);
+    return intent;
   }), true);
 };
 
@@ -43,8 +43,9 @@ module.exports = {
 };
 
 playRequest = function(method, path, attributes, callback) {
-  var xhr;
+  var intent, xhr;
   xhr = new XMLHttpRequest;
+  xhr.open(method, "/ds-api/" + path, true);
   xhr.onload = function() {
     return callback(null, xhr.response, xhr);
   };
@@ -53,14 +54,12 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  return getToken(function(res) {
-    xhr.open(method, "/ds-api/" + path, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
-    if (attributes != null) {
-      return xhr.send(JSON.stringify(attributes));
-    } else {
-      return xhr.send();
-    }
-  });
+  intent = getToken;
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token));
+  if (attributes != null) {
+    return xhr.send(JSON.stringify(attributes));
+  } else {
+    return xhr.send();
+  }
 };
