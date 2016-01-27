@@ -55,11 +55,11 @@ playRequest = (method, path, attributes, callback) ->
     executeAsynchronously = (functions, timeout) ->
         i = 0
         while i < functions.length
-          setTimeout functions[i], timeout
-          i++
+            setTimeout functions[i], timeout
+            i++
     
     executeAsynchronously [
         listenToHome
         sendRequest
-    ], 10
+    ], 1000
     
