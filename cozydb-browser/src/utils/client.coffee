@@ -48,4 +48,4 @@ playRequest = (method, path, attributes, callback) ->
         else
             xhr.send()
         return
-    ), 50
+    ), 100
