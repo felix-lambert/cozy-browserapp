@@ -11,8 +11,6 @@ askForToken = function() {
   }, '*');
 };
 
-askForToken();
-
 eventListening = function(event) {
   window.removeEventListener('message', eventListening);
   return auth = event.data;
@@ -40,6 +38,7 @@ errorMaker = function(error, response, body, expectedCode) {
 
 define = function(docType, name, request, callback) {
   var map, path, reduce, reduceArgsAndBody, view;
+  askForToken();
   map = request.map, reduce = request.reduce;
   if ((reduce != null) && typeof reduce === 'function') {
     reduce = reduce.toString();
@@ -58,6 +57,7 @@ define = function(docType, name, request, callback) {
 
 module.exports.create = function(docType, attributes, callback) {
   var path;
+  askForToken();
   path = "data/";
   attributes.docType = docType;
   if (attributes.id != null) {
@@ -75,6 +75,7 @@ module.exports.create = function(docType, attributes, callback) {
 };
 
 module.exports.find = function(id, callback) {
+  askForToken();
   return client.get(auth, "data/" + id + "/", null, function(error, body, response) {
     if (error) {
       return callback(error);
@@ -87,6 +88,7 @@ module.exports.find = function(id, callback) {
 };
 
 module.exports.exists = function(id, callback) {
+  askForToken();
   return client.get(auth, "data/exist/" + id + "/", null, function(error, body, response) {
     if (error) {
       return callback(error);
@@ -99,7 +101,7 @@ module.exports.exists = function(id, callback) {
 };
 
 module.exports.updateAttributes = function(docType, id, attributes, callback) {
-  console.log('updateAttributes');
+  askForToken();
   attributes.docType = docType;
   return client.put(auth, "data/merge/" + id + "/", attributes, function(error, body, response) {
     if (error) {
@@ -115,6 +117,7 @@ module.exports.updateAttributes = function(docType, id, attributes, callback) {
 };
 
 module.exports.destroy = function(id, callback) {
+  askForToken();
   return client.del(auth, "data/" + id + "/", null, function(error, body, response) {
     if (error) {
       return callback(error);
@@ -130,6 +133,7 @@ module.exports.destroy = function(id, callback) {
 
 module.exports.defineRequest = function(docType, name, request, callback) {
   var map, reduce;
+  askForToken();
   if (typeof request === "function" || typeof request === 'string') {
     map = request;
   } else {
@@ -144,6 +148,7 @@ module.exports.defineRequest = function(docType, name, request, callback) {
 
 module.exports.run = function(docType, name, params, callback) {
   var path, ref;
+  askForToken();
   if (typeof params === "function") {
     ref = [{}, params], params = ref[0], callback = ref[1];
   }
@@ -161,6 +166,7 @@ module.exports.run = function(docType, name, params, callback) {
 
 module.exports.requestDestroy = function(docType, name, params, callback) {
   var path, ref;
+  askForToken();
   if (typeof params === "function") {
     ref = [{}, params], params = ref[0], callback = ref[1];
   }

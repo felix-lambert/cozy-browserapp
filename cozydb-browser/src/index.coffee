@@ -4,7 +4,7 @@ auth = null
 askForToken = ()->
     window.parent.postMessage { action: 'getToken' }, '*'
 
-askForToken()
+
 
 eventListening = (event) ->
     window.removeEventListener 'message', eventListening
@@ -30,6 +30,7 @@ errorMaker = (error, response, body, expectedCode) ->
         return null
 
 define = (docType, name, request, callback) ->
+    askForToken()
     {map, reduce} = request
 
     # transforms all functions in anonymous functions
@@ -56,6 +57,7 @@ define = (docType, name, request, callback) ->
         checkError error, response, body, 200, callback
 
 module.exports.create = (docType, attributes, callback) ->
+    askForToken()
     path = "data/"
     attributes.docType = docType
     if attributes.id?
@@ -70,6 +72,7 @@ module.exports.create = (docType, attributes, callback) ->
             callback null, JSON.parse body
 
 module.exports.find = (id, callback) ->
+    askForToken()
     client.get auth, "data/#{id}/", null, (error, body, response) ->
         if error
             callback error
@@ -79,6 +82,7 @@ module.exports.find = (id, callback) ->
             callback null, body
 
 module.exports.exists = (id, callback) ->
+    askForToken()
     client.get auth, "data/exist/#{id}/", null, (error, body, response) ->
         if error
             callback error
@@ -88,7 +92,7 @@ module.exports.exists = (id, callback) ->
             callback null, body.exist
 
 module.exports.updateAttributes = (docType, id, attributes, callback) ->
-    console.log 'updateAttributes'
+    askForToken()
     attributes.docType = docType
     client.put auth, "data/merge/#{id}/", attributes, (error, body, response) ->
         if error
@@ -101,6 +105,7 @@ module.exports.updateAttributes = (docType, id, attributes, callback) ->
             callback null, JSON.parse body
 
 module.exports.destroy = (id, callback) ->
+    askForToken()
     client.del auth, "data/#{id}/", null, (error, body, response) ->
         if error
             callback error
@@ -112,6 +117,7 @@ module.exports.destroy = (id, callback) ->
             callback null
 
 module.exports.defineRequest = (docType, name, request, callback) ->
+    askForToken()
     if typeof(request) is "function" or typeof(request) is 'string'
         map = request
     else
@@ -120,6 +126,7 @@ module.exports.defineRequest = (docType, name, request, callback) ->
     define docType, name, {map, reduce}, callback
 
 module.exports.run = (docType, name, params, callback) ->
+    askForToken()
     [params, callback] = [{}, params] if typeof(params) is "function"
 
     path = "request/#{docType}/#{name.toLowerCase()}/"
@@ -132,6 +139,7 @@ module.exports.run = (docType, name, params, callback) ->
             callback null, body
 
 module.exports.requestDestroy = (docType, name, params, callback) ->
+    askForToken()
     [params, callback] = [{}, params] if typeof(params) is "function"
     params.limit ?= 100
 
