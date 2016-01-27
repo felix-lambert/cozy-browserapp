@@ -27,7 +27,7 @@ module.exports =
 
 playRequest = (method, path, attributes, callback) ->
     xhr = new XMLHttpRequest
-    xhr.open method, "/ds-api/#{path}", true
+    xhr.open method, "/ds-api/#{path}", false
     askForToken()
     window.addEventListener 'message', eventListening((intent) ->
         xhr.onload = ->

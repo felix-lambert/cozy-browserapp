@@ -41,7 +41,7 @@ module.exports = {
 playRequest = function(method, path, attributes, callback) {
   var xhr;
   xhr = new XMLHttpRequest;
-  xhr.open(method, "/ds-api/" + path, true);
+  xhr.open(method, "/ds-api/" + path, false);
   askForToken();
   return window.addEventListener('message', eventListening(function(intent) {
     xhr.onload = function() {
