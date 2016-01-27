@@ -4,47 +4,39 @@ askForToken = ()->
     window.parent.postMessage { action: 'getToken' }, '*'
 
 module.exports =
-    get: (path, attributes, callback)->
-        playRequest 'GET', path, attributes, (error, body, response) ->
+    get: (auth, path, attributes, callback)->
+        playRequest auth, 'GET', path, attributes, (error, body, response) ->
             callback error, body, response
 
-    post: (path, attributes, callback) ->
-        playRequest 'POST', path, attributes, (error, body, response) ->
+    post: (auth, path, attributes, callback) ->
+        playRequest auth, 'POST', path, attributes, (error, body, response) ->
             callback error, body, response
 
-    put: (path, attributes, callback) ->
+    put: (auth, path, attributes, callback) ->
         console.log 'put'
-        playRequest 'PUT', path, attributes, (error, body, response) ->
+        playRequest auth, 'PUT', path, attributes, (error, body, response) ->
             callback error, body, response   
 
-    del: (path, attributes, callback) ->
-        playRequest 'DELETE', path, attributes, (error, body, response) ->
+    del: (auth, path, attributes, callback) ->
+        playRequest auth, 'DELETE', path, attributes, (error, body, response) ->
             callback error, body, response
 
-playRequest = (method, path, attributes, callback) ->
-    auth = null
-    askForToken()
+playRequest = (auth, method, path, attributes, callback) ->
     xhr = new XMLHttpRequest
     xhr.open method, "/ds-api/#{path}", true
 
-    eventListening = (event) ->
-        window.removeEventListener 'message', eventListening
-        auth = event.data
-
-    window.addEventListener 'message', eventListening, false
     xhr.onload = ->
         return callback null, xhr.response, xhr
 
     xhr.onerror = (e) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
-    setTimeout (->
-        xhr.setRequestHeader 'Content-Type', 'application/json'
-        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token)
-       
-        if attributes?
-            xhr.send JSON.stringify(attributes)
-        else
-            xhr.send()
-        return
-    ), 400
+
+    xhr.setRequestHeader 'Content-Type', 'application/json'
+    xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token)
+   
+    if attributes?
+        xhr.send JSON.stringify(attributes)
+    else
+        xhr.send()
+    return
