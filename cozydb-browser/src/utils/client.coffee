@@ -1,16 +1,17 @@
-eventListening = (xhr, method, path, action) ->
+eventListening = (action) ->
     return (e) ->
-        xhr.open method, "/ds-api/#{path}", true
         window.removeEventListener 'message', eventListening
         action e.data
         return
 
 getToken = (xhr, method, path, callback) ->
-    
+    xhr.open method, "/ds-api/#{path}", true
+    xhr.setRequestHeader 'Content-Type', 'application/json'
     window.parent.postMessage { action: 'getToken' }, '*'
-    window.addEventListener 'message', eventListening(xhr, method, path, (intent) ->
+    window.addEventListener 'message', eventListening((intent) ->
         setTimeout (->
-            callback intent
+            xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token)
+            callback
             return
         ), 5
     ), false
@@ -42,9 +43,7 @@ playRequest = (method, path, attributes, callback) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
     
-    getToken xhr, method, path, (res) ->
-        xhr.setRequestHeader 'Content-Type', 'application/json'
-        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
+    getToken xhr, method, path, () ->
         if attributes?
             xhr.send JSON.stringify(attributes)
         else
