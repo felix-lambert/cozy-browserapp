@@ -53,8 +53,8 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  xhr.open(method, "/ds-api/" + path, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.open(method, "/ds-api/" + path, true);
   return getToken(function(res) {
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(res.appName + ':' + res.token));
     if (attributes != null) {

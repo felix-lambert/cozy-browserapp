@@ -38,8 +38,8 @@ playRequest = (method, path, attributes, callback) ->
     xhr.onerror = (e) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
-    xhr.open method, "/ds-api/#{path}", true
     xhr.setRequestHeader 'Content-Type', 'application/json'
+    xhr.open method, "/ds-api/#{path}", true
     getToken (res) ->
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
         if attributes?
