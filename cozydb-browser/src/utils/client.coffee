@@ -31,7 +31,7 @@ module.exports =
 
 playRequest = (method, path, attributes, callback) ->
     xhr = new XMLHttpRequest
-
+    xhr.open method, "/ds-api/#{path}", true
     xhr.onload = ->
         return callback null, xhr.response, xhr
 
@@ -39,7 +39,7 @@ playRequest = (method, path, attributes, callback) ->
         err = 'Request failed : #{e.target.status}'
         return callback err
     xhr.setRequestHeader 'Content-Type', 'application/json'
-    xhr.open method, "/ds-api/#{path}", true
+    
     getToken (res) ->
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(res.appName + ':' + res.token)
         if attributes?
