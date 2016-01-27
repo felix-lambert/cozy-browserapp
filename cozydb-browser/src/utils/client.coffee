@@ -24,23 +24,21 @@ module.exports =
 playRequest = (method, path, attributes, callback) ->
     auth = null
     askForToken()
-    
+    xhr = new XMLHttpRequest
+    xhr.open method, "/ds-api/#{path}", true
+
     eventListening = (event) ->
         window.removeEventListener 'message', eventListening
         auth = event.data
 
-    addListener = ()->
-        window.addEventListener 'message', eventListening, false
+    window.addEventListener 'message', eventListening, false
+    xhr.onload = ->
+        return callback null, xhr.response, xhr
 
-    sendRequest = () ->
-        xhr = new XMLHttpRequest
-        xhr.open method, "/ds-api/#{path}", true
-        xhr.onload = ->
-            return callback null, xhr.response, xhr
-
-        xhr.onerror = (e) ->
-            err = 'Request failed : #{e.target.status}'
-            return callback err
+    xhr.onerror = (e) ->
+        err = 'Request failed : #{e.target.status}'
+        return callback err
+    setTimeout (->
         xhr.setRequestHeader 'Content-Type', 'application/json'
         xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token)
        
@@ -49,12 +47,4 @@ playRequest = (method, path, attributes, callback) ->
         else
             xhr.send()
         return
-
-    executeAsynchronously = (functions, timeout) ->
-        i = 0
-        while i < functions.length
-            setTimeout functions[i], timeout
-            i++
-        return
-
-    executeAsynchronously([addListener, sendRequest], 1000);    
+    ), 1000
