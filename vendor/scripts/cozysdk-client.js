@@ -219,8 +219,9 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
+  console.log(e.e);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', 'Basic ' + btoa(e.appName + ':' + e.token));
+  xhr.setRequestHeader('Authorization', 'Basic ' + btoa(e.e.appName + ':' + e.e.token));
   if (attributes != null) {
     return xhr.send(JSON.stringify(attributes));
   } else {
