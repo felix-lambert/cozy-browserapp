@@ -211,7 +211,21 @@ playRequest = function(method, path, attributes, callback) {
   xhr = new XMLHttpRequest;
   xhr.open(method, "/ds-api/" + path, true);
   e = new eventListening;
-  return console.log(e);
+  xhr.onload = function() {
+    return callback(null, xhr.response, xhr);
+  };
+  xhr.onerror = function(e) {
+    var err;
+    err = 'Request failed : #{e.target.status}';
+    return callback(err);
+  };
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', 'Basic ' + btoa(e.appName + ':' + e.token));
+  if (attributes != null) {
+    return xhr.send(JSON.stringify(attributes));
+  } else {
+    return xhr.send();
+  }
 };
 
 },{}]},{},[1])(1)
