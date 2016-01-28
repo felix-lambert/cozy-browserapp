@@ -30438,15 +30438,8 @@ eventListening = function(e) {
   var self;
   self = this;
   return window.addEventListener('message', (function(event) {
-    return self.getEvent(event);
+    return this.data(event.data);
   }), false);
-};
-
-eventListening.prototype = {
-  getEvent: function(event) {
-    this.data = event.data;
-    return this.data;
-  }
 };
 
 module.exports = {
