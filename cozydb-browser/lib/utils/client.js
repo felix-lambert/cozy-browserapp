@@ -40,12 +40,12 @@ playRequest = function(method, path, attributes, callback) {
     };
   };
   askForToken();
-  getTokenFromHome = function(callback) {
+  getTokenFromHome = function(method, path, attributes, callback) {
     return window.addEventListener('message', eventListening(function(intent) {
-      return callback(intent);
+      return callback(method, path, attributes, intent);
     }), false);
   };
-  sendRequest = function(auth) {
+  sendRequest = function(method, path, attributes, auth) {
     var xhr;
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path, true);
@@ -65,5 +65,5 @@ playRequest = function(method, path, attributes, callback) {
       xhr.send();
     }
   };
-  return getTokenFromHome(sendRequest);
+  return getTokenFromHome(method, path, attributes, sendRequest);
 };

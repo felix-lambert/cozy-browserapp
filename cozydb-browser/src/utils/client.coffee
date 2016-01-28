@@ -29,12 +29,12 @@ playRequest = (method, path, attributes, callback) ->
     
     askForToken()
     
-    getTokenFromHome = (callback) ->
+    getTokenFromHome = (method, path, attributes, callback) ->
         window.addEventListener 'message', eventListening((intent) ->
-            callback intent
+            callback method, path, attributes, intent
         ), false
 
-    sendRequest = (auth) ->
+    sendRequest = (method, path, attributes, auth) ->
         xhr = new XMLHttpRequest
         xhr.open method, "/ds-api/#{path}", true
 
@@ -55,6 +55,6 @@ playRequest = (method, path, attributes, callback) ->
         return
 
 
-    getTokenFromHome sendRequest
+    getTokenFromHome method, path, attributes, sendRequest
 
     
