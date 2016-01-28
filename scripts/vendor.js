@@ -30434,12 +30434,21 @@ askForToken = function() {
   }, '*');
 };
 
-eventListening = function(e) {
+eventListening = function() {
   var self;
   self = this;
   return window.addEventListener('message', (function(event) {
-    return this.data(event.data);
+    return self.getEvent(event);
   }), false);
+};
+
+eventListening.prototype = {
+  getEvent: function(e) {
+    console.log('test event');
+    console.log(e);
+    this.data = e.data;
+    return this.data;
+  }
 };
 
 module.exports = {
@@ -30481,7 +30490,7 @@ playRequest = function(method, path, attributes, callback) {
     return callback(err);
   };
   console.log(e);
-  console.log(e.getEvent());
+  console.log(e.data);
   console.log(e.Object.data);
   console.log(Object.data(e));
   console.log(e.data);
