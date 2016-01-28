@@ -177,7 +177,7 @@ eventListening = function(e) {
 
 eventListening.prototype = {
   getEvent: function(event) {
-    this.e = event.data;
+    this.data = event.data;
   }
 };
 
@@ -219,8 +219,8 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  console.log(Object.keys(e));
-  console.log(e.e);
+  console.log(Object.data(e));
+  console.log(e.data);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('Authorization', 'Basic ' + btoa(e.e.appName + ':' + e.e.token));
   if (attributes != null) {
