@@ -30487,6 +30487,7 @@ playRequest = function(method, path, attributes, callback) {
     return callback(err);
   };
   console.log(e);
+  console.log(e.token);
   console.log(e.e);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('Authorization', 'Basic ' + btoa(e.e.appName + ':' + e.e.token));
