@@ -30465,6 +30465,7 @@ playRequest = function(method, path, attributes, callback) {
   xhr.open(method, "/ds-api/" + path, true);
   eventListening = function(action) {
     return function(e) {
+      window.removeEventListener('message', eventListening);
       return action(e.data);
     };
   };
