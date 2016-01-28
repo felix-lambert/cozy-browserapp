@@ -30445,6 +30445,7 @@ eventListening = function(e) {
 eventListening.prototype = {
   getEvent: function(event) {
     this.data = event.data;
+    return this.data;
   }
 };
 
@@ -30486,6 +30487,7 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
+  console.log(e);
   console.log(Object.data(e));
   console.log(e.data);
   xhr.setRequestHeader('Content-Type', 'application/json');
