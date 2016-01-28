@@ -34,7 +34,7 @@ playRequest = (method, path, attributes, callback) ->
     
     getTokenFromHome = (xhr, method, path, attributes, callback) ->
         window.addEventListener 'message', eventListening((intent) ->
-            callback method, path, attributes, intent
+            callback xhr, method, path, attributes, intent
         ), false
 
     sendRequest = (xhr, method, path, attributes, auth) ->

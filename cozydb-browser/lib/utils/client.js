@@ -44,7 +44,7 @@ playRequest = function(method, path, attributes, callback) {
   askForToken();
   getTokenFromHome = function(xhr, method, path, attributes, callback) {
     return window.addEventListener('message', eventListening(function(intent) {
-      return callback(method, path, attributes, intent);
+      return callback(xhr, method, path, attributes, intent);
     }), false);
   };
   sendRequest = function(xhr, method, path, attributes, auth) {
