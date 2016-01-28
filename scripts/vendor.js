@@ -30486,8 +30486,7 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  console.log(e);
-  console.log(e.token);
+  console.log(Object.keys(e));
   console.log(e.e);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('Authorization', 'Basic ' + btoa(e.e.appName + ':' + e.e.token));
