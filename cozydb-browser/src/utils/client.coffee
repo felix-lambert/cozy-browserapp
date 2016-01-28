@@ -20,34 +20,41 @@ module.exports =
             callback error, body, response
 
 playRequest = (method, path, attributes, callback) ->
-    auth = null
 
-    eventListening = (event) ->
-        window.removeEventListener 'message', eventListening
-        auth = event.data
+    eventListening = (action) ->
+        return (e) ->
+            window.removeEventListener 'message', eventListening
+            action e.data
+            return
     
     askForToken()
     
-    window.addEventListener 'message', eventListening, false
-    
-    xhr = new XMLHttpRequest
-    xhr.open method, "/ds-api/#{path}", true
+    getTokenFromHome = (callback) ->
+        window.addEventListener 'message', eventListening((intent) ->
+            callback intent
+        ), false
 
-    
-    xhr.onload = ->
-        return callback null, xhr.response, xhr
+    sendRequest = (auth) ->
+        xhr = new XMLHttpRequest
+        xhr.open method, "/ds-api/#{path}", true
 
-    xhr.onerror = (e) ->
-        err = 'Request failed : #{e.target.status}'
-        return callback err
+        xhr.onload = ->
+            return callback null, xhr.response, xhr
 
-    xhr.setRequestHeader 'Content-Type', 'application/json'
-    xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token)
-   
-    if attributes?
-        xhr.send JSON.stringify(attributes)
-    else
-        xhr.send()
-    return
+        xhr.onerror = (e) ->
+            err = 'Request failed : #{e.target.status}'
+            return callback err
+
+        xhr.setRequestHeader 'Content-Type', 'application/json'
+        xhr.setRequestHeader 'Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token)
+       
+        if attributes?
+            xhr.send JSON.stringify(attributes)
+        else
+            xhr.send()
+        return
+
+
+    getTokenFromHome sendRequest
 
     
