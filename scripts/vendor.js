@@ -30437,7 +30437,7 @@ askForToken = function() {
 eventListening = function(e) {
   var self;
   self = this;
-  return this.window.addEventListener('message', self.getEvent, true);
+  return window.addEventListener('message', self.getEvent, true);
 };
 
 eventListening.prototype = {
