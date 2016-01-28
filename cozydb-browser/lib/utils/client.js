@@ -42,12 +42,12 @@ playRequest = function(method, path, attributes, callback) {
     };
   };
   askForToken();
-  getTokenFromHome = function(method, path, attributes, callback) {
+  getTokenFromHome = function(xhr, method, path, attributes, callback) {
     return window.addEventListener('message', eventListening(function(intent) {
       return callback(method, path, attributes, intent);
     }), false);
   };
-  sendRequest = function(method, path, attributes, auth) {
+  sendRequest = function(xhr, method, path, attributes, auth) {
     xhr.onload = function() {
       return callback(null, xhr.response, xhr);
     };
@@ -64,5 +64,5 @@ playRequest = function(method, path, attributes, callback) {
       xhr.send();
     }
   };
-  return getTokenFromHome(method, path, attributes, sendRequest);
+  return getTokenFromHome(xhr, method, path, attributes, sendRequest);
 };
