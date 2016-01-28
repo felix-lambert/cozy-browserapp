@@ -197,12 +197,11 @@ playRequest = function(method, path, attributes, callback) {
   xhr = new XMLHttpRequest;
   xhr.open(method, "/ds-api/" + path, true);
   auth = null;
-  eventListening = function(action) {
-    return function(e) {
-      window.removeEventListener('message', eventListening);
-      return auth = e.data;
-    };
+  eventListening = function(e) {
+    window.removeEventListener('message', eventListening);
+    return auth = e.data;
   };
+  window.addEventListener('message', eventListening, true);
   xhr.onload = function() {
     return callback(null, xhr.response, xhr);
   };
@@ -214,11 +213,10 @@ playRequest = function(method, path, attributes, callback) {
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token));
   if (attributes != null) {
-    xhr.send(JSON.stringify(attributes));
+    return xhr.send(JSON.stringify(attributes));
   } else {
-    xhr.send();
+    return xhr.send();
   }
-  return window.addEventListener('message', eventListening, true);
 };
 
 },{}]},{},[1])(1)
