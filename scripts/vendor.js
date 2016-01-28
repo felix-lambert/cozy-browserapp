@@ -30488,6 +30488,8 @@ playRequest = function(method, path, attributes, callback) {
     return callback(err);
   };
   console.log(e);
+  console.log(e.getEvent());
+  console.log(e.Object.data);
   console.log(Object.data(e));
   console.log(e.data);
   xhr.setRequestHeader('Content-Type', 'application/json');
