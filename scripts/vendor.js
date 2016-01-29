@@ -30437,6 +30437,7 @@ askForToken = function() {
 eventListening = function() {
   var self;
   self = this;
+  this.e = Object;
   this.getEvent = function(event) {
     console.log(getEvent);
     console.log(event.data);
