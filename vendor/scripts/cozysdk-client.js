@@ -204,11 +204,10 @@ module.exports = {
 };
 
 playRequest = function(method, path, attributes, callback) {
-  var e, xhr;
+  var xhr;
   askForToken();
   xhr = new XMLHttpRequest;
   xhr.open(method, "/ds-api/" + path, true);
-  e = new eventListening;
   xhr.onload = function() {
     return callback(null, xhr.response, xhr);
   };
@@ -217,17 +216,14 @@ playRequest = function(method, path, attributes, callback) {
     err = 'Request failed : #{e.target.status}';
     return callback(err);
   };
-  console.log(e);
-  console.log(e.e);
-  console.log(e.Object);
-  console.log(window.Object);
-  console.log(e.getEvent);
-  console.log(e[e]);
-  console.log(e.Object.data);
-  console.log(Object.data(e));
-  console.log(e.data);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.setRequestHeader('Authorization', 'Basic ' + btoa(e.e.appName + ':' + e.e.token));
+  xhr.addEventListener('message', (function(event) {
+    console.log(event.data);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(event.data.appName + ':' + event.data.token));
+    if (xhr.status === 200) {
+      alert('We got data: ' + xhr.response, response);
+    }
+  }), false);
   if (attributes != null) {
     return xhr.send(JSON.stringify(attributes));
   } else {
