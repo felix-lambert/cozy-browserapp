@@ -170,11 +170,12 @@ askForToken = function() {
 eventListening = function() {
   var self;
   self = this;
-  this.e = null;
   this.getEvent = function(event) {
+    console.log(getEvent);
+    console.log(event.data);
     return this.e = event.data;
   };
-  return window.addEventListener('message', this.getEvent.bind(this), true);
+  return window.addEventListener('message', this.getEvent.bind(this, true));
 };
 
 module.exports = {
@@ -217,7 +218,7 @@ playRequest = function(method, path, attributes, callback) {
   };
   console.log(e);
   console.log(e.Object);
-  console.log(window.Object.e);
+  console.log(window.Object);
   console.log(e.getEvent);
   console.log(e[e]);
   console.log(e.Object.data);
