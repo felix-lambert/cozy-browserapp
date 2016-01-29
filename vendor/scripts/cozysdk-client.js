@@ -215,7 +215,7 @@ playRequest = function(method, path, attributes, callback) {
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    scope = angular.element(document.getElementById(auth.appName)).scope();
+    scope = window.parent.angular.element(auth.appName).scope();
     console.log('SCOPE');
     console.log(scope);
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token));
