@@ -30321,6 +30321,7 @@ module.exports.create = function(docType, attributes, callback) {
     if (error) {
       return callback(error);
     } else {
+      console.log(angular);
       scope = angular.element(document.getElementById('body')).scope();
       return scope.$apply(function() {
         return callback(null, JSON.parse(body));
