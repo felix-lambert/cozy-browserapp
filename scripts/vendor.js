@@ -30323,6 +30323,7 @@ module.exports.create = function(docType, attributes, callback) {
     } else {
       console.log(angular);
       console.log(angular.element(document.getElementById('body')));
+      console.log(angular.element($0));
       scope = angular.element(document.getElementById('body')).scope();
       return scope.$apply(function() {
         return callback(null, JSON.parse(body));
