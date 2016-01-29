@@ -30483,6 +30483,7 @@ playRequest = function(method, path, attributes, callback) {
     return callback(err);
   };
   console.log(e);
+  console.log(e.e);
   console.log(e.Object);
   console.log(window.Object);
   console.log(e.getEvent);
