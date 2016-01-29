@@ -211,7 +211,7 @@ playRequest = function(method, path, attributes, callback) {
     deferred = new Deferred;
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path, true);
-    xhr.addEventListener('message', (function(event) {
+    window.addEventListener('message', (function(event) {
       console.log(event.data);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('Authorization', 'Basic ' + btoa(event.data.appName + ':' + event.data.token));
