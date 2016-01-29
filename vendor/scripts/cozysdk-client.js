@@ -50,18 +50,10 @@ module.exports.create = function(docType, attributes, callback) {
     return callback(new Error('cant create an object with a set id'));
   }
   return client.post(path, attributes, function(error, body, response) {
-    var scope;
     if (error) {
       return callback(error);
     } else {
-      console.log(angular);
-      console.log(angular.element(document.getElementById('body')));
-      console.log(angular.element(document.getElementById('[ng-app]')).scope);
-      scope = angular.element(document.getElementById("#outer")).scope();
-      console.log(scope);
-      return scope.$apply(function() {
-        return callback(null, JSON.parse(body));
-      });
+      return callback(null, JSON.parse(body));
     }
   });
 };
@@ -211,7 +203,7 @@ playRequest = function(method, path, attributes, callback) {
     });
   };
   sendRequest = function(auth, callback) {
-    var xhr;
+    var scope, xhr;
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path, true);
     xhr.onload = function() {
@@ -223,6 +215,9 @@ playRequest = function(method, path, attributes, callback) {
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
+    scope = angular.element(auth.appName).scope();
+    console.log('SCOPE');
+    console.log(scope);
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token));
     if (attributes != null) {
       xhr.send(JSON.stringify(attributes));
