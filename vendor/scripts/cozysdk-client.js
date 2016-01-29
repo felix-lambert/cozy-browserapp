@@ -54,7 +54,7 @@ module.exports.create = function(docType, attributes, callback) {
     if (error) {
       return callback(error);
     } else {
-      if (typeof angular !== "undefined" && angular !== null) {
+      if (angular.element(document.querySelector('body')).scope() != null) {
         scope = angular.element(document.querySelector('body')).scope();
         return scope.$apply(function() {
           return callback(null, JSON.parse(body));
