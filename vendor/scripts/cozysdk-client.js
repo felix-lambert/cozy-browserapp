@@ -168,19 +168,13 @@ askForToken = function() {
 };
 
 eventListening = function() {
-  var self;
+  var e, self;
   self = this;
-  this.event;
-  return window.addEventListener('message', (function(event) {
-    return this.event = event;
-  }), false);
-};
-
-eventListening.prototype = {
-  getEvent: function() {
-    this.data = this.event;
-    return this.data;
-  }
+  e = null;
+  this.getEvent = function(event) {
+    return this.e = event.data;
+  };
+  return window.addEventListener('message', this.getEvent, true);
 };
 
 module.exports = {
