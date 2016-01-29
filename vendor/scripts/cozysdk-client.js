@@ -170,13 +170,11 @@ askForToken = function() {
 eventListening = function() {
   var self;
   self = this;
-  this.e = Object;
+  this.e = void 0;
   this.getEvent = function(event) {
-    console.log(getEvent);
-    console.log(event.data);
     return this.e = event.data;
   };
-  return window.addEventListener('message', this.getEvent.bind(this, true));
+  return window.addEventListener('message', this.getEvent.bind(this), true);
 };
 
 module.exports = {
