@@ -3,7 +3,7 @@ HomeAngCtrl = ($scope) ->
 
     add = (user) ->
         console.log 'create contact'
-        cozydb.create 'Contact', user, (err, res) ->
+        cozysdk.create 'Contact', user, (err, res) ->
             if err
                 alert err
             vm.contacts = res
@@ -28,7 +28,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     update = (id, user) ->
-        cozydb.updateAttributes 'Contact', id, user, (err, res) ->
+        cozysdk.updateAttributes 'Contact', id, user, (err, res) ->
             if err
                 alert err
             $scope.$apply ->
@@ -36,7 +36,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     destroy = (id) ->
-        cozydb.destroy id, (err, res) ->
+        cozysdk.destroy id, (err, res) ->
             if err
                 alert err
             $scope.$apply ->
@@ -44,7 +44,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     define = () ->
-        cozydb.defineRequest 'Contact', 'all', 'function(doc) { emit(doc.n, null); }', (err, res) ->
+        cozysdk.defineRequest 'Contact', 'all', 'function(doc) { emit(doc.n, null); }', (err, res) ->
             if err
                 alert err
             cozydb.run 'Contact', 'all', {}, (err, res) ->
@@ -53,7 +53,7 @@ HomeAngCtrl = ($scope) ->
         return
 
     destroyRequest = () ->
-        cozydb.requestDestroy 'Contact', 'all', {startkey: 'z', endkey: 'z'}, (err, res) ->
+        cozysdk.requestDestroy 'Contact', 'all', {startkey: 'z', endkey: 'z'}, (err, res) ->
             if err
                 alert err
             cozydb.run 'Contact', 'all', {}, (err, res) ->

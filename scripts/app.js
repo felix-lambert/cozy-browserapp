@@ -30,7 +30,7 @@ HomeAngCtrl = function($scope) {
   vm = this;
   add = function(user) {
     console.log('create contact');
-    cozydb.create('Contact', user, function(err, res) {
+    cozysdk.create('Contact', user, function(err, res) {
       if (err) {
         alert(err);
       }
@@ -60,7 +60,7 @@ HomeAngCtrl = function($scope) {
     });
   };
   update = function(id, user) {
-    cozydb.updateAttributes('Contact', id, user, function(err, res) {
+    cozysdk.updateAttributes('Contact', id, user, function(err, res) {
       if (err) {
         alert(err);
       }
@@ -70,7 +70,7 @@ HomeAngCtrl = function($scope) {
     });
   };
   destroy = function(id) {
-    cozydb.destroy(id, function(err, res) {
+    cozysdk.destroy(id, function(err, res) {
       if (err) {
         alert(err);
       }
@@ -80,7 +80,7 @@ HomeAngCtrl = function($scope) {
     });
   };
   define = function() {
-    cozydb.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
+    cozysdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
       if (err) {
         alert(err);
       }
@@ -92,7 +92,7 @@ HomeAngCtrl = function($scope) {
     });
   };
   destroyRequest = function() {
-    cozydb.requestDestroy('Contact', 'all', {
+    cozysdk.requestDestroy('Contact', 'all', {
       startkey: 'z',
       endkey: 'z'
     }, function(err, res) {
