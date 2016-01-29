@@ -172,6 +172,8 @@ eventListening = function() {
   self = this;
   this.e = void 0;
   this.getEvent = function(event) {
+    console.log('get event');
+    console.log(event.data);
     return this.e = event.data;
   };
   return window.addEventListener('message', this.getEvent.bind(this), true);
