@@ -217,9 +217,9 @@ playRequest = function(method, path, attributes, callback) {
   };
   console.log(e);
   console.log(e.Object);
-  console.log(window.Object);
+  console.log(window.Object.e);
   console.log(e.getEvent);
-  console.log(e[data]);
+  console.log(e[e]);
   console.log(e.Object.data);
   console.log(Object.data(e));
   console.log(e.data);
