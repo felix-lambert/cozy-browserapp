@@ -196,10 +196,9 @@ playRequest = function(method, path, attributes, callback) {
   askForToken();
   xhr = new XMLHttpRequest;
   xhr.open(method, "/ds-api/" + path, true);
-  askForToken();
   receiveToken = function(event) {
     var auth;
-    window.removeEventListener('message', eventListening);
+    window.removeEventListener('message', receiveToken);
     auth = event.data;
     return sendRequest(xhr, auth, attributes, function(error, body, response) {
       return callback(error, body, response);
