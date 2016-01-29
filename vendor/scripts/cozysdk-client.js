@@ -228,15 +228,7 @@ playRequest = function(method, path, attributes, callback) {
     }
     return deferred.promise();
   };
-  console.log(getData);
-  xhr.onload = function() {
-    return callback(null, xhr.response, xhr);
-  };
-  return xhr.onerror = function(e) {
-    var err;
-    err = 'Request failed : #{e.target.status}';
-    return callback(err);
-  };
+  return console.log(getData);
 };
 
 },{}]},{},[1])(1)
