@@ -192,10 +192,8 @@ module.exports = {
 };
 
 playRequest = function(method, path, attributes, callback) {
-  var receiveToken, sendRequest, xhr;
+  var receiveToken, sendRequest;
   askForToken();
-  xhr = new XMLHttpRequest;
-  xhr.open(method, "/ds-api/" + path, true);
   receiveToken = function(event) {
     var auth;
     window.removeEventListener('message', receiveToken);
@@ -205,6 +203,9 @@ playRequest = function(method, path, attributes, callback) {
     });
   };
   sendRequest = function(auth, callback) {
+    var xhr;
+    xhr = new XMLHttpRequest;
+    xhr.open(method, "/ds-api/" + path, true);
     xhr.onload = function() {
       return callback(null, xhr.response, xhr);
     };
