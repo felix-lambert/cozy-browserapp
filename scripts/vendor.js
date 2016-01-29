@@ -30471,31 +30471,27 @@ module.exports = {
 };
 
 playRequest = function(method, path, attributes, callback) {
-  var getData;
+  var xhr;
   askForToken();
-  getData = function() {
-    var deferred, xhr;
-    deferred = new Deferred;
-    xhr = new XMLHttpRequest;
-    xhr.open(method, "/ds-api/" + path, true);
-    window.addEventListener('message', (function(event) {
-      console.log(event.data);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('Authorization', 'Basic ' + btoa(event.data.appName + ':' + event.data.token));
-      if (xhr.status === 200) {
-        deferred.resolve(xhr.response);
-      } else {
-        deferred.reject('HTTP error: ' + xhr.status);
-      }
-    }), false);
+  xhr = new XMLHttpRequest;
+  xhr.open(method, "/ds-api/" + path, true);
+  return window.addEventListener('message', eventListening(function(intent) {
+    xhr.onload = function() {
+      return callback(null, xhr.response, xhr);
+    };
+    xhr.onerror = function(e) {
+      var err;
+      err = 'Request failed : #{e.target.status}';
+      return callback(err);
+    };
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(intent.appName + ':' + intent.token));
     if (attributes != null) {
-      xhr.send(JSON.stringify(attributes));
+      return xhr.send(JSON.stringify(attributes));
     } else {
-      xhr.send();
+      return xhr.send();
     }
-    return deferred.promise();
-  };
-  return console.log(getData);
+  }), false);
 };
 
 },{}]},{},[1])(1)
