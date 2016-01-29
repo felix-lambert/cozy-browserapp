@@ -200,7 +200,7 @@ playRequest = function(method, path, attributes, callback) {
     var auth;
     window.removeEventListener('message', receiveToken);
     auth = event.data;
-    return sendRequest(xhr, auth, attributes, function(error, body, response) {
+    return sendRequest(auth, function(error, body, response) {
       return callback(error, body, response);
     });
   };
