@@ -9,7 +9,6 @@ appConfig = ($routeProvider) ->
 angular.module('browserapp', [
   'ngResource'
   'ngRoute'
-  'cozysdk'
 ]).config appConfig
 
 routeObject = '/':
