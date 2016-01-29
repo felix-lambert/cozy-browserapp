@@ -26,7 +26,7 @@
         <tr>
             <td>{{home.contacts}}</td>
             <td>
-                <button class="btn btn-default" ng-click="home.find(home.contacts._id)">Find</button>
+                <button class="btn btn-default" id="outer" ng-click="home.find(home.contacts._id)">Find</button>
                 <button class="btn btn-primary" ng-click="home.exist(home.contacts._id)">Exist ?</button>
                 <button class="btn btn-primary" ng-click="home.destroy(home.contacts._id)">Destroy</button>
                 <button class="btn btn-primary" ng-click="home.define()">Define</button>
