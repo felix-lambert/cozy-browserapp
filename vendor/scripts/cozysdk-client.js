@@ -174,7 +174,7 @@ eventListening = function() {
   this.getEvent = function(event) {
     return this.e = event.data;
   };
-  return window.addEventListener('message', this.getEvent, true);
+  return window.addEventListener('message', this.getEvent.bind(this), true);
 };
 
 module.exports = {
