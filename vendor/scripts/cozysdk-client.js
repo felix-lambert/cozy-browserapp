@@ -50,13 +50,14 @@ module.exports.create = function(docType, attributes, callback) {
     return callback(new Error('cant create an object with a set id'));
   }
   return client.post(path, attributes, function(error, body, response) {
-    var scope, _ref;
+    var scope;
     if (error) {
       return callback(error);
     } else {
-      if ((typeof angular !== "undefined" && angular !== null ? (_ref = angular.element($0)) != null ? _ref.scope() : void 0 : void 0) != null) {
-        return scope = angular.element($0).scope();
-      }
+      scope = angular.element(document.getElementById('body')).scope();
+      return scope.$apply(function() {
+        return callback(null, JSON.parse(body));
+      });
     }
   });
 };
