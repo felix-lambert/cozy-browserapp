@@ -30435,9 +30435,9 @@ askForToken = function() {
 };
 
 eventListening = function() {
-  var e, self;
+  var self;
   self = this;
-  e = null;
+  this.e = null;
   this.getEvent = function(event) {
     return this.e = event.data;
   };
