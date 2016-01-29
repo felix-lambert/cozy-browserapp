@@ -6,9 +6,7 @@ HomeAngCtrl = ($scope) ->
         cozydb.create 'Contact', user, (err, res) ->
             if err
                 alert err
-            else
-                $scope.$apply ->
-                    vm.contacts = res
+            vm.contacts = res
         return
 
     find = (id) ->

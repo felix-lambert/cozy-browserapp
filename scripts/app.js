@@ -1,6 +1,6 @@
 var appConfig, routeObject;
 
-appConfig = function($httpProvider, $routeProvider) {
+appConfig = function($routeProvider) {
   var path;
   for (path in routeObject) {
     console.log(path);
@@ -12,7 +12,7 @@ appConfig = function($httpProvider, $routeProvider) {
   console.log('app config');
 };
 
-angular.module('browserapp', ['ngResource', 'ngRoute']).config(appConfig);
+angular.module('browserapp', ['ngResource', 'ngRoute', 'cozysdk']).config(appConfig);
 
 routeObject = {
   '/': {
@@ -22,7 +22,7 @@ routeObject = {
   }
 };
 
-appConfig.$inject = ['$httpProvider', '$routeProvider'];
+appConfig.$inject = ['$routeProvider'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($scope) {
@@ -32,12 +32,9 @@ HomeAngCtrl = function($scope) {
     console.log('create contact');
     cozydb.create('Contact', user, function(err, res) {
       if (err) {
-        return alert(err);
-      } else {
-        return $scope.$apply(function() {
-          return vm.contacts = res;
-        });
+        alert(err);
       }
+      return vm.contacts = res;
     });
   };
   find = function(id) {
