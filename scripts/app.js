@@ -28,16 +28,16 @@ appConfig.$inject = ['$routeProvider'];
 Contact = function($injector) {
   var CozySdk;
   CozySdk = $injector.get('CozySdk');
-  this.send = function(docType, data, callback) {
-    return CozySdk.create(docType, data, function(res) {
-      return CozySdk.find(res._id, function(result) {
-        return callback(result);
-      });
-    });
-  };
   return {
+    send: function(docType, data, callback) {
+      console.log('send');
+      return CozySdk.create(docType, data, function(res) {
+        return CozySdk.find(res._id, function(result) {
+          return callback(result);
+        });
+      });
+    },
     all: function(callback) {
-      console.log('all');
       return CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(res) {
         return CozySdk.runRequest('Contact', 'all', function(result) {
           return callback(result);
