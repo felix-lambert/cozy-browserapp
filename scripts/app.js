@@ -185,19 +185,19 @@ HomeAngCtrl = function($injector) {
     console.log('send');
     return Contact.send('Contact', user, function(res) {
       vm.contacts = res;
-      return activate;
+      return activate();
     });
   };
   update = function(id, user) {
     return CozySdk.updateAttributes('Contact', id, user, function(res) {
       vm.contacts = res;
-      return activate;
+      return activate();
     });
   };
   destroy = function(id) {
     return CozySdk.destroy(id, function(res) {
       vm.contacts = res;
-      return activate;
+      return activate();
     });
   };
   vm.send = send;

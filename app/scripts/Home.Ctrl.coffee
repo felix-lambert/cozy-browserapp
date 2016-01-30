@@ -16,17 +16,17 @@ HomeAngCtrl = ($injector) ->
         console.log 'send'
         Contact.send 'Contact', user, (res) ->
             vm.contacts = res
-            activate
+            activate()
 
     update = (id, user) ->
         CozySdk.updateAttributes 'Contact', id, user, (res) ->
             vm.contacts = res
-            activate
+            activate()
 
     destroy = (id) ->
         CozySdk.destroy id, (res) ->
             vm.contacts = res
-            activate
+            activate()
 
     vm.send = send
     vm.update = update
