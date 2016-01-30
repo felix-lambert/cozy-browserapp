@@ -173,14 +173,16 @@ HomeAngCtrl = function($injector) {
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
   vm = this;
-  activate;
+  console.log('activate');
+  activate();
   activate = function() {
+    console.log('activate');
     return Contact.all(function(res) {
       return vm.contacts = res;
     });
   };
   send = function(user) {
-    console.log('create contact');
+    console.log('send');
     return Contact.send('Contact', user, function(res) {
       vm.contacts = res;
       return activate;

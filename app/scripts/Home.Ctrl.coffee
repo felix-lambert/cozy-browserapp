@@ -4,14 +4,16 @@ HomeAngCtrl = ($injector) ->
     CozySdk = $injector.get 'CozySdk'
     vm = this
 
-    activate
+    console.log 'activate'
+    activate()
 
     activate = ->
+        console.log 'activate'
         Contact.all (res) ->
             vm.contacts = res
 
     send = (user) ->
-        console.log 'create contact'
+        console.log 'send'
         Contact.send 'Contact', user, (res) ->
             vm.contacts = res
             activate
