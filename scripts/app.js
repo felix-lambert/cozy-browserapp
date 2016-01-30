@@ -36,7 +36,7 @@ Contact = function($injector) {
     });
   };
   return {
-    all: function() {
+    all: function(callback) {
       console.log('all');
       return CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(res) {
         return CozySdk.runRequest('Contact', 'all', function(result) {
@@ -173,8 +173,9 @@ HomeAngCtrl = function($injector) {
   vm = this;
   activate = function() {
     console.log('activate');
-    Contact.all();
-    return vm.contacts = res;
+    return Contact.all(function(res) {
+      return vm.contacts = res;
+    });
   };
   send = function(user) {
     console.log('send');
