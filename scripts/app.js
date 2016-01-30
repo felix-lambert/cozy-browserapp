@@ -26,7 +26,7 @@ appConfig.$inject = ['$routeProvider'];
 ;var Contact;
 
 Contact = function($injector) {
-  var CozySdk, all, send;
+  var CozySdk, send;
   CozySdk = $injector.get('CozySdk');
   send = function(docType, data, callback) {
     return CozySdk.create(docType, data, function(res) {
@@ -35,21 +35,17 @@ Contact = function($injector) {
       });
     });
   };
-  all = function(callback) {
+  return this.all = function(callback) {
+    console.log('all');
     return CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(res) {
       return CozySdk.runRequest('Contact', 'all', function(result) {
         return callback(result);
       });
     });
   };
-  Contact.prototype = {
-    send: send,
-    all: all
-  };
-  return Contact;
 };
 
-angular.module('browserapp').factory('Contact', Contact);
+angular.module('browserapp').service('Contact', Contact);
 
 Contact.$inject = ['$injector'];
 ;var CozySdk;
