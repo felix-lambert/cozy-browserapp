@@ -1,4 +1,6 @@
  <br/>
+<button class="btn btn-primary" ng-click="home.exist(home.contacts._id)">Exist ?</button>
+
 <h1 class="text-center">The Contact App <small>Cozy Cloud</small></h1>
 <div class="container-fluid text-center">
     <form class="form-inline" name="form">
@@ -10,7 +12,7 @@
         <label>Name:</label>
         <input type="text" ng-model="home.contact.n" class="form-control">
       </div>
-       <input type="submit" class="btn btn-success uppercase" ng-click="home.add(home.contact)" value="Create" > 
+       <input type="submit" class="btn btn-success uppercase" ng-click="home.send(home.contact)" value="Send" > 
        <input type="submit" class="btn btn-warning" ng-click="home.update(home.contacts._id, home.contact)" value="Update" > 
     </form>
 </div>
@@ -23,14 +25,11 @@
             <td>Name</td>
             <td>Actions</td>  
         </tr>
-        <tr>
-            <td>{{home.contacts}}</td>
+        <tr ng-repeat="contact in home.contacts">
+            <td>{{contact.fn}}</td>
+            <td>{{contact.n}}</td>
             <td>
-                <button class="btn btn-default" id="outer" ng-click="home.find(home.contacts._id)">Find</button>
-                <button class="btn btn-primary" ng-click="home.exist(home.contacts._id)">Exist ?</button>
                 <button class="btn btn-primary" ng-click="home.destroy(home.contacts._id)">Destroy</button>
-                <button class="btn btn-primary" ng-click="home.define()">Define</button>
-                <button class="btn btn-primary" ng-click="home.destroyRequest()">Destroy request</button>
             </td>
         </tr>
     </table>

@@ -1,76 +1,36 @@
-HomeAngCtrl = ($scope) ->
+HomeAngCtrl = ($injector) ->
+
+    Contact = $injector.get('Contact');
+    CozySdk = $injector.get 'CozySdk'
     vm = this
 
-    add = (user) ->
-        console.log 'create contact'
-        cozysdk.create 'Contact', user, (err, res) ->
-            if err
-                alert err
+    activate
+
+    activate = ->
+        Contact.all (res) ->
             vm.contacts = res
-        return
 
-    find = (id) ->
-        cozydb.find id, (err, res) ->
-            if err
-                alert err
-            $scope.$apply ->
-                console.log res
-                vm.contacts = res
-        return
-
-    exist = (id) ->
-        cozydb.exists id, (err, res) ->
-            if err
-                alert err
-            $scope.$apply ->
-                console.log res
-                vm.contacts = res
-        return
+    send = (user) ->
+        console.log 'create contact'
+        Contact.send 'Contact', user, (res) ->
+            vm.contacts = res
+            activate
 
     update = (id, user) ->
-        cozysdk.updateAttributes 'Contact', id, user, (err, res) ->
-            if err
-                alert err
-            $scope.$apply ->
-                vm.contacts = res
-        return
+        CozySdk.updateAttributes 'Contact', id, user, (res) ->
+            vm.contacts = res
+            activate
 
     destroy = (id) ->
-        cozysdk.destroy id, (err, res) ->
-            if err
-                alert err
-            $scope.$apply ->
-                vm.contacts = res
-        return
+        CozySdk.destroy id, (res) ->
+            vm.contacts = res
+            activate
 
-    define = () ->
-        cozysdk.defineRequest 'Contact', 'all', 'function(doc) { emit(doc.n, null); }', (err, res) ->
-            if err
-                alert err
-            cozydb.run 'Contact', 'all', {}, (err, res) ->
-                $scope.$apply ->
-                    vm.contacts = res
-        return
-
-    destroyRequest = () ->
-        cozysdk.requestDestroy 'Contact', 'all', {startkey: 'z', endkey: 'z'}, (err, res) ->
-            if err
-                alert err
-            cozydb.run 'Contact', 'all', {}, (err, res) ->
-                $scope.$apply ->
-                    vm.contacts = res
-        return
-
-    vm.add = add
-    vm.find = find
-    vm.exist = exist
+    vm.send = send
     vm.update = update
     vm.destroy = destroy
-    vm.define = define
-    vm.destroyRequest = destroyRequest
-    return    
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
-    '$scope'
+    '$injector'
 ]
