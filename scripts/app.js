@@ -53,112 +53,102 @@ Contact.$inject = ['$injector'];
 ;var CozySdk;
 
 CozySdk = function($rootScope) {
-  var create, defineRequest, destroy, destroyRequest, exist, find, runRequest, update;
-  create = function(docType, data, callback) {
-    return cozysdk.create(docType, data, function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
+  return {
+    create: function(docType, data, callback) {
+      return cozysdk.create(docType, data, function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    },
+    find: function(id) {
+      return cozysdk.find(id, function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    },
+    exist: function(id) {
+      return cozysdk.exists(id, function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    },
+    update: function(id, user) {
+      return cozysdk.updateAttributes('Contact', id, user, function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    },
+    destroy: function(id) {
+      return cozysdk.destroy(id, function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $$rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    },
+    defineRequest: function() {
+      return cozysdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    },
+    destroyRequest: function() {
+      return cozysdk.requestDestroy('Contact', 'all', {
+        startkey: 'z',
+        endkey: 'z'
+      }, function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    },
+    runRequest: function() {
+      return cozysdk.run('Contact', 'all', {
+        startkey: 'z',
+        endkey: 'z'
+      }, function(err, res) {
+        if (err != null) {
+          return console.log('maybe do a cozy special error warning');
+        } else {
+          return $rootScope.$apply(function() {
+            return callback(res);
+          });
+        }
+      });
+    }
   };
-  find = function(id) {
-    return cozysdk.find(id, function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
-  };
-  exist = function(id) {
-    return cozysdk.exists(id, function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
-  };
-  update = function(id, user) {
-    return cozysdk.updateAttributes('Contact', id, user, function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
-  };
-  destroy = function(id) {
-    return cozysdk.destroy(id, function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $$rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
-  };
-  defineRequest = function() {
-    return cozysdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
-  };
-  destroyRequest = function() {
-    return cozysdk.requestDestroy('Contact', 'all', {
-      startkey: 'z',
-      endkey: 'z'
-    }, function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
-  };
-  runRequest = function() {
-    return cozysdk.run('Contact', 'all', {
-      startkey: 'z',
-      endkey: 'z'
-    }, function(err, res) {
-      if (err != null) {
-        return console.log('maybe do a cozy special error warning');
-      } else {
-        return $rootScope.$apply(function() {
-          return callback(res);
-        });
-      }
-    });
-  };
-  CozySdk.prototype = {
-    create: create,
-    update: update,
-    destroy: destroy,
-    exist: exist,
-    find: find,
-    defineRequest: defineRequest,
-    destroyRequest: destroyRequest,
-    runRequest: runRequest
-  };
-  return CozySdk;
 };
 
 angular.module('browserapp').factory('CozySdk', CozySdk);
