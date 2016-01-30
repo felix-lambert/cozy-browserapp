@@ -173,8 +173,6 @@ HomeAngCtrl = function($injector) {
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
   vm = this;
-  console.log('activate');
-  activate();
   activate = function() {
     console.log('activate');
     return Contact.all(function(res) {
@@ -200,6 +198,8 @@ HomeAngCtrl = function($injector) {
       return activate();
     });
   };
+  console.log('activate');
+  activate();
   vm.send = send;
   vm.update = update;
   return vm.destroy = destroy;
