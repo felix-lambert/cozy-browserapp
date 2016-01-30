@@ -26,9 +26,9 @@ appConfig.$inject = ['$routeProvider'];
 ;var Contact;
 
 Contact = function($injector) {
-  var CozySdk, send;
+  var CozySdk;
   CozySdk = $injector.get('CozySdk');
-  send = function(docType, data, callback) {
+  this.send = function(docType, data, callback) {
     return CozySdk.create(docType, data, function(res) {
       return CozySdk.find(res._id, function(result) {
         return callback(result);
