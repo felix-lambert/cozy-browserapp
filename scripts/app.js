@@ -153,7 +153,7 @@ CozySdk = function($rootScope) {
   CozySdk.prototype = {
     create: create,
     update: update,
-    destroy: sdestroy,
+    destroy: destroy,
     exist: exist,
     find: find,
     defineRequest: defineRequest,
