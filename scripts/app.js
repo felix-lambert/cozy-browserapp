@@ -55,7 +55,7 @@ Contact.$inject = ['$injector'];
 ;var CozySdk;
 
 CozySdk = function($rootScope) {
-  var create, define, destroy, destroyRequest, exist, find, runRequest, update;
+  var create, defineRequest, destroy, destroyRequest, exist, find, runRequest, update;
   create = function(docType, data, callback) {
     return cozysdk.create(docType, data, function(err, res) {
       if (err != null) {
@@ -111,7 +111,7 @@ CozySdk = function($rootScope) {
       }
     });
   };
-  define = function() {
+  defineRequest = function() {
     return cozysdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
