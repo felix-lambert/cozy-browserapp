@@ -171,9 +171,8 @@ HomeAngCtrl = function($injector) {
   vm = this;
   activate = function() {
     console.log('activate');
-    return Contact.all(function(res) {
-      return vm.contacts = res;
-    });
+    Contact.all();
+    return vm.contacts = res;
   };
   send = function(user) {
     console.log('send');

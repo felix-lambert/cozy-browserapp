@@ -6,8 +6,8 @@ HomeAngCtrl = ($injector) ->
 
     activate = () ->
         console.log 'activate'
-        Contact.all (res) ->
-            vm.contacts = res
+        Contact.all()
+        vm.contacts = res
 
     send = (user) ->
         console.log 'send'
