@@ -35,7 +35,7 @@ Contact = function($injector) {
       });
     });
   };
-  return this.all = function() {
+  this.all = function() {
     console.log('all');
     return CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(res) {
       return CozySdk.runRequest('Contact', 'all', function(result) {
