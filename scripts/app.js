@@ -163,9 +163,9 @@ CozySdk = function($scope) {
   return CozySdk;
 };
 
-angular.module('InTouch').factory('CozySdk', CozySdk);
+angular.module('browserapp').factory('CozySdk', CozySdk);
 
-CozySdk.$inject = ['browserapp'];
+CozySdk.$inject = ['$scope'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($injector) {
