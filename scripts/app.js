@@ -54,14 +54,14 @@ angular.module('browserapp').factory('Contact', Contact);
 Contact.$inject = ['$injector'];
 ;var CozySdk;
 
-CozySdk = function($scope) {
+CozySdk = function($rootScope) {
   var create, define, destroy, destroyRequest, exist, find, runRequest, update;
   create = function(docType, data, callback) {
     return cozysdk.create(docType, data, function(err, res) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -72,7 +72,7 @@ CozySdk = function($scope) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -83,7 +83,7 @@ CozySdk = function($scope) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -94,7 +94,7 @@ CozySdk = function($scope) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -105,7 +105,7 @@ CozySdk = function($scope) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $$rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -116,7 +116,7 @@ CozySdk = function($scope) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -130,7 +130,7 @@ CozySdk = function($scope) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -144,7 +144,7 @@ CozySdk = function($scope) {
       if (err != null) {
         return console.log('maybe do a cozy special error warning');
       } else {
-        return $scope.$apply(function() {
+        return $rootScope.$apply(function() {
           return callback(res);
         });
       }
@@ -165,7 +165,7 @@ CozySdk = function($scope) {
 
 angular.module('browserapp').factory('CozySdk', CozySdk);
 
-CozySdk.$inject = ['$scope'];
+CozySdk.$inject = ['$rootScope'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($injector) {

@@ -30470,7 +30470,7 @@ playRequest = function(method, path, attributes, callback) {
     });
   };
   sendRequest = function(auth, callback) {
-    var scope, xhr;
+    var xhr;
     xhr = new XMLHttpRequest;
     xhr.open(method, "/ds-api/" + path, true);
     xhr.onload = function() {
@@ -30482,9 +30482,6 @@ playRequest = function(method, path, attributes, callback) {
       return callback(err);
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
-    scope = window.parent.angular.element(auth.appName).scope();
-    console.log('SCOPE');
-    console.log(scope);
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(auth.appName + ':' + auth.token));
     if (attributes != null) {
       xhr.send(JSON.stringify(attributes));
