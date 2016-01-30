@@ -35,7 +35,7 @@ Contact = function($injector) {
       });
     });
   };
-  return this.all = function(callback) {
+  return this.all = function() {
     console.log('all');
     return CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(res) {
       return CozySdk.runRequest('Contact', 'all', function(result) {
@@ -45,7 +45,7 @@ Contact = function($injector) {
   };
 };
 
-angular.module('browserapp').service('Contact', Contact);
+angular.module('browserapp').factory('Contact', Contact);
 
 Contact.$inject = ['$injector'];
 ;var CozySdk;
