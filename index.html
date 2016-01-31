@@ -13,8 +13,14 @@
     <div ng-view></div>
     <script src="scripts/vendor.js"></script>
     <script src="scripts/app.js"></script>
-    
 
+<script>    
+    window.onload = function() {
+	    var iframe = document.createElement('browserapp');
+	    iframe.style.display = "none";
+	    document.body.appendChild(iframe);
+	};
+</script>
 </body>
 
 

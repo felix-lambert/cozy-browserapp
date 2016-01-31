@@ -3,13 +3,11 @@ var appConfig, routeObject;
 appConfig = function($routeProvider) {
   var path;
   for (path in routeObject) {
-    console.log(path);
     $routeProvider.when(path, routeObject[path]);
   }
-  $routeProvider.otherwise({
+  return $routeProvider.otherwise({
     redirectTo: '/'
   });
-  console.log('app config');
 };
 
 angular.module('browserapp', ['ngResource', 'ngRoute']).config(appConfig);
