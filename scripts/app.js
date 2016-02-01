@@ -154,45 +154,98 @@ angular.module('browserapp').factory('CozySdk', CozySdk);
 CozySdk.$inject = ['$rootScope'];
 ;var HomeAngCtrl;
 
-HomeAngCtrl = function($injector) {
-  var Contact, CozySdk, activate, destroy, send, update, vm;
-  Contact = $injector.get('Contact');
-  CozySdk = $injector.get('CozySdk');
+HomeAngCtrl = function($scope) {
+  var add, define, destroy, destroyRequest, exist, find, update, vm;
   vm = this;
-  activate = function() {
-    console.log('activate');
-    return Contact.all(function(res) {
+  add = function(user) {
+    console.log('create contact');
+    cozysdk.create('Contact', user, function(err, res) {
+      if (err) {
+        alert(err);
+      }
       return vm.contacts = res;
     });
   };
-  send = function(user) {
-    console.log('send');
-    return Contact.send('Contact', user, function(res) {
-      vm.contacts = res;
-      return activate();
+  find = function(id) {
+    cozysdk.find(id, function(err, res) {
+      if (err) {
+        alert(err);
+      }
+      return $scope.$apply(function() {
+        console.log(res);
+        return vm.contacts = res;
+      });
+    });
+  };
+  exist = function(id) {
+    cozysdk.exists(id, function(err, res) {
+      if (err) {
+        alert(err);
+      }
+      return $scope.$apply(function() {
+        console.log(res);
+        return vm.contacts = res;
+      });
     });
   };
   update = function(id, user) {
-    return CozySdk.updateAttributes('Contact', id, user, function(res) {
-      vm.contacts = res;
-      return activate();
+    cozysdk.updateAttributes('Contact', id, user, function(err, res) {
+      if (err) {
+        alert(err);
+      }
+      return $scope.$apply(function() {
+        return vm.contacts = res;
+      });
     });
   };
   destroy = function(id) {
-    return CozySdk.destroy(id, function(res) {
-      vm.contacts = res;
-      return activate();
+    cozysdk.destroy(id, function(err, res) {
+      if (err) {
+        alert(err);
+      }
+      return $scope.$apply(function() {
+        return vm.contacts = res;
+      });
     });
   };
-  console.log('activate');
-  activate();
-  vm.send = send;
+  define = function() {
+    cozysdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
+      if (err) {
+        alert(err);
+      }
+      return cozydb.run('Contact', 'all', {}, function(err, res) {
+        return $scope.$apply(function() {
+          return vm.contacts = res;
+        });
+      });
+    });
+  };
+  destroyRequest = function() {
+    cozysdk.requestDestroy('Contact', 'all', {
+      startkey: 'z',
+      endkey: 'z'
+    }, function(err, res) {
+      if (err) {
+        alert(err);
+      }
+      return cozydb.run('Contact', 'all', {}, function(err, res) {
+        return $scope.$apply(function() {
+          return vm.contacts = res;
+        });
+      });
+    });
+  };
+  vm.add = add;
+  vm.find = find;
+  vm.exist = exist;
   vm.update = update;
-  return vm.destroy = destroy;
+  vm.destroy = destroy;
+  vm.define = define;
+  vm.destroyRequest = destroyRequest;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
 
-HomeAngCtrl.$inject = ['$injector'];
+HomeAngCtrl.$inject = ['$scope'];
 ;
 //# sourceMappingURL=app.js.map
