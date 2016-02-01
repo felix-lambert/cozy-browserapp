@@ -162,12 +162,11 @@ module.exports.requestDestroy = function(docType, name, params, callback) {
 var getToken, playRequest;
 
 getToken = function(callback) {
-  var receiveToken, timeout, _ref;
+  var receiveToken, _ref;
   receiveToken = function(event) {
     var appName, token, _ref;
     window.removeEventListener('message', receiveToken);
     _ref = event.data, appName = _ref.appName, token = _ref.token;
-    clearTimeout(timeout);
     if (typeof callback === "function") {
       callback(null, {
         appName: appName,
@@ -182,12 +181,6 @@ getToken = function(callback) {
   if (!((_ref = window.parent) != null ? _ref.postMessage : void 0)) {
     return callback(new Error('get a real browser'));
   }
-  timeout = setTimeout(function() {
-    if (typeof callback === "function") {
-      callback(new Error('parent doesnt answer'));
-    }
-    return callback = null;
-  }, 1000);
   window.addEventListener('message', receiveToken, false);
   return window.parent.postMessage({
     action: 'getToken'
