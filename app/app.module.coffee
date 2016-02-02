@@ -11,7 +11,10 @@ angular.module('browserapp', [
 routeObject = '/':
     templateUrl: 'partials/home.html'
     controller: 'HomeAngCtrl'
-    controllerAs: 'home'
+    resolve:
+      	preGetContacts: ->
+        	promise = Contact.all()
+        	return promise   
 
 appConfig.$inject = [
     '$routeProvider'

@@ -1,40 +1,40 @@
-HomeAngCtrl = ($injector, $scope) ->
+HomeAngCtrl = ($injector, $scope, preGetContacts) ->
 
     Contact = $injector.get('Contact');
     CozySdk = $injector.get 'CozySdk'
 
     activate = () ->
-        promise = Contact.all()
+        promise = preGetContacts
         promise.then (res) ->
-            vm.contacts = res[1]
+            $scope.contacts = res
 
     send = (user) ->
         promise = Contact.send 'Contact', user
         promise.then (res) ->
-            vm.contacts = res
+            $scope.contacts = res
             activate()
 
     update = (id, user) ->
         contactName = n: user.key
         promise = CozySdk.update 'Contact', id, contactName
         promise.then (res) ->
-            vm.contacts = res
+            $scope.contacts = res
             activate()
 
     destroy = (id) ->
         promise = CozySdk.destroy id
         promise.then (res) ->
-            vm.contacts = res
+            $scope.contacts = res
             activate()
 
-    vm = this
     activate()
-    vm.send = send
-    vm.update = update
-    vm.destroy = destroy
+    $scope.send = send
+    $scope.update = update
+    $scope.destroy = destroy
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
     '$injector'
     '$scope'
+    'preGetContacts'
 ]

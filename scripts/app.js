@@ -16,7 +16,13 @@ routeObject = {
   '/': {
     templateUrl: 'partials/home.html',
     controller: 'HomeAngCtrl',
-    controllerAs: 'home'
+    resolve: {
+      preGetContacts: function() {
+        var promise;
+        promise = Contact.all();
+        return promise;
+      }
+    }
   }
 };
 
@@ -161,22 +167,22 @@ angular.module('browserapp').factory('CozySdk', CozySdk);
 CozySdk.$inject = ['$rootScope', '$q'];
 ;var HomeAngCtrl;
 
-HomeAngCtrl = function($injector, $scope) {
-  var Contact, CozySdk, activate, destroy, send, update, vm;
+HomeAngCtrl = function($injector, $scope, preGetContacts) {
+  var Contact, CozySdk, activate, destroy, send, update;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
   activate = function() {
     var promise;
-    promise = Contact.all();
+    promise = preGetContacts;
     return promise.then(function(res) {
-      return vm.contacts = res[1];
+      return $scope.contacts = res;
     });
   };
   send = function(user) {
     var promise;
     promise = Contact.send('Contact', user);
     return promise.then(function(res) {
-      vm.contacts = res;
+      $scope.contacts = res;
       return activate();
     });
   };
@@ -187,7 +193,7 @@ HomeAngCtrl = function($injector, $scope) {
     };
     promise = CozySdk.update('Contact', id, contactName);
     return promise.then(function(res) {
-      vm.contacts = res;
+      $scope.contacts = res;
       return activate();
     });
   };
@@ -195,19 +201,18 @@ HomeAngCtrl = function($injector, $scope) {
     var promise;
     promise = CozySdk.destroy(id);
     return promise.then(function(res) {
-      vm.contacts = res;
+      $scope.contacts = res;
       return activate();
     });
   };
-  vm = this;
   activate();
-  vm.send = send;
-  vm.update = update;
-  return vm.destroy = destroy;
+  $scope.send = send;
+  $scope.update = update;
+  return $scope.destroy = destroy;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
 
-HomeAngCtrl.$inject = ['$injector', '$scope'];
+HomeAngCtrl.$inject = ['$injector', '$scope', 'preGetContacts'];
 ;
 //# sourceMappingURL=app.js.map
