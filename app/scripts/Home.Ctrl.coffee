@@ -5,12 +5,12 @@ HomeAngCtrl = ($injector, $scope) ->
 
     activate = () ->
         console.log 'activate'
-        Contact.all (res) ->
+        Contact.all().then (res) ->
             $scope.contacts = res
 
     send = (user) ->
         console.log 'send'
-        Contact.send 'Contact', user, (res) ->
+        Contact.send('Contact', user).then (res) ->
             $scope.contacts = res
             activate()
 
@@ -18,14 +18,14 @@ HomeAngCtrl = ($injector, $scope) ->
         console.log user
         contactName = n: user.key
         console.log contactName
-        CozySdk.update 'Contact', id, contactName, (res) ->
+        CozySdk.update('Contact', id, contactName).then (res) ->
             $scope.contacts = res
             activate()
 
     destroy = (id) ->
         console.log 'destroy'
         console.log id
-        CozySdk.destroy id, (res) ->
+        CozySdk.destroy(id).then (res) ->
             $scope.contacts = res
             activate()
 
