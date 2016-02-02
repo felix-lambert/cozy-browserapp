@@ -32,20 +32,22 @@ Contact = function($injector, $q) {
       promise = CozySdk.create(docType, data).then(function(res) {
         return CozySdk.find(res._id);
       });
-      return promise.then((function(result) {
+      promise.then((function(result) {
         return deferred.resolve(result);
       }), function(error) {
         return deferred.reject(error);
       });
+      return deferred.promise;
     },
     all: function() {
       var deferred;
       deferred = $q.defer();
-      return $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]).then((function(result) {
+      $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]).then((function(result) {
         return deferred.resolve(result[1]);
       }), function(error) {
         return deferred.reject(error);
       });
+      return deferred.promise;
     }
   };
 };

@@ -13,7 +13,7 @@ Contact = ($injector, $q) ->
                 deferred.resolve result
             ), (error) ->
                 deferred.reject error
-
+            return deferred.promise
 
         all: () ->
             deferred = $q.defer()
@@ -24,6 +24,7 @@ Contact = ($injector, $q) ->
                 deferred.resolve result[1]
             ), (error) ->
                 deferred.reject error
+            return deferred.promise
     }
 
 angular.module('browserapp').factory 'Contact', Contact
