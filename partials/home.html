@@ -21,7 +21,7 @@
             <td>Name</td>
             <td>Actions</td>  
         </tr>
-        <tr ng-repeat="contact in contacts track by $index | toArray:false | filter:searchText">
+        <tr ng-repeat="contact in contacts track by $index | filter:searchText">
             <td>
               <input type="text" ng-model="contact.key" class="form-control">
             </td>
