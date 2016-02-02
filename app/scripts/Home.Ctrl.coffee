@@ -17,7 +17,8 @@ HomeAngCtrl = ($injector, $scope) ->
     update = (id, user) ->
         console.log user
         contactName = n: user.key
-        CozySdk.update 'Contact', id, user, (res) ->
+        console.log contactName
+        CozySdk.update 'Contact', id, contactName, (res) ->
             $scope.contacts = res
             activate()
 
