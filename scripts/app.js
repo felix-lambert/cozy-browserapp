@@ -107,8 +107,8 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    defineRequest: function(callback) {
-      return cozysdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
+    defineRequest: function(defined, callback) {
+      return cozysdk.defineRequest(defined, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
@@ -132,8 +132,8 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    runRequest: function(callback) {
-      return cozysdk.run('Contact', 'all', {}, function(err, res) {
+    runRequest: function(docType, requestName, callback) {
+      return cozysdk.run('Contact', requestName, {}, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
