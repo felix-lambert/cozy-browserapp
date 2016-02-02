@@ -65,6 +65,9 @@ CozySdk = ($rootScope) ->
                 else
                     console.log res
                     console.log res[0]
+                    test = JSON.parse "[#{res}]"
+                    console.log test
+                    console.log test[0]
                     $rootScope.$apply ->
                         callback res
 

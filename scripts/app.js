@@ -134,11 +134,15 @@ CozySdk = function($rootScope) {
     },
     runRequest: function(docType, requestName, callback) {
       return cozysdk.run('Contact', requestName, {}, function(err, res) {
+        var test;
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
           console.log(res);
           console.log(res[0]);
+          test = JSON.parse("[" + res + "]");
+          console.log(test);
+          console.log(test[0]);
           return $rootScope.$apply(function() {
             return callback(res);
           });
