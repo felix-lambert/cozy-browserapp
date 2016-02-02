@@ -8,8 +8,7 @@ CozySdk = ($rootScope, $q) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
-                    $rootScope.$apply ->
-                        deferred.resolve res
+                    deferred.resolve res
             return deferred.promise
 
         find: (id) ->
@@ -18,8 +17,8 @@ CozySdk = ($rootScope, $q) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
-                    $rootScope.$apply ->
-                        callback res
+                    callback res
+            return deferred.promise
 
         exist: (id) ->
             deferred = $q.defer()
@@ -27,8 +26,7 @@ CozySdk = ($rootScope, $q) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
-                    $rootScope.$apply ->
-                        deferred.resolve res
+                    deferred.resolve res
             return deferred.promise
 
         update: (docType, id, user) ->
@@ -37,8 +35,7 @@ CozySdk = ($rootScope, $q) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
-                    $rootScope.$apply ->
-                        deferred.resolve res
+                    deferred.resolve res
             return deferred.promise
 
         destroy: (id) ->
@@ -48,8 +45,7 @@ CozySdk = ($rootScope, $q) ->
                     console.log 'maybe do a cozy special error warning'
                     deferred.reject 'oh no an error! try again'
                 else
-                    $rootScope.$apply ->
-                        deferred.resolve res
+                    deferred.resolve res
             return deferred.promise
 
         defineRequest: (docType, requestName, defined) ->
@@ -59,8 +55,7 @@ CozySdk = ($rootScope, $q) ->
                     console.log 'maybe do a cozy special error warning'
                     deferred.reject 'oh no an error! try again'
                 else
-                    $rootScope.$apply ->
-                        deferred.resolve res
+                    deferred.resolve res
             return deferred.promise
 
         destroyRequest: () ->
@@ -70,8 +65,7 @@ CozySdk = ($rootScope, $q) ->
                     console.log 'maybe do a cozy special error warning'
                     deferred.reject 'oh no an error! try again'
                 else
-                    $rootScope.$apply ->
-                        deferred.resolve res
+                    deferred.resolve res
             return deferred.promise
 
         runRequest: (docType, requestName) ->
@@ -82,9 +76,7 @@ CozySdk = ($rootScope, $q) ->
                     deferred.reject 'oh no an error! try again'
                 else
                     res = JSON.parse "#{res}"
-                    console.log res
-                    $rootScope.$apply ->
-                        deferred.resolve res
+                    deferred.resolve res
             return deferred.promise
 
     }

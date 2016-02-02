@@ -5,26 +5,16 @@ Contact = ($injector, $q) ->
     
     {
         send: (docType, data) ->
-            deferred = $q.defer()
-
-            promise = CozySdk.create(docType, data).then (res) ->
+            CozySdk.create(docType, data).then (res) ->
                 return CozySdk.find res._id
-            promise.then ((result) ->
-                deferred.resolve result
-            ), (error) ->
-                deferred.reject error
-            return deferred.promise
+            return promise
 
         all: () ->
-            deferred = $q.defer()
-            $q.all([
+            promise = $q.all([
                 CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'),
                 CozySdk.runRequest('Contact', 'all')
-            ]).then ((result) ->
-                deferred.resolve result[1]
-            ), (error) ->
-                deferred.reject error
-            return deferred.promise
+            ])
+            return promise
     }
 
 angular.module('browserapp').factory 'Contact', Contact

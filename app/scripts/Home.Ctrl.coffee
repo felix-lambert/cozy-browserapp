@@ -4,7 +4,9 @@ HomeAngCtrl = ($injector, $scope) ->
     CozySdk = $injector.get 'CozySdk'
 
     activate = () ->
-        Contact.all().then (res) ->
+        promise = Contact.all()
+        promise.then (res) ->
+            console.log res
             $scope.contacts = res
 
     send = (user) ->

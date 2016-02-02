@@ -27,27 +27,15 @@ Contact = function($injector, $q) {
   CozySdk = $injector.get('CozySdk');
   return {
     send: function(docType, data) {
-      var deferred, promise;
-      deferred = $q.defer();
-      promise = CozySdk.create(docType, data).then(function(res) {
+      CozySdk.create(docType, data).then(function(res) {
         return CozySdk.find(res._id);
       });
-      promise.then((function(result) {
-        return deferred.resolve(result);
-      }), function(error) {
-        return deferred.reject(error);
-      });
-      return deferred.promise;
+      return promise;
     },
     all: function() {
-      var deferred;
-      deferred = $q.defer();
-      $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]).then((function(result) {
-        return deferred.resolve(result[1]);
-      }), function(error) {
-        return deferred.reject(error);
-      });
-      return deferred.promise;
+      var promise;
+      promise = $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]);
+      return promise;
     }
   };
 };
@@ -66,9 +54,7 @@ CozySdk = function($rootScope, $q) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
-          return $rootScope.$apply(function() {
-            return deferred.resolve(res);
-          });
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;
@@ -76,15 +62,14 @@ CozySdk = function($rootScope, $q) {
     find: function(id) {
       var deferred;
       deferred = $q.defer();
-      return cozysdk.find(id, function(err, res) {
+      cozysdk.find(id, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
-          return $rootScope.$apply(function() {
-            return callback(res);
-          });
+          return callback(res);
         }
       });
+      return deferred.promise;
     },
     exist: function(id) {
       var deferred;
@@ -93,9 +78,7 @@ CozySdk = function($rootScope, $q) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
-          return $rootScope.$apply(function() {
-            return deferred.resolve(res);
-          });
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;
@@ -107,9 +90,7 @@ CozySdk = function($rootScope, $q) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
-          return $rootScope.$apply(function() {
-            return deferred.resolve(res);
-          });
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;
@@ -122,9 +103,7 @@ CozySdk = function($rootScope, $q) {
           console.log('maybe do a cozy special error warning');
           return deferred.reject('oh no an error! try again');
         } else {
-          return $rootScope.$apply(function() {
-            return deferred.resolve(res);
-          });
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;
@@ -137,9 +116,7 @@ CozySdk = function($rootScope, $q) {
           console.log('maybe do a cozy special error warning');
           return deferred.reject('oh no an error! try again');
         } else {
-          return $rootScope.$apply(function() {
-            return deferred.resolve(res);
-          });
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;
@@ -155,9 +132,7 @@ CozySdk = function($rootScope, $q) {
           console.log('maybe do a cozy special error warning');
           return deferred.reject('oh no an error! try again');
         } else {
-          return $rootScope.$apply(function() {
-            return deferred.resolve(res);
-          });
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;
@@ -171,10 +146,7 @@ CozySdk = function($rootScope, $q) {
           return deferred.reject('oh no an error! try again');
         } else {
           res = JSON.parse("" + res);
-          console.log(res);
-          return $rootScope.$apply(function() {
-            return deferred.resolve(res);
-          });
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;
@@ -192,7 +164,10 @@ HomeAngCtrl = function($injector, $scope) {
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
   activate = function() {
-    return Contact.all().then(function(res) {
+    var promise;
+    promise = Contact.all();
+    return promise.then(function(res) {
+      console.log(res);
       return $scope.contacts = res;
     });
   };
