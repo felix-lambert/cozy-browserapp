@@ -28,8 +28,8 @@
         <tr ng-repeat="contact in contacts">
             <td>{{contact.key}}</td>
             <td>
-                <button class="btn btn-primary" ng-click="home.destroy(contact._id)">Destroy</button>
-                <button class="btn btn-primary" ng-click="home.update(contact._id)">Update</button> 
+                <button class="btn btn-danger" ng-click="home.destroy(contact._id)">Destroy</button>
+                <button class="btn btn-warning" ng-click="home.update(contact._id)">Update</button> 
             </td>
         </tr>
     </table>
