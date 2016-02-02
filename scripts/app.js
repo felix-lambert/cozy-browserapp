@@ -174,7 +174,8 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   activate = function() {
     var res;
     res = preGetContacts;
-    return $scope.contacts = res;
+    console.log(res);
+    return $scope.contacts = res[1];
   };
   send = function(user) {
     var promise;

@@ -5,7 +5,8 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
 
     activate = () ->
         res = preGetContacts
-        $scope.contacts = res
+        console.log res
+        $scope.contacts = res[1]
 
     send = (user) ->
         promise = Contact.send 'Contact', user
