@@ -171,12 +171,10 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   var Contact, CozySdk, activate, destroy, res, send, update;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
-  $scope.contacts = [];
   res = preGetContacts;
   $scope.contacts = res[1];
   activate = function() {
     var promise;
-    $scope.contacts = [];
     promise = Contact.all();
     return promise.then(function(res) {
       return $scope.contacts = res[1];
@@ -184,7 +182,6 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   };
   send = function(user) {
     var promise;
-    $scope.contacts = [];
     promise = Contact.send('Contact', user);
     return promise.then(function(res) {
       $scope.contacts = res;
@@ -193,7 +190,6 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   };
   update = function(id, user) {
     var contactName, promise;
-    $scope.contacts = [];
     contactName = {
       n: user.key
     };
@@ -205,7 +201,6 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   };
   destroy = function(id) {
     var promise;
-    $scope.contacts = [];
     promise = CozySdk.destroy(id);
     return promise.then(function(res) {
       $scope.contacts = res;
