@@ -20,14 +20,14 @@
             <td>Actions</td>  
         </tr>
         <tr ng-repeat="contact in contacts track by $index">
-            <td ng-if="updated && updateId === contact.id"><input type="text" ng-model="contact.n" class="form-control" placeholder="{{contact.key}}">
-            <button class="btn btn-danger" ng-click="update(contact.id)">Validate update</button>
-            <button class="btn btn-danger" ng-click="cancel(contact.id)">Cancel update</button>
+            <td>
+            <input type="text" ng-model="contact.n" class="form-control" placeholder="{{contact.key}}">
+            <button class="btn btn-warning" ng-click="update(contact.id)">Update</button> 
             </td>
             <td ng-if="!updated && updateId !== contact.id">{{contact.key}}</td>
             <td>
                 <button class="btn btn-danger" ng-click="destroy(contact.id)">Destroy</button>
-                <button class="btn btn-warning" ng-click="updateChange(contact.id)">Update</button> 
+                
             </td>
         </tr>
     </table>
