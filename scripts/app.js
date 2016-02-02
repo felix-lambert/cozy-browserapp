@@ -183,7 +183,7 @@ HomeAngCtrl = function($injector, $scope) {
     });
   };
   updateChange = function(id) {
-    $scope.update = true;
+    $scope.updated = "update";
     return $scope.updateId = id;
   };
   console.log('activate');
@@ -191,7 +191,8 @@ HomeAngCtrl = function($injector, $scope) {
   $scope.send = send;
   $scope.update = update;
   $scope.destroy = destroy;
-  return $scope.updateChange = updateChange;
+  $scope.updateChange = updateChange;
+  return $scope.updated = void 0;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);

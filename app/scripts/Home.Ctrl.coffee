@@ -27,7 +27,7 @@ HomeAngCtrl = ($injector, $scope) ->
             activate()
 
     updateChange = (id) ->
-        $scope.update = true
+        $scope.updated = "update"
         $scope.updateId = id
 
     console.log 'activate'
@@ -36,6 +36,7 @@ HomeAngCtrl = ($injector, $scope) ->
     $scope.update = update
     $scope.destroy = destroy
     $scope.updateChange = updateChange
+    $scope.updated = undefined
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
