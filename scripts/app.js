@@ -84,8 +84,8 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    update: function(id, user, callback) {
-      return cozysdk.updateAttributes('Contact', id, user, function(err, res) {
+    update: function(docType, id, user, callback) {
+      return cozysdk.updateAttributes(docType, id, user, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
@@ -169,7 +169,7 @@ HomeAngCtrl = function($injector, $scope) {
     });
   };
   update = function(id, user) {
-    return CozySdk.updateAttributes('Contact', id, user, function(res) {
+    return CozySdk.update('Contact', id, user, function(res) {
       $scope.contacts = res;
       return activate();
     });

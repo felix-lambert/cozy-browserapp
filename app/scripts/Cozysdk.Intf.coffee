@@ -26,8 +26,8 @@ CozySdk = ($rootScope) ->
                     $rootScope.$apply ->
                         callback res
 
-        update: (id, user, callback) ->
-            cozysdk.updateAttributes 'Contact', id, user, (err, res) ->
+        update: (docType, id, user, callback) ->
+            cozysdk.updateAttributes docType, id, user, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
