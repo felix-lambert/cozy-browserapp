@@ -138,6 +138,7 @@ CozySdk = function($rootScope) {
           return console.log('maybe do a cozy special error warning');
         } else {
           console.log(res);
+          console.log(res[0]);
           return $rootScope.$apply(function() {
             return callback(res);
           });
