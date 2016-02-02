@@ -107,8 +107,8 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    defineRequest: function(defined, callback) {
-      return cozysdk.defineRequest(defined, function(err, res) {
+    defineRequest: function(docType, requestName, defined, callback) {
+      return cozysdk.defineRequest(docType, requestName, defined, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {

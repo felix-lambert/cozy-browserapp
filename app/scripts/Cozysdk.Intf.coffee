@@ -42,8 +42,8 @@ CozySdk = ($rootScope) ->
                     $$rootScope.$apply ->
                         callback res
 
-        defineRequest: (defined, callback) ->
-            cozysdk.defineRequest defined, (err, res) ->
+        defineRequest: (docType, requestName, defined, callback) ->
+            cozysdk.defineRequest docType, requestName, defined, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
