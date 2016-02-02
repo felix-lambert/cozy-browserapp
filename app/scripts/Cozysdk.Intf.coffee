@@ -63,7 +63,7 @@ CozySdk = ($rootScope) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
-
+                    console.log res
                     $rootScope.$apply ->
                         callback res
 
