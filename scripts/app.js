@@ -67,7 +67,7 @@ CozySdk = function($rootScope, $q) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
-          return callback(res);
+          return deferred.resolve(res);
         }
       });
       return deferred.promise;

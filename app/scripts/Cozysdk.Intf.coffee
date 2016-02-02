@@ -17,7 +17,7 @@ CozySdk = ($rootScope, $q) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
-                    callback res
+                    deferred.resolve res
             return deferred.promise
 
         exist: (id) ->
