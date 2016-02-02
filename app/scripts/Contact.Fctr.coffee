@@ -7,8 +7,8 @@ Contact = ($injector, $q) ->
             return promise
 
         all: () ->
-            promise = CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }').then () ->
-                return CozySdk.runRequest 'Contact', 'all'
+            CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }').then () ->
+                promise = CozySdk.runRequest 'Contact', 'all'
             return promise
     }
 
