@@ -4,7 +4,6 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
     CozySdk = $injector.get 'CozySdk'
 
     res = preGetContacts
-    console.log res
     $scope.contacts = res
 
     updateContactList = () ->
