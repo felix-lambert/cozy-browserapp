@@ -39,12 +39,9 @@ Contact = function($injector, $q) {
       return promise;
     },
     all: function() {
-      var promise;
-      promise = CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }').then(function() {});
-      promise.then(function() {
+      return CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }').then(function() {
         return CozySdk.runRequest('Contact', 'all');
       });
-      return promise;
     }
   };
 };
