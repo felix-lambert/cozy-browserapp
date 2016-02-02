@@ -30,7 +30,6 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
             $scope.contacts = res
             activate()
 
-    activate()
     $scope.send = send
     $scope.update = update
     $scope.destroy = destroy

@@ -206,7 +206,6 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
       return activate();
     });
   };
-  activate();
   $scope.send = send;
   $scope.update = update;
   return $scope.destroy = destroy;
