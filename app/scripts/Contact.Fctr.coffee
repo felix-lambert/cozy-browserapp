@@ -20,7 +20,7 @@ Contact = ($injector, $q) ->
             $q.all([
                 CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'),
                 CozySdk.runRequest('Contact', 'all')
-            ]).then ((value) ->
+            ]).then ((result) ->
                 deferred.resolve result
             ), (error) ->
                 deferred.reject error

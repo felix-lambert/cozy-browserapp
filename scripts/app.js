@@ -41,7 +41,7 @@ Contact = function($injector, $q) {
     all: function() {
       var deferred;
       deferred = $q.defer();
-      return $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]).then((function(value) {
+      return $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]).then((function(result) {
         return deferred.resolve(result);
       }), function(error) {
         return deferred.reject(error);
