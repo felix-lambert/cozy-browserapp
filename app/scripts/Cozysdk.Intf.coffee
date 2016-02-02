@@ -10,7 +10,7 @@ CozySdk = ($rootScope) ->
                     $rootScope.$apply ->
                         callback res
 
-        find: (id) ->
+        find: (id, callback) ->
             cozysdk.find id, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
@@ -18,7 +18,7 @@ CozySdk = ($rootScope) ->
                     $rootScope.$apply ->
                         callback res
 
-        exist: (id) ->
+        exist: (id, callback) ->
             cozysdk.exists id, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
@@ -26,7 +26,7 @@ CozySdk = ($rootScope) ->
                     $rootScope.$apply ->
                         callback res
 
-        update: (id, user) ->
+        update: (id, user, callback) ->
             cozysdk.updateAttributes 'Contact', id, user, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
@@ -34,7 +34,7 @@ CozySdk = ($rootScope) ->
                     $rootScope.$apply ->
                         callback res
 
-        destroy: (id) ->
+        destroy: (id, callback) ->
             cozysdk.destroy id, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
@@ -42,7 +42,7 @@ CozySdk = ($rootScope) ->
                     $$rootScope.$apply ->
                         callback res
 
-        defineRequest: () ->
+        defineRequest: (callback) ->
             cozysdk.defineRequest 'Contact', 'all', 'function(doc) { emit(doc.n, null); }', (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
@@ -50,7 +50,7 @@ CozySdk = ($rootScope) ->
                     $rootScope.$apply ->
                         callback res
 
-        destroyRequest: () ->
+        destroyRequest: (callback) ->
             cozysdk.requestDestroy 'Contact', 'all', {startkey: 'z', endkey: 'z'}, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
@@ -58,7 +58,7 @@ CozySdk = ($rootScope) ->
                     $rootScope.$apply ->
                         callback res
 
-        runRequest: () ->
+        runRequest: (callback) ->
             cozysdk.run 'Contact', 'all', {}, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'

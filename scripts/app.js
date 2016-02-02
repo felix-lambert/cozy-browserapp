@@ -63,7 +63,7 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    find: function(id) {
+    find: function(id, callback) {
       return cozysdk.find(id, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
@@ -74,7 +74,7 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    exist: function(id) {
+    exist: function(id, callback) {
       return cozysdk.exists(id, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
@@ -85,7 +85,7 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    update: function(id, user) {
+    update: function(id, user, callback) {
       return cozysdk.updateAttributes('Contact', id, user, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
@@ -96,7 +96,7 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    destroy: function(id) {
+    destroy: function(id, callback) {
       return cozysdk.destroy(id, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
@@ -107,7 +107,7 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    defineRequest: function() {
+    defineRequest: function(callback) {
       return cozysdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }', function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
@@ -118,7 +118,7 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    destroyRequest: function() {
+    destroyRequest: function(callback) {
       return cozysdk.requestDestroy('Contact', 'all', {
         startkey: 'z',
         endkey: 'z'
@@ -132,11 +132,12 @@ CozySdk = function($rootScope) {
         }
       });
     },
-    runRequest: function() {
+    runRequest: function(callback) {
       return cozysdk.run('Contact', 'all', {}, function(err, res) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
+          console.log(res);
           return $rootScope.$apply(function() {
             return callback(res);
           });
