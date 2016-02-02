@@ -9,24 +9,34 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
 
     updateContactList = () ->
         promise = Contact.all()
-        promise.then (res) ->
-            $scope.contacts = res
+        promise.then ((res) ->
+            # handle success
+            $scope.contacts = result
+        ), (error) ->
+            # handle error, exactly as if this was a separate catch in the chain.
+            $scope.error = error
 
     send = (user) ->
         promise = Contact.send 'Contact', user
-        promise.then (res) ->
+        promise.then ((res) ->
             updateContactList()
+        ), (error) ->
+            $scope.error = error
 
     update = (id, user) ->
         contactName = n: user.key
         promise = CozySdk.update 'Contact', id, contactName
-        promise.then (res) ->
+        promise.then ((res) ->
             updateContactList()
+        ), (error) ->
+            $scope.error = error
 
     destroy = (id) ->
         promise = CozySdk.destroy id
-        promise.then (res) ->
+        promise.then ((res) ->
             updateContactList()
+        ), (error) ->
+            $scope.error = error
 
     $scope.send = send
     $scope.update = update

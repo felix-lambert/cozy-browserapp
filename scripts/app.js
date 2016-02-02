@@ -58,7 +58,8 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.create(docType, data, function(err, res) {
         if (err != null) {
-          return console.log('maybe do a cozy special error warning');
+          console.log('maybe do a cozy special error warning');
+          return deferred.reject(new Error('oh no an error in create! try again'));
         } else {
           return deferred.resolve(res);
         }
@@ -70,7 +71,8 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.find(id, function(err, res) {
         if (err != null) {
-          return console.log('maybe do a cozy special error warning');
+          console.log('maybe do a cozy special error warning');
+          return deferred.reject(new Error('oh no an error in find! try again'));
         } else {
           return deferred.resolve(res);
         }
@@ -82,7 +84,8 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.exists(id, function(err, res) {
         if (err != null) {
-          return console.log('maybe do a cozy special error warning');
+          console.log('maybe do a cozy special error warning');
+          return deferred.reject(new Error('oh no an error in exists! try again'));
         } else {
           return deferred.resolve(res);
         }
@@ -94,7 +97,8 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.updateAttributes(docType, id, user, function(err, res) {
         if (err != null) {
-          return console.log('maybe do a cozy special error warning');
+          console.log('maybe do a cozy special error warning');
+          return deferred.reject(new Error('oh no an error in update! try again'));
         } else {
           return deferred.resolve(res);
         }
@@ -107,7 +111,7 @@ CozySdk = function($rootScope, $q) {
       cozysdk.destroy(id, function(err, res) {
         if (err != null) {
           console.log('maybe do a cozy special error warning');
-          return deferred.reject('oh no an error! try again');
+          return deferred.reject(new Error('oh no an error in destroy! try again'));
         } else {
           return deferred.resolve(res);
         }
@@ -120,7 +124,7 @@ CozySdk = function($rootScope, $q) {
       cozysdk.defineRequest(docType, requestName, defined, function(err, res) {
         if (err != null) {
           console.log('maybe do a cozy special error warning');
-          return deferred.reject('oh no an error! try again');
+          return deferred.reject(new Error('oh no an error in defineRequest! try again'));
         } else {
           return deferred.resolve(res);
         }
@@ -136,7 +140,7 @@ CozySdk = function($rootScope, $q) {
       }, function(err, res) {
         if (err != null) {
           console.log('maybe do a cozy special error warning');
-          return deferred.reject('oh no an error! try again');
+          return deferred.reject(new Error('oh no an error in destroyRequest! try again'));
         } else {
           return deferred.resolve(res);
         }
@@ -149,7 +153,7 @@ CozySdk = function($rootScope, $q) {
       cozysdk.run(docType, requestName, {}, function(err, res) {
         if (err != null) {
           console.log('maybe do a cozy special error warning');
-          return deferred.reject('oh no an error! try again');
+          return deferred.reject(new Error('oh no an error in runRequest! try again'));
         } else {
           res = JSON.parse("" + res);
           return deferred.resolve(res);
@@ -175,15 +179,19 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   updateContactList = function() {
     var promise;
     promise = Contact.all();
-    return promise.then(function(res) {
-      return $scope.contacts = res;
+    return promise.then((function(res) {
+      return $scope.contacts = result;
+    }), function(error) {
+      return $scope.error = error;
     });
   };
   send = function(user) {
     var promise;
     promise = Contact.send('Contact', user);
-    return promise.then(function(res) {
+    return promise.then((function(res) {
       return updateContactList();
+    }), function(error) {
+      return $scope.error = error;
     });
   };
   update = function(id, user) {
@@ -192,15 +200,19 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
       n: user.key
     };
     promise = CozySdk.update('Contact', id, contactName);
-    return promise.then(function(res) {
+    return promise.then((function(res) {
       return updateContactList();
+    }), function(error) {
+      return $scope.error = error;
     });
   };
   destroy = function(id) {
     var promise;
     promise = CozySdk.destroy(id);
-    return promise.then(function(res) {
+    return promise.then((function(res) {
       return updateContactList();
+    }), function(error) {
+      return $scope.error = error;
     });
   };
   $scope.send = send;
