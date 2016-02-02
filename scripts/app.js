@@ -152,7 +152,7 @@ CozySdk.$inject = ['$rootScope'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($injector, $scope) {
-  var Contact, CozySdk, activate, destroy, send, update;
+  var Contact, CozySdk, activate, destroy, send, update, updateChange;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
   activate = function() {
@@ -182,11 +182,16 @@ HomeAngCtrl = function($injector, $scope) {
       return activate();
     });
   };
+  updateChange = function(id) {
+    $scope.update = true;
+    return $scope.updateId = id;
+  };
   console.log('activate');
   activate();
   $scope.send = send;
   $scope.update = update;
-  return $scope.destroy = destroy;
+  $scope.destroy = destroy;
+  return $scope.updateChange = updateChange;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
