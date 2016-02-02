@@ -180,11 +180,11 @@ HomeAngCtrl = function($injector, $scope) {
     });
   };
   update = function(id, user) {
-    var contactName;
+    var contactName, promise;
     contactName = {
       n: user.key
     };
-    CozySdk.update('Contact', id, contactName);
+    promise = CozySdk.update('Contact', id, contactName);
     return promise.then(function(res) {
       $scope.contacts = res;
       return activate();

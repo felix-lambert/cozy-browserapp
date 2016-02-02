@@ -1,6 +1,4 @@
 CozySdk = ($rootScope, $q) ->
-  
-    
     {
         create: (docType, data) ->
             deferred = $q.defer()
