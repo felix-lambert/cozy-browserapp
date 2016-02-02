@@ -42,6 +42,7 @@ Contact = function($injector, $q) {
       var deferred;
       deferred = $q.defer();
       return $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]).then((function(result) {
+        console.log(result);
         return deferred.resolve(result);
       }), function(error) {
         return deferred.reject(error);
@@ -169,6 +170,7 @@ CozySdk = function($rootScope, $q) {
           return deferred.reject('oh no an error! try again');
         } else {
           res = JSON.parse("" + res);
+          console.log(res);
           return $rootScope.$apply(function() {
             return deferred.resolve(res);
           });
@@ -191,6 +193,7 @@ HomeAngCtrl = function($injector, $scope) {
   activate = function() {
     console.log('activate');
     return Contact.all().then(function(res) {
+      console.log(res);
       return $scope.contacts = res;
     });
   };

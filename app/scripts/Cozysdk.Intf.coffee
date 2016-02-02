@@ -82,6 +82,7 @@ CozySdk = ($rootScope, $q) ->
                     deferred.reject 'oh no an error! try again'
                 else
                     res = JSON.parse "#{res}"
+                    console.log res
                     $rootScope.$apply ->
                         deferred.resolve res
             return deferred.promise
