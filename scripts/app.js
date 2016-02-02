@@ -192,9 +192,7 @@ HomeAngCtrl = function($injector, $scope) {
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
   activate = function() {
-    console.log('activate');
     return Contact.all().then(function(res) {
-      console.log(res);
       return $scope.contacts = res;
     });
   };
@@ -225,7 +223,6 @@ HomeAngCtrl = function($injector, $scope) {
       return activate();
     });
   };
-  console.log('activate');
   activate();
   $scope.send = send;
   $scope.update = update;
