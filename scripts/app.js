@@ -15,8 +15,7 @@ angular.module('browserapp', ['ngResource', 'ngRoute']).config(appConfig);
 routeObject = {
   '/': {
     templateUrl: 'partials/home.html',
-    controller: 'HomeAngCtrl',
-    controllerAs: 'home'
+    controller: 'HomeAngCtrl'
   }
 };
 
@@ -153,10 +152,9 @@ CozySdk.$inject = ['$rootScope'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($injector, $scope) {
-  var Contact, CozySdk, activate, destroy, send, update, vm;
+  var Contact, CozySdk, activate, destroy, send, update;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
-  vm = this;
   activate = function() {
     console.log('activate');
     return Contact.all(function(res) {
@@ -186,9 +184,9 @@ HomeAngCtrl = function($injector, $scope) {
   };
   console.log('activate');
   activate();
-  vm.send = send;
-  vm.update = update;
-  return vm.destroy = destroy;
+  $scope.send = send;
+  $scope.update = update;
+  return $scope.destroy = destroy;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);

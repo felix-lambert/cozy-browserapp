@@ -11,7 +11,6 @@ angular.module('browserapp', [
 routeObject = '/':
     templateUrl: 'partials/home.html'
     controller: 'HomeAngCtrl'
-    controllerAs: 'home'
 
 appConfig.$inject = [
     '$routeProvider'

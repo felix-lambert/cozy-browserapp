@@ -2,7 +2,6 @@ HomeAngCtrl = ($injector, $scope) ->
 
     Contact = $injector.get('Contact');
     CozySdk = $injector.get 'CozySdk'
-    vm = this
 
     activate = () ->
         console.log 'activate'
@@ -29,9 +28,9 @@ HomeAngCtrl = ($injector, $scope) ->
 
     console.log 'activate'
     activate()
-    vm.send = send
-    vm.update = update
-    vm.destroy = destroy
+    $scope.send = send
+    $scope.update = update
+    $scope.destroy = destroy
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
