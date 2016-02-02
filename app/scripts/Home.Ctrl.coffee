@@ -21,6 +21,8 @@ HomeAngCtrl = ($injector, $scope) ->
             activate()
 
     destroy = (id) ->
+        console.log 'destroy'
+        console.log id
         CozySdk.destroy id, (res) ->
             $scope.contacts = res
             activate()

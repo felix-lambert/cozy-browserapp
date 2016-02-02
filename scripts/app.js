@@ -177,6 +177,8 @@ HomeAngCtrl = function($injector, $scope) {
     });
   };
   destroy = function(id) {
+    console.log('destroy');
+    console.log(id);
     return CozySdk.destroy(id, function(res) {
       $scope.contacts = res;
       return activate();
