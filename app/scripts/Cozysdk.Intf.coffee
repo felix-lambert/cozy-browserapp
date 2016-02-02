@@ -59,10 +59,11 @@ CozySdk = ($rootScope) ->
                         callback res
 
         runRequest: () ->
-            cozysdk.run 'Contact', 'all', {startkey: 'z', endkey: 'z'}, (err, res) ->
+            cozysdk.run 'Contact', 'all', {}, (err, res) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
+
                     $rootScope.$apply ->
                         callback res
 
