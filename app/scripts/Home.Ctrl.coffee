@@ -9,10 +9,8 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
     updateContactList = () ->
         promise = Contact.all()
         promise.then ((result) ->
-            # handle success
             $scope.contacts = result
         ), (error) ->
-            # handle error, exactly as if this was a separate catch in the chain.
             $scope.error = error
 
     send = (user) ->
