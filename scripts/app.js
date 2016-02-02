@@ -193,8 +193,7 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
     promise = Contact.send('Contact', user);
     return promise.then((function(res) {
       updateContactList();
-      $scope.contact = defaultForm;
-      return $scope.form.$setPristine();
+      return $scope.contact = defaultForm;
     }), function(error) {
       return $scope.error = error;
     });
