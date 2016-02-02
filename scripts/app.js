@@ -167,8 +167,7 @@ HomeAngCtrl = function($injector, $scope) {
     var promise;
     promise = Contact.all();
     return promise.then(function(res) {
-      console.log(res);
-      return $scope.contacts = res;
+      return $scope.contacts = res[1];
     });
   };
   send = function(user) {
