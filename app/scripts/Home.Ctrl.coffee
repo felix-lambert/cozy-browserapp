@@ -17,9 +17,13 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
             $scope.error = error
 
     send = (user) ->
+        defaultForm =
+            n : ""
         promise = Contact.send 'Contact', user
         promise.then ((res) ->
             updateContactList()
+            $scope.contact = defaultForm
+            $scope.form.$setPristine()
         ), (error) ->
             $scope.error = error
 
