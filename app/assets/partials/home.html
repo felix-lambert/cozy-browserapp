@@ -25,10 +25,8 @@
             <td>Name</td>
             <td>Actions</td>  
         </tr>
-        {{contacts}}
         <tr ng-repeat="contact in contacts">
-            <td>{{contact.fn}}</td>
-            <td>{{contact.n}}</td>
+            <td>{{contact.key}}</td>
             <td>
                 <button class="btn btn-primary" ng-click="home.destroy(home.contacts._id)">Destroy</button>
             </td>
