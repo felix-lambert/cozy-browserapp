@@ -5,12 +5,12 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
 
     res = preGetContacts
     console.log res
-    $scope.contacts = res[1]
+    $scope.contacts = res
 
     updateContactList = () ->
         promise = Contact.all()
         promise.then (res) ->
-            $scope.contacts = res[1]
+            $scope.contacts = res
 
     send = (user) ->
         promise = Contact.send 'Contact', user

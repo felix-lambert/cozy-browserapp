@@ -171,12 +171,12 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   CozySdk = $injector.get('CozySdk');
   res = preGetContacts;
   console.log(res);
-  $scope.contacts = res[1];
+  $scope.contacts = res;
   updateContactList = function() {
     var promise;
     promise = Contact.all();
     return promise.then(function(res) {
-      return $scope.contacts = res[1];
+      return $scope.contacts = res;
     });
   };
   send = function(user) {
