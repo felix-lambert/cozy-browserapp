@@ -168,14 +168,17 @@ CozySdk.$inject = ['$rootScope', '$q'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($injector, $scope, preGetContacts) {
-  var Contact, CozySdk, activate, destroy, send, update;
+  var Contact, CozySdk, activate, destroy, res, send, update;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
+  res = preGetContacts;
+  $scope.contacts = res[1];
   activate = function() {
-    var res;
-    res = preGetContacts;
-    console.log(res);
-    return $scope.contacts = res[1];
+    var promise;
+    promise = Contact.all();
+    return promise.then(function(res) {
+      return $scope.contacts = res[1];
+    });
   };
   send = function(user) {
     var promise;
