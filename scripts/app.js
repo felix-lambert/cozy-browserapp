@@ -165,7 +165,6 @@ HomeAngCtrl = function($injector, $scope) {
   var Contact, CozySdk, activate, destroy, send, update, vm;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
-  vm = this;
   activate = function() {
     var promise;
     promise = Contact.all();
@@ -200,6 +199,7 @@ HomeAngCtrl = function($injector, $scope) {
       return activate();
     });
   };
+  vm = this;
   activate();
   vm.send = send;
   vm.update = update;

@@ -2,7 +2,6 @@ HomeAngCtrl = ($injector, $scope) ->
 
     Contact = $injector.get('Contact');
     CozySdk = $injector.get 'CozySdk'
-    vm = this
 
     activate = () ->
         promise = Contact.all()
@@ -28,6 +27,7 @@ HomeAngCtrl = ($injector, $scope) ->
             vm.contacts = res
             activate()
 
+    vm = this
     activate()
     vm.send = send
     vm.update = update
