@@ -12,13 +12,16 @@
     </form>
 </div>
 <br/>
+
+<label>Search: <input type="text" ng-model="searchText" class="form-control"></label>
+
 <div class="table-responsive text-center col-md-12">
     <table class="table">
         <tr class="active">
             <td>Name</td>
             <td>Actions</td>  
         </tr>
-        <tr ng-repeat="contact in contacts track by $index">
+        <tr ng-repeat="contact in contacts track by $index | filter:searchText">
             <td>
               <input type="text" ng-model="contact.key" class="form-control">
             </td>
