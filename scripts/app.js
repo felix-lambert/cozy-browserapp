@@ -169,7 +169,11 @@ HomeAngCtrl = function($injector, $scope) {
     });
   };
   update = function(id, user) {
+    var contactName;
     console.log(user);
+    contactName = {
+      n: user.key
+    };
     return CozySdk.update('Contact', id, user, function(res) {
       $scope.contacts = res;
       return activate();
