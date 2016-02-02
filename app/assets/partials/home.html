@@ -21,12 +21,11 @@
         </tr>
         <tr ng-repeat="contact in contacts track by $index">
             <td>
-            <input type="text" ng-model="contact.n" class="form-control" placeholder="{{contact.key}}">
-            <button class="btn btn-warning" ng-click="update(contact.id)">Update</button> 
+              <input type="text" ng-model="contact.n" class="form-control" placeholder="{{contact.key}}">
             </td>
-            <td ng-if="!updated && updateId !== contact.id">{{contact.key}}</td>
             <td>
-                <button class="btn btn-danger" ng-click="destroy(contact.id)">Destroy</button>
+              <button class="btn btn-warning" ng-click="update(contact.id)">Update</button>
+              <button class="btn btn-danger" ng-click="destroy(contact.id)">Destroy</button>
                 
             </td>
         </tr>

@@ -26,17 +26,11 @@ HomeAngCtrl = ($injector, $scope) ->
             $scope.contacts = res
             activate()
 
-    updateChange = (id) ->
-        $scope.updated = "update"
-        $scope.updateId = id
-
     console.log 'activate'
     activate()
     $scope.send = send
     $scope.update = update
     $scope.destroy = destroy
-    $scope.updateChange = updateChange
-    $scope.updated = undefined
 
 angular.module('browserapp').controller 'HomeAngCtrl', HomeAngCtrl
 HomeAngCtrl.$inject = [
