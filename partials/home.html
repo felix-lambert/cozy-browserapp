@@ -5,9 +5,9 @@
     <form class="form-inline" name="form">
       <div class="form-group">
         <label>Name:</label>
-        <input type="text" ng-model="contact.n" class="form-control">
+        <input type="text" ng-model="home.contact.n" class="form-control">
       </div>
-       <input type="submit" class="btn btn-success uppercase" ng-click="send(contact)" value="Send" > 
+       <input type="submit" class="btn btn-success uppercase" ng-click="home.send(home.contact)" value="Send" > 
        
     </form>
 </div>
@@ -18,7 +18,7 @@
             <td>Name</td>
             <td>Actions</td>  
         </tr>
-        <tr ng-repeat="contact in contacts track by $index">
+        <tr ng-repeat="contact in home.contacts track by $index">
             <td>
               <input type="text" ng-model="contact.key" class="form-control">
             </td>

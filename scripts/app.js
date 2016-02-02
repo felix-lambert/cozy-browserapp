@@ -15,7 +15,8 @@ angular.module('browserapp', ['ngResource', 'ngRoute']).config(appConfig);
 routeObject = {
   '/': {
     templateUrl: 'partials/home.html',
-    controller: 'HomeAngCtrl'
+    controller: 'HomeAngCtrl',
+    controllerAs: 'home'
   }
 };
 
@@ -161,21 +162,22 @@ CozySdk.$inject = ['$rootScope', '$q'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($injector, $scope) {
-  var Contact, CozySdk, activate, destroy, send, update;
+  var Contact, CozySdk, activate, destroy, send, update, vm;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
+  vm = this;
   activate = function() {
     var promise;
     promise = Contact.all();
     return promise.then(function(res) {
-      return $scope.contacts = res[1];
+      return vm.contacts = res[1];
     });
   };
   send = function(user) {
     var promise;
     promise = Contact.send('Contact', user);
     return promise.then(function(res) {
-      $scope.contacts = res;
+      vm.contacts = res;
       return activate();
     });
   };
@@ -186,7 +188,7 @@ HomeAngCtrl = function($injector, $scope) {
     };
     promise = CozySdk.update('Contact', id, contactName);
     return promise.then(function(res) {
-      $scope.contacts = res;
+      vm.contacts = res;
       return activate();
     });
   };
@@ -194,14 +196,14 @@ HomeAngCtrl = function($injector, $scope) {
     var promise;
     promise = CozySdk.destroy(id);
     return promise.then(function(res) {
-      $scope.contacts = res;
+      vm.contacts = res;
       return activate();
     });
   };
   activate();
-  $scope.send = send;
-  $scope.update = update;
-  return $scope.destroy = destroy;
+  vm.send = send;
+  vm.update = update;
+  return vm.destroy = destroy;
 };
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
