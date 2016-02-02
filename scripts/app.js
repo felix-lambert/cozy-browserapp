@@ -137,11 +137,7 @@ CozySdk = function($rootScope) {
         if (err != null) {
           return console.log('maybe do a cozy special error warning');
         } else {
-          console.log(res);
-          console.log(res[0]);
           res = JSON.parse("" + res);
-          console.log(res);
-          console.log(res[0]);
           return $rootScope.$apply(function() {
             return callback(res);
           });
@@ -156,7 +152,7 @@ angular.module('browserapp').factory('CozySdk', CozySdk);
 CozySdk.$inject = ['$rootScope'];
 ;var HomeAngCtrl;
 
-HomeAngCtrl = function($injector) {
+HomeAngCtrl = function($injector, $scope) {
   var Contact, CozySdk, activate, destroy, send, update, vm;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
@@ -164,25 +160,25 @@ HomeAngCtrl = function($injector) {
   activate = function() {
     console.log('activate');
     return Contact.all(function(res) {
-      return vm.contacts = res;
+      return $scope.contacts = res;
     });
   };
   send = function(user) {
     console.log('send');
     return Contact.send('Contact', user, function(res) {
-      vm.contacts = res;
+      $scope.contacts = res;
       return activate();
     });
   };
   update = function(id, user) {
     return CozySdk.updateAttributes('Contact', id, user, function(res) {
-      vm.contacts = res;
+      $scope.contacts = res;
       return activate();
     });
   };
   destroy = function(id) {
     return CozySdk.destroy(id, function(res) {
-      vm.contacts = res;
+      $scope.contacts = res;
       return activate();
     });
   };
@@ -195,6 +191,6 @@ HomeAngCtrl = function($injector) {
 
 angular.module('browserapp').controller('HomeAngCtrl', HomeAngCtrl);
 
-HomeAngCtrl.$inject = ['$injector'];
+HomeAngCtrl.$inject = ['$injector', '$scope'];
 ;
 //# sourceMappingURL=app.js.map

@@ -25,7 +25,8 @@
             <td>Name</td>
             <td>Actions</td>  
         </tr>
-        <tr ng-repeat="contact in home.contacts">
+        {{contacts}}
+        <tr ng-repeat="contact in contacts">
             <td>{{contact.fn}}</td>
             <td>{{contact.n}}</td>
             <td>

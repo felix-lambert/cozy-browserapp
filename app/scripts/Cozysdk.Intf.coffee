@@ -63,11 +63,7 @@ CozySdk = ($rootScope) ->
                 if err?
                     console.log 'maybe do a cozy special error warning'
                 else
-                    console.log res
-                    console.log res[0]
                     res = JSON.parse "#{res}"
-                    console.log res
-                    console.log res[0]
                     $rootScope.$apply ->
                         callback res
 
