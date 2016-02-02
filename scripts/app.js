@@ -179,7 +179,7 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
   updateContactList = function() {
     var promise;
     promise = Contact.all();
-    return promise.then((function(res) {
+    return promise.then((function(result) {
       return $scope.contacts = result;
     }), function(error) {
       return $scope.error = error;

@@ -9,7 +9,7 @@ HomeAngCtrl = ($injector, $scope, preGetContacts) ->
 
     updateContactList = () ->
         promise = Contact.all()
-        promise.then ((res) ->
+        promise.then ((result) ->
             # handle success
             $scope.contacts = result
         ), (error) ->
