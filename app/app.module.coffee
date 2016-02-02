@@ -12,7 +12,7 @@ routeObject = '/':
     templateUrl: 'partials/home.html'
     controller: 'HomeAngCtrl'
     resolve:
-      	preGetContacts: ->
+      	preGetContacts: (Contact) ->
         	promise = Contact.all()
         	return promise   
 

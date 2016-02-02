@@ -17,7 +17,7 @@ routeObject = {
     templateUrl: 'partials/home.html',
     controller: 'HomeAngCtrl',
     resolve: {
-      preGetContacts: function() {
+      preGetContacts: function(Contact) {
         var promise;
         promise = Contact.all();
         return promise;
