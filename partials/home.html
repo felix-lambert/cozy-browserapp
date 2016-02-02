@@ -21,7 +21,7 @@
         </tr>
         <tr ng-repeat="contact in contacts track by $index">
             <td>
-              <input type="text" ng-model="contact.n" class="form-control" value="{{contact.key}}">
+              <input type="text" ng-model="contact.key" class="form-control">
             </td>
             <td>
               <button class="btn btn-warning" ng-click="update(contact.id)">Update</button>
