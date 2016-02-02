@@ -24,7 +24,7 @@
             <td>Name</td>
             <td>Actions</td>  
         </tr>
-        <tr ng-repeat="contact in contacts">
+        <tr ng-repeat="contact in contacts track by $index">
             <td>{{contact.key}}</td>
             <td>
                 <button class="btn btn-danger" ng-click="destroy(contact.id)">Destroy</button>
