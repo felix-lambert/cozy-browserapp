@@ -35,14 +35,14 @@ Contact = function($injector, $q) {
   return {
     send: function(docType, data) {
       var promise;
-      promise = CozySdk.create(docType, data).then(function(res) {
-        return CozySdk.find(res._id);
-      });
+      promise = CozySdk.create(docType, data);
       return promise;
     },
     all: function() {
       var promise;
-      promise = $q.all([CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }'), CozySdk.runRequest('Contact', 'all')]);
+      promise = CozySdk.defineRequest('Contact', 'all', 'function(doc) { emit(doc.n, null); }').then(function() {
+        return CozySdk.runRequest('Contact', 'all');
+      });
       return promise;
     }
   };
@@ -168,12 +168,12 @@ CozySdk.$inject = ['$rootScope', '$q'];
 ;var HomeAngCtrl;
 
 HomeAngCtrl = function($injector, $scope, preGetContacts) {
-  var Contact, CozySdk, activate, destroy, res, send, update;
+  var Contact, CozySdk, destroy, res, send, update, updateContactList;
   Contact = $injector.get('Contact');
   CozySdk = $injector.get('CozySdk');
   res = preGetContacts;
   $scope.contacts = res[1];
-  activate = function() {
+  updateContactList = function() {
     var promise;
     promise = Contact.all();
     return promise.then(function(res) {
@@ -184,8 +184,7 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
     var promise;
     promise = Contact.send('Contact', user);
     return promise.then(function(res) {
-      $scope.contacts = res;
-      return activate();
+      return updateContactList();
     });
   };
   update = function(id, user) {
@@ -195,15 +194,14 @@ HomeAngCtrl = function($injector, $scope, preGetContacts) {
     };
     promise = CozySdk.update('Contact', id, contactName);
     return promise.then(function(res) {
-      return activate();
+      return updateContactList();
     });
   };
   destroy = function(id) {
     var promise;
     promise = CozySdk.destroy(id);
     return promise.then(function(res) {
-      $scope.contacts = res;
-      return activate();
+      return updateContactList();
     });
   };
   $scope.send = send;
