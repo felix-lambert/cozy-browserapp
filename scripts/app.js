@@ -27,7 +27,8 @@ Contact = function($injector, $q) {
   CozySdk = $injector.get('CozySdk');
   return {
     send: function(docType, data) {
-      CozySdk.create(docType, data).then(function(res) {
+      var promise;
+      promise = CozySdk.create(docType, data).then(function(res) {
         return CozySdk.find(res._id);
       });
       return promise;
@@ -171,28 +172,28 @@ HomeAngCtrl = function($injector, $scope) {
     });
   };
   send = function(user) {
-    console.log('send');
-    return Contact.send('Contact', user).then(function(res) {
+    var promise;
+    promise = Contact.send('Contact', user);
+    return promise.then(function(res) {
       $scope.contacts = res;
       return activate();
     });
   };
   update = function(id, user) {
     var contactName;
-    console.log(user);
     contactName = {
       n: user.key
     };
-    console.log(contactName);
-    return CozySdk.update('Contact', id, contactName).then(function(res) {
+    CozySdk.update('Contact', id, contactName);
+    return promise.then(function(res) {
       $scope.contacts = res;
       return activate();
     });
   };
   destroy = function(id) {
-    console.log('destroy');
-    console.log(id);
-    return CozySdk.destroy(id).then(function(res) {
+    var promise;
+    promise = CozySdk.destroy(id);
+    return promise.then(function(res) {
       $scope.contacts = res;
       return activate();
     });

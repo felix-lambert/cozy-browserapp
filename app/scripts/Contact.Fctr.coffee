@@ -5,7 +5,7 @@ Contact = ($injector, $q) ->
     
     {
         send: (docType, data) ->
-            CozySdk.create(docType, data).then (res) ->
+            promise = CozySdk.create(docType, data).then (res) ->
                 return CozySdk.find res._id
             return promise
 

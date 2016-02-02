@@ -9,23 +9,21 @@ HomeAngCtrl = ($injector, $scope) ->
             $scope.contacts = res[1]
 
     send = (user) ->
-        console.log 'send'
-        Contact.send('Contact', user).then (res) ->
+        promise = Contact.send 'Contact', user
+        promise.then (res) ->
             $scope.contacts = res
             activate()
 
     update = (id, user) ->
-        console.log user
         contactName = n: user.key
-        console.log contactName
-        CozySdk.update('Contact', id, contactName).then (res) ->
+        CozySdk.update 'Contact', id, contactName
+        promise.then (res) ->
             $scope.contacts = res
             activate()
 
     destroy = (id) ->
-        console.log 'destroy'
-        console.log id
-        CozySdk.destroy(id).then (res) ->
+        promise = CozySdk.destroy id
+        promise.then (res) ->
             $scope.contacts = res
             activate()
 
