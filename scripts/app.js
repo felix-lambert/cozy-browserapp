@@ -58,8 +58,7 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.create(docType, data, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in create! try again'));
+          return deferred.reject(err);
         } else {
           return deferred.resolve(res);
         }
@@ -71,8 +70,7 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.find(id, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in find! try again'));
+          return deferred.reject(err);
         } else {
           return deferred.resolve(res);
         }
@@ -84,8 +82,7 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.exists(id, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in exists! try again'));
+          return deferred.reject(err);
         } else {
           return deferred.resolve(res);
         }
@@ -97,8 +94,7 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.updateAttributes(docType, id, user, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in update! try again'));
+          return deferred.reject(err);
         } else {
           return deferred.resolve(res);
         }
@@ -110,8 +106,7 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.destroy(id, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in destroy! try again'));
+          return deferred.reject(err);
         } else {
           return deferred.resolve(res);
         }
@@ -123,8 +118,7 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.defineRequest(docType, requestName, defined, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in defineRequest! try again'));
+          return deferred.reject(err);
         } else {
           return deferred.resolve(res);
         }
@@ -139,8 +133,7 @@ CozySdk = function($rootScope, $q) {
         endkey: 'z'
       }, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in destroyRequest! try again'));
+          return deferred.reject(err);
         } else {
           return deferred.resolve(res);
         }
@@ -152,8 +145,7 @@ CozySdk = function($rootScope, $q) {
       deferred = $q.defer();
       cozysdk.run(docType, requestName, {}, function(err, res) {
         if (err != null) {
-          console.log('maybe do a cozy special error warning');
-          return deferred.reject(new Error('oh no an error in runRequest! try again'));
+          return deferred.reject(err);
         } else {
           res = JSON.parse("" + res);
           return deferred.resolve(res);
