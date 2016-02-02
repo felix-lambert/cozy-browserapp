@@ -19,7 +19,7 @@
 <br/>
 <div class="table-responsive text-center col-md-12">
     <table class="table">
- 
+        {{contacts}}
         <tr class="active">
             <td>Full name</td>
             <td>Name</td>
@@ -28,8 +28,8 @@
         <tr ng-repeat="contact in contacts">
             <td>{{contact.key}}</td>
             <td>
-                <button class="btn btn-danger" ng-click="destroy(contact._id)">Destroy</button>
-                <button class="btn btn-warning" ng-click="update(contact._id)">Update</button> 
+                <button class="btn btn-danger" ng-click="destroy(contact.id)">Destroy</button>
+                <button class="btn btn-warning" ng-click="update(contact.id)">Update</button> 
             </td>
         </tr>
     </table>
