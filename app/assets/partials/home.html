@@ -13,7 +13,7 @@
         <input type="text" ng-model="home.contact.n" class="form-control">
       </div>
        <input type="submit" class="btn btn-success uppercase" ng-click="home.send(home.contact)" value="Send" > 
-       <input type="submit" class="btn btn-warning" ng-click="home.update(home.contacts._id, home.contact)" value="Update" > 
+       
     </form>
 </div>
 <br/>
@@ -28,7 +28,8 @@
         <tr ng-repeat="contact in contacts">
             <td>{{contact.key}}</td>
             <td>
-                <button class="btn btn-primary" ng-click="home.destroy(home.contacts._id)">Destroy</button>
+                <button class="btn btn-primary" ng-click="home.destroy(contact._id)">Destroy</button>
+                <button class="btn btn-primary" ng-click="home.update(contact._id)">Update</button> 
             </td>
         </tr>
     </table>
