@@ -30,6 +30,8 @@ module.exports.create = function(docType, attributes, callback) {
     return callback(new Error('cant create an object with a set id'));
   }
   return client.post(path, attributes, function(error, response, body) {
+    console.log(response);
+    console.log(body);
     if (error) {
       return callback(error);
     } else {
@@ -40,6 +42,8 @@ module.exports.create = function(docType, attributes, callback) {
 
 module.exports.find = function(id, callback) {
   return client.get("data/" + id + "/", null, function(error, response, body) {
+    console.log(response);
+    console.log(body);
     if (error) {
       return callback(error);
     } else if (response.status === 404) {
@@ -53,6 +57,8 @@ module.exports.find = function(id, callback) {
 module.exports.updateAttributes = function(docType, id, attributes, callback) {
   attributes.docType = docType;
   return client.put("data/merge/" + id + "/", attributes, function(error, response, body) {
+    console.log(response);
+    console.log(body);
     if (error) {
       return callback(error);
     } else if (response.status === 404) {
@@ -67,6 +73,8 @@ module.exports.updateAttributes = function(docType, id, attributes, callback) {
 
 module.exports.destroy = function(id, callback) {
   return client.del("data/" + id + "/", null, function(error, response, body) {
+    console.log(response);
+    console.log(body);
     if (error) {
       return callback(error);
     } else if (response.status === 404) {
@@ -96,6 +104,8 @@ module.exports.run = function(docType, name, params, callback) {
   }
   path = "request/" + docType + "/" + (name.toLowerCase()) + "/";
   return client.post(path, params, function(error, response, body) {
+    console.log(response);
+    console.log(body);
     if (error) {
       return callback(error);
     } else if (response.status !== 200) {
