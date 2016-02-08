@@ -104,6 +104,7 @@ module.exports.run = function(docType, name, params, callback) {
   }
   path = "request/" + docType + "/" + (name.toLowerCase()) + "/";
   return client.post(path, params, function(error, response, body) {
+    console.log('run');
     console.log(response);
     console.log(body);
     if (error) {
